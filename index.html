@@ -683,10 +683,25 @@
 
         await Promise.all([loadHotspotConfig(), loadPreviewManifest()]);
 
-        const response = await fetch("/api/images");
-        if (!response.ok) throw new Error("Image list request failed");
+        let images = [];
+        try {
+          const response = await fetch("/api/images");
+          if (!response.ok) throw new Error("Image list request failed");
+          images = await response.json();
+        } catch {
+          const response = await fetch("/images-manifest.json");
+          if (!response.ok) throw new Error("Static image manifest request failed");
 
-        const images = await response.json();
+          const entries = await response.json();
+          images = entries.map((entry) => {
+            if (typeof entry !== "string") return entry;
+            return {
+              name: entry,
+              url: `/images/${encodeURIComponent(entry)}`,
+            };
+          });
+        }
+
         if (!images.length) {
           showEmptyState();
           return;
@@ -700,7 +715,7 @@
       }
 
       loadImages().catch(() => {
-        showEmptyState("图片列表接口未连接，请运行 node server.js 后打开 http://localhost:4173");
+        showEmptyState("图片列表未连接，请检查 /api/images 或 /images-manifest.json");
       });
 
       function scrollbarRects(scrollGroup) {
