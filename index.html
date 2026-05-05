@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>朱宝玉.psd</title>
+     <link rel="icon" href="/assets/icons/logo.svg" type="image/svg+xml">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        --stage-width: 100vw;
+        --stage-height: 100vh;
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        background: #171717;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      html {
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      #app {
+        width: var(--stage-width);
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      .image-frame {
+        position: relative;
+        width: var(--stage-width);
+      }
+
+      .ps-stage {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: var(--stage-width);
+        height: var(--stage-height);
+        overflow: hidden;
+        pointer-events: none;
+        background: transparent;
+      }
+
+      .ps-overlay {
+        width: 100%;
+        height: 100%;
+      }
+
+      .image-layer {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #242424;
+      }
+
+      .hotspot-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .hotspot {
+        position: absolute;
+        display: block;
+        cursor: pointer;
+        pointer-events: auto;
+      }
+
+      html[data-debug-hotspots="true"] .hotspot {
+        border: 2px solid rgba(255, 72, 72, 0.95);
+        background: rgba(255, 72, 72, 0.2);
+      }
+
+      .hotspot-preview {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        overflow: hidden;
+        background: #f9f9f9;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateZ(0);
+        transition: opacity 80ms ease;
+        will-change: opacity;
+      }
+
+      .hotspot:hover .hotspot-preview.is-ready,
+      .hotspot.is-previewing .hotspot-preview.is-ready {
+        opacity: 1;
+      }
+
+      .preview-stage {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: #f9f9f9;
+      }
+
+      .preview-media {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .preview-top-back {
+        z-index: 8;
+      }
+
+      .preview-fill {
+        z-index: 2;
+      }
+
+      .preview-top-text {
+        z-index: 9;
+      }
+
+      .preview-bottom-back {
+        z-index: 3;
+      }
+
+      .preview-bottom-text {
+        z-index: 4;
+      }
+
+      .preview-extra {
+        z-index: 5;
+      }
+
+      .preview-video {
+        z-index: 1;
+        object-fit: cover;
+      }
+
+      .ps-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        border: 0;
+        pointer-events: auto;
+      }
+
+      .empty-state {
+        display: grid;
+        place-items: center;
+        width: 100vw;
+        height: 100vh;
+        color: #d6d6d6;
+        font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app"></main>
+    <div class="ps-stage" aria-hidden="false">
+      <object
+        class="ps-overlay"
+        type="image/svg+xml"
+        data="ps-yemian.svg"
+        aria-label="Photoshop interface"
+      ></object>
+    </div>
+
+    <script>
+      const app = document.getElementById("app");
+      const psOverlay = document.querySelector(".ps-overlay");
+      const hotspotState = {
+        baseSize: { width: 4000, height: 2250 },
+        detailPage: "detail.html",
+        debugHotspots: false,
+        byImage: new Map(),
+        previewManifest: new Map(),
+        activePreviewKey: "",
+      };
+      const DEBUG_HOTSPOTS_FROM_URL = new URLSearchParams(window.location.search).has(
+        "debugHotspots",
+      );
+
+      function setDebugHotspots(enabled) {
+        document.documentElement.dataset.debugHotspots = enabled ? "true" : "false";
+      }
+
+      setDebugHotspots(DEBUG_HOTSPOTS_FROM_URL);
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function isBlank(value) {
+        return value === "" || value === null || value === undefined;
+      }
+
+      function numberFromConfig(value) {
+        if (isBlank(value)) return null;
+        const number = Number(value);
+        return Number.isFinite(number) ? number : null;
+      }
+
+      function hasEmptyCoords(area) {
+        return ["x", "y", "width", "height"].every((key) => isBlank(area?.[key]));
+      }
+
+      function normalizeHotspot(area, imageName, baseSize) {
+        if (!area || hasEmptyCoords(area)) return null;
+
+        const x = numberFromConfig(area.x);
+        const y = numberFromConfig(area.y);
+        const width = numberFromConfig(area.width);
+        const height = numberFromConfig(area.height);
+
+        if ([x, y, width, height].some((value) => value === null) || width <= 0 || height <= 0) {
+          return null;
+        }
+
+        return {
+          id: String(area.id || ""),
+          image: imageName,
+          label: area.label || area.id || "图片热区",
+          href: area.href || null,
+          preview: area.preview || area.zip || "",
+          left: `${(x / baseSize.width) * 100}%`,
+          top: `${(y / baseSize.height) * 100}%`,
+          width: `${(width / baseSize.width) * 100}%`,
+          height: `${(height / baseSize.height) * 100}%`,
+        };
+      }
+
+      function normalizeHotspotConfig(config = {}) {
+        const baseSize = {
+          width: Number(config.baseSize?.width) || hotspotState.baseSize.width,
+          height: Number(config.baseSize?.height) || hotspotState.baseSize.height,
+        };
+        const grouped = new Map();
+        const imageEntries = Array.isArray(config.images) ? config.images : [];
+        const flatEntries = Array.isArray(config.hotspots) ? config.hotspots : [];
+
+        hotspotState.baseSize = baseSize;
+        hotspotState.detailPage = config.detailPage || hotspotState.detailPage;
+        hotspotState.debugHotspots = Boolean(config.debugHotspots) || DEBUG_HOTSPOTS_FROM_URL;
+        setDebugHotspots(hotspotState.debugHotspots);
+
+        function add(area, fallbackImage) {
+          const imageName = area?.image || fallbackImage;
+          if (!imageName) return;
+
+          const hotspot = normalizeHotspot(area, imageName, baseSize);
+          if (!hotspot) return;
+
+          const list = grouped.get(imageName) || [];
+          hotspot.key = `${imageName}::${list.length}`;
+          list.push(hotspot);
+          grouped.set(imageName, list);
+        }
+
+        imageEntries.forEach((entry) => {
+          if (Array.isArray(entry.areas)) {
+            entry.areas.forEach((area) => add(area, entry.image));
+            return;
+          }
+
+          add(entry, entry.image);
+        });
+
+        flatEntries.forEach((area) => add(area, area?.image));
+        hotspotState.byImage = grouped;
+      }
+
+      async function loadHotspotConfig() {
+        try {
+          const response = await fetch("/hotspots.json");
+          if (!response.ok) return;
+
+          normalizeHotspotConfig(await response.json());
+        } catch {
+          normalizeHotspotConfig();
+        }
+      }
+
+      function hotspotTarget(hotspot) {
+        if (hotspot.href) return hotspot.href;
+        const params = new URLSearchParams({ id: hotspot.id });
+        if (hotspot.preview) params.set("preview", hotspot.preview);
+        if (hotspot.image) params.set("image", hotspot.image);
+        return `${hotspotState.detailPage}?${params.toString()}`;
+      }
+
+      function navigateToHotspot(hotspot) {
+        if (!hotspot?.id && !hotspot?.href) return;
+        window.open(hotspotTarget(hotspot), "_blank", "noopener");
+      }
+
+      function assetURL(directory, fileName) {
+        const cleanDirectory = String(directory || "").replace(/\/$/, "");
+        return encodeURI(`${cleanDirectory}/${fileName}`);
+      }
+
+      function normalizePreviewDirectory(directory) {
+        return String(directory || "").replace(/\/$/, "");
+      }
+
+      async function loadPreviewManifest() {
+        try {
+          const response = await fetch("/preview-manifest.json");
+          if (!response.ok) return;
+
+          const manifest = await response.json();
+          hotspotState.previewManifest = new Map(
+            Object.entries(manifest).map(([directory, files]) => [
+              normalizePreviewDirectory(directory),
+              Array.isArray(files) ? files : [],
+            ]),
+          );
+        } catch {
+          hotspotState.previewManifest = new Map();
+        }
+      }
+
+      function previewFilesFor(directory) {
+        const cleanDirectory = normalizePreviewDirectory(directory);
+        return hotspotState.previewManifest.get(cleanDirectory) || [];
+      }
+
+      function previewLayerClass(fileName) {
+        const lowerName = fileName.toLowerCase();
+
+        if (lowerName.endsWith(".mp4")) return "preview-video";
+        if (/^背景\.(png|jpe?g|webp|gif)$/i.test(fileName)) return "preview-fill";
+        if (fileName.startsWith("顶部挂件-背")) return "preview-top-back";
+        if (fileName.startsWith("顶部挂件-文")) return "preview-top-text";
+        if (fileName.startsWith("底部挂件-背")) return "preview-bottom-back";
+        if (fileName.startsWith("底部挂件-文")) return "preview-bottom-text";
+        return "preview-extra";
+      }
+
+      function previewLayerOrder(fileName) {
+        const className = previewLayerClass(fileName);
+        const order = {
+          "preview-video": 1,
+          "preview-fill": 2,
+          "preview-bottom-back": 3,
+          "preview-bottom-text": 4,
+          "preview-extra": 5,
+          "preview-top-back": 8,
+          "preview-top-text": 9,
+        };
+
+        return order[className] || 5;
+      }
+
+      function createFallbackImage(directory, fileNames, className, alt) {
+        if (!directory || !fileNames.length) return null;
+
+        let index = 0;
+        const image = document.createElement("img");
+        image.className = `preview-media ${className}`;
+        image.alt = alt;
+        image.decoding = "async";
+        image.loading = "eager";
+        image.addEventListener("load", () => {
+          image.dispatchEvent(new CustomEvent("preview-media-ready", { bubbles: true }));
+          image.dispatchEvent(new CustomEvent("preview-media-settled", { bubbles: true }));
+        });
+
+        image.addEventListener("error", () => {
+          index += 1;
+          if (index >= fileNames.length) {
+            image.dispatchEvent(new CustomEvent("preview-media-settled", { bubbles: true }));
+            image.remove();
+            return;
+          }
+
+          image.src = assetURL(directory, fileNames[index]);
+        });
+
+        image.src = assetURL(directory, fileNames[index]);
+        return image;
+      }
+
+      function createPreviewVideo(directory, fileName) {
+        if (!directory) return null;
+
+        const video = document.createElement("video");
+        video.className = "preview-media preview-video";
+        video.src = assetURL(directory, fileName);
+        video.preload = "auto";
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.addEventListener("canplay", () => {
+          video.dispatchEvent(new CustomEvent("preview-media-ready", { bubbles: true }));
+          video.dispatchEvent(new CustomEvent("preview-media-settled", { bubbles: true }));
+        });
+        video.addEventListener("error", () => {
+          video.dispatchEvent(new CustomEvent("preview-media-settled", { bubbles: true }));
+          video.remove();
+        });
+        return video;
+      }
+
+      function createNamedPreviewImage(directory, fileName, className, alt) {
+        if (!directory || !fileName) return null;
+
+        const image = document.createElement("img");
+        image.className = `preview-media ${className}`;
+        image.alt = alt;
+        image.decoding = "async";
+        image.loading = "eager";
+        image.src = assetURL(directory, fileName);
+        image.addEventListener("load", () => {
+          image.dispatchEvent(new CustomEvent("preview-media-ready", { bubbles: true }));
+          image.dispatchEvent(new CustomEvent("preview-media-settled", { bubbles: true }));
+        });
+        image.addEventListener("error", () => {
+          image.dispatchEvent(new CustomEvent("preview-media-settled", { bubbles: true }));
+          image.remove();
+        });
+        return image;
+      }
+
+      function createPreviewMedia(directory, fileName, label) {
+        const className = previewLayerClass(fileName);
+        const lowerName = fileName.toLowerCase();
+
+        if (lowerName.endsWith(".mp4")) {
+          return createPreviewVideo(directory, fileName);
+        }
+
+        return createNamedPreviewImage(directory, fileName, className, `${label}${fileName}`);
+      }
+
+      function playPreviewVideos(container) {
+        container?.querySelectorAll("video").forEach((video) => {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        });
+      }
+
+      function pausePreviewVideos(container) {
+        container?.querySelectorAll("video").forEach((video) => {
+          video.pause();
+        });
+      }
+
+      function populateHotspotPreview(preview) {
+        if (!preview || preview.dataset.loaded === "true") return;
+
+        const directory = preview.dataset.preview || "";
+        const label = preview.dataset.label || "图片热区";
+        const stage = preview.querySelector(".preview-stage");
+        if (!directory || !stage) return;
+        let ready = false;
+
+        function markReady() {
+          if (ready) return;
+          ready = true;
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              preview.classList.add("is-ready");
+            });
+          });
+        }
+
+        const mediaElements = previewFilesFor(directory)
+          .sort((a, b) => previewLayerOrder(a) - previewLayerOrder(b))
+          .map((fileName) => createPreviewMedia(directory, fileName, label))
+          .filter(Boolean);
+        let pendingPrimary = mediaElements.length;
+        let readyPrimary = false;
+        const settledPrimary = new Set();
+
+        function markPrimarySettled(event) {
+          if (!mediaElements.includes(event.target)) return;
+
+          if (event.type === "preview-media-ready") readyPrimary = true;
+          if (event.type === "preview-media-settled" && !settledPrimary.has(event.target)) {
+            settledPrimary.add(event.target);
+            pendingPrimary -= 1;
+          }
+
+          if (pendingPrimary <= 0 && readyPrimary) markReady();
+        }
+
+        stage.addEventListener("preview-media-ready", markPrimarySettled);
+        stage.addEventListener("preview-media-settled", markPrimarySettled);
+
+        mediaElements.forEach((element) => stage.append(element));
+
+        preview.dataset.loaded = "true";
+      }
+
+      function warmPreviewAssets() {
+        const previews = [...document.querySelectorAll(".hotspot-preview")];
+        let index = 0;
+
+        function warmNext(deadline) {
+          while (index < previews.length && (!deadline || deadline.timeRemaining() > 8)) {
+            populateHotspotPreview(previews[index]);
+            index += 1;
+          }
+
+          if (index < previews.length) {
+            schedule(warmNext);
+          }
+        }
+
+        function schedule(callback) {
+          if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(callback, { timeout: 1200 });
+            return;
+          }
+
+          window.setTimeout(() => callback(), 80);
+        }
+
+        schedule(warmNext);
+      }
+
+      function createHotspotPreview(hotspot) {
+        if (!hotspot.preview) return null;
+
+        const preview = document.createElement("span");
+        preview.className = "hotspot-preview";
+        preview.dataset.preview = hotspot.preview;
+        preview.dataset.label = hotspot.label;
+        preview.dataset.loaded = "false";
+
+        const stage = document.createElement("span");
+        stage.className = "preview-stage";
+
+        preview.append(stage);
+        return preview;
+      }
+
+      function setActivePreview(key) {
+        if (hotspotState.activePreviewKey === key) return;
+
+        if (hotspotState.activePreviewKey) {
+          document
+            .querySelector(`[data-hotspot-key="${CSS.escape(hotspotState.activePreviewKey)}"]`)
+            ?.classList.remove("is-previewing");
+          pausePreviewVideos(
+            document.querySelector(
+              `[data-hotspot-key="${CSS.escape(hotspotState.activePreviewKey)}"]`,
+            ),
+          );
+        }
+
+        hotspotState.activePreviewKey = key || "";
+
+        if (hotspotState.activePreviewKey) {
+          const activeHotspot = document.querySelector(
+            `[data-hotspot-key="${CSS.escape(hotspotState.activePreviewKey)}"]`,
+          );
+          populateHotspotPreview(activeHotspot?.querySelector(".hotspot-preview"));
+          playPreviewVideos(activeHotspot);
+          activeHotspot?.classList.add("is-previewing");
+        }
+      }
+
+      function createHotspotElement(hotspot) {
+        const link = document.createElement("a");
+        link.className = "hotspot";
+        link.href = hotspotTarget(hotspot);
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.setAttribute("aria-label", `打开 ${hotspot.label}`);
+        link.dataset.hotspotId = hotspot.id;
+        link.dataset.hotspotKey = hotspot.key;
+        link.style.left = hotspot.left;
+        link.style.top = hotspot.top;
+        link.style.width = hotspot.width;
+        link.style.height = hotspot.height;
+
+        const preview = createHotspotPreview(hotspot);
+        if (preview) link.append(preview);
+
+        link.addEventListener("mouseenter", () => setActivePreview(hotspot.key));
+        link.addEventListener("mouseleave", () => setActivePreview(""));
+        return link;
+      }
+
+      function createHotspotLayer(imageName) {
+        const hotspots = hotspotState.byImage.get(imageName) || [];
+        if (!hotspots.length) return null;
+
+        const layer = document.createElement("div");
+        layer.className = "hotspot-layer";
+        layer.append(...hotspots.map(createHotspotElement));
+        return layer;
+      }
+
+      function hotspotAtViewportPoint(clientX, clientY) {
+        const frames = [...document.querySelectorAll(".image-frame")];
+
+        for (const frame of frames) {
+          const rect = frame.getBoundingClientRect();
+          const insideFrame =
+            clientX >= rect.left &&
+            clientX <= rect.right &&
+            clientY >= rect.top &&
+            clientY <= rect.bottom;
+
+          if (!insideFrame) continue;
+
+          const imageName = frame.dataset.imageName;
+          const hotspots = hotspotState.byImage.get(imageName) || [];
+          const localX = ((clientX - rect.left) / rect.width) * 100;
+          const localY = ((clientY - rect.top) / rect.height) * 100;
+
+          return hotspots.find((hotspot) => {
+            const left = Number.parseFloat(hotspot.left);
+            const top = Number.parseFloat(hotspot.top);
+            const width = Number.parseFloat(hotspot.width);
+            const height = Number.parseFloat(hotspot.height);
+
+            return (
+              localX >= left &&
+              localX <= left + width &&
+              localY >= top &&
+              localY <= top + height
+            );
+          });
+        }
+
+        return null;
+      }
+
+      function createImageFrame(image) {
+        const frame = document.createElement("section");
+        frame.className = "image-frame";
+        frame.dataset.imageName = image.name;
+
+        const img = document.createElement("img");
+        img.className = "image-layer";
+        img.src = image.url;
+        img.alt = image.name;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.addEventListener("load", () => {
+          window.dispatchEvent(new Event("ps-content-change"));
+        });
+
+        const hotspotLayer = createHotspotLayer(image.name);
+        frame.append(img);
+        if (hotspotLayer) frame.append(hotspotLayer);
+        return frame;
+      }
+
+      function showEmptyState(message = "images 文件夹里还没有图片") {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = message;
+        app.replaceChildren(empty);
+      }
+
+      async function loadImages() {
+        if (window.location.protocol === "file:") {
+          showEmptyState("请通过本地服务打开页面：http://localhost:4173");
+          return;
+        }
+
+        await Promise.all([loadHotspotConfig(), loadPreviewManifest()]);
+
+        const response = await fetch("/api/images");
+        if (!response.ok) throw new Error("Image list request failed");
+
+        const images = await response.json();
+        if (!images.length) {
+          showEmptyState();
+          return;
+        }
+
+        app.replaceChildren(...images.map(createImageFrame));
+        requestAnimationFrame(() => {
+          window.dispatchEvent(new Event("ps-content-change"));
+          warmPreviewAssets();
+        });
+      }
+
+      loadImages().catch(() => {
+        showEmptyState("图片列表接口未连接，请运行 node server.js 后打开 http://localhost:4173");
+      });
+
+      function scrollbarRects(scrollGroup) {
+        const rects = [...scrollGroup.querySelectorAll("rect")];
+        return {
+          track: rects[0],
+          thumb: rects[1],
+        };
+      }
+
+      function findMainScrollGroup(svg) {
+        const scrollGroups = [...svg.querySelectorAll('[data-name="youcegundong"]')];
+        return scrollGroups.find((group) => {
+          const { thumb } = scrollbarRects(group);
+          if (!thumb) return false;
+
+          const box = thumb.getBBox();
+          return box.height > box.width;
+        });
+      }
+
+      function trackTopFromRotatedRect(track) {
+        const x = Number(track.getAttribute("x") || 0);
+        const transform = track.getAttribute("transform") || "";
+        const translate = transform.match(/translate\(([-\d.]+)[ ,]+([-\d.]+)\)/);
+
+        if (!translate) return track.getBBox().y;
+        return x + Number(translate[2]);
+      }
+
+      function scrollMax() {
+        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      }
+
+      function adaptSvgToViewport(svg) {
+        const logicalHeight = (1920 * window.innerHeight) / window.innerWidth;
+        svg.setAttribute("viewBox", `0 0 1920 ${logicalHeight}`);
+
+        const setRectHeight = (selector, bottomPadding = 0) => {
+          svg.querySelectorAll(selector).forEach((rect) => {
+            const y = Number(rect.getAttribute("y") || 0);
+            rect.setAttribute("height", Math.max(0, logicalHeight - y - bottomPadding));
+          });
+        };
+
+        setRectHeight('[data-name="huamianbeij"]');
+        setRectHeight('[data-name="waicengxiankuang"]', 0.6);
+        setRectHeight('[data-name="zuocebeijse"] rect');
+        setRectHeight('[data-name="youcebeijing"] > rect');
+
+        const bottomBar = svg.querySelector('[data-name="dibugongnenglan"]');
+        if (bottomBar) {
+          bottomBar.setAttribute("transform", `translate(0 ${logicalHeight - 1080})`);
+        }
+
+        const scrollGroup = findMainScrollGroup(svg);
+        if (scrollGroup) {
+          const { track, thumb } = scrollbarRects(scrollGroup);
+          if (track && thumb) {
+            const trackTop = trackTopFromRotatedRect(track);
+            const trackLength = Math.max(0, logicalHeight - trackTop);
+            const contentHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+            const thumbHeight = clamp(
+              (window.innerHeight / contentHeight) * trackLength,
+              44,
+              trackLength,
+            );
+
+            track.setAttribute("width", trackLength);
+            thumb.setAttribute("y", trackTop);
+            thumb.setAttribute("height", thumbHeight);
+          }
+        }
+      }
+
+      function setupSvgScrollbar() {
+        const svgDocument = psOverlay.contentDocument;
+        const svg = svgDocument?.querySelector("svg");
+        if (!svg) return;
+        adaptSvgToViewport(svg);
+
+        const scrollGroup = findMainScrollGroup(svg);
+        if (!scrollGroup) return;
+        if (scrollGroup.dataset.psScrollbarReady === "true") return;
+        scrollGroup.dataset.psScrollbarReady = "true";
+
+        const { track: scrollTrack, thumb: scrollThumb } = scrollbarRects(scrollGroup);
+        if (!scrollTrack || !scrollThumb) return;
+
+        const svgNS = "http://www.w3.org/2000/svg";
+        const thumbWrap = svgDocument.createElementNS(svgNS, "g");
+        scrollGroup.insertBefore(thumbWrap, scrollThumb);
+        thumbWrap.appendChild(scrollThumb);
+
+        let dragging = false;
+        let dragStartY = 0;
+        let dragStartScroll = 0;
+
+        scrollTrack.style.cursor = "pointer";
+        scrollTrack.style.pointerEvents = "all";
+        scrollThumb.style.cursor = "grab";
+        scrollThumb.style.pointerEvents = "all";
+
+        function metrics() {
+          const svgRect = svg.getBoundingClientRect();
+          const viewBox = svg.viewBox.baseVal;
+          const trackRect = scrollTrack.getBoundingClientRect();
+          const thumbRect = scrollThumb.getBoundingClientRect();
+          const scaleY = svgRect.height / viewBox.height || 1;
+
+          return {
+            trackTop: trackRect.top,
+            thumbHeight: thumbRect.height,
+            maxThumbScreenY: Math.max(0, trackRect.height - thumbRect.height),
+            scaleY,
+          };
+        }
+
+        function updateThumb() {
+          const maxScroll = scrollMax();
+          const currentMetrics = metrics();
+          const progress = maxScroll ? window.scrollY / maxScroll : 0;
+          const thumbY = (progress * currentMetrics.maxThumbScreenY) / currentMetrics.scaleY;
+
+          thumbWrap.setAttribute("transform", `translate(0 ${thumbY})`);
+        }
+
+        function scrollToProgress(progress) {
+          window.scrollTo({
+            top: clamp(progress, 0, 1) * scrollMax(),
+            behavior: "auto",
+          });
+        }
+
+        svg.addEventListener(
+          "wheel",
+          (event) => {
+            event.preventDefault();
+            window.scrollBy({
+              top: event.deltaY,
+              left: event.deltaX,
+              behavior: "auto",
+            });
+          },
+          { passive: false },
+        );
+
+        svg.addEventListener("click", (event) => {
+          if (event.defaultPrevented) return;
+          if (scrollGroup.contains(event.target)) return;
+
+          const hotspot = hotspotAtViewportPoint(event.clientX, event.clientY);
+          if (hotspot) navigateToHotspot(hotspot);
+        });
+
+        svg.addEventListener("mousemove", (event) => {
+          if (scrollGroup.contains(event.target)) {
+            setActivePreview("");
+            svg.style.cursor = "";
+            return;
+          }
+
+          const hotspot = hotspotAtViewportPoint(event.clientX, event.clientY);
+          svg.style.cursor = hotspot ? "pointer" : "";
+          setActivePreview(hotspot?.preview ? hotspot.key : "");
+        });
+
+        svg.addEventListener("mouseleave", () => {
+          svg.style.cursor = "";
+          setActivePreview("");
+        });
+
+        scrollTrack.addEventListener("pointerdown", (event) => {
+          const currentMetrics = metrics();
+          const thumbCenterY =
+            event.clientY - currentMetrics.trackTop - currentMetrics.thumbHeight / 2;
+          const progress = currentMetrics.maxThumbScreenY
+            ? thumbCenterY / currentMetrics.maxThumbScreenY
+            : 0;
+
+          scrollToProgress(progress);
+        });
+
+        scrollThumb.addEventListener("pointerdown", (event) => {
+          event.preventDefault();
+          dragging = true;
+          dragStartY = event.clientY;
+          dragStartScroll = window.scrollY;
+          scrollThumb.style.cursor = "grabbing";
+          scrollThumb.setPointerCapture(event.pointerId);
+        });
+
+        scrollThumb.addEventListener("pointermove", (event) => {
+          if (!dragging) return;
+
+          const currentMetrics = metrics();
+          const delta = currentMetrics.maxThumbScreenY
+            ? (event.clientY - dragStartY) / currentMetrics.maxThumbScreenY
+            : 0;
+
+          window.scrollTo({
+            top: dragStartScroll + delta * scrollMax(),
+            behavior: "auto",
+          });
+        });
+
+        function stopDrag(event) {
+          if (!dragging) return;
+
+          dragging = false;
+          scrollThumb.style.cursor = "grab";
+          if (scrollThumb.hasPointerCapture(event.pointerId)) {
+            scrollThumb.releasePointerCapture(event.pointerId);
+          }
+        }
+
+        scrollThumb.addEventListener("pointerup", stopDrag);
+        scrollThumb.addEventListener("pointercancel", stopDrag);
+        window.addEventListener("scroll", updateThumb, { passive: true });
+        window.addEventListener("resize", () => {
+          adaptSvgToViewport(svg);
+          updateThumb();
+        });
+        window.addEventListener("ps-content-change", () => {
+          adaptSvgToViewport(svg);
+          updateThumb();
+        });
+        updateThumb();
+      }
+
+      psOverlay.addEventListener("load", setupSvgScrollbar);
+      requestAnimationFrame(setupSvgScrollbar);
+      window.addEventListener("resize", () => {
+        const svg = psOverlay.contentDocument?.querySelector("svg");
+        if (svg) adaptSvgToViewport(svg);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN" class="show-layer-bounds">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>朱宝玉.psd</title>
+     <link rel="icon" href="/assets/icons/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="detail.css" />
+  </head>
+  <body>
+    <main class="preview-panel" aria-label="贴片详情预览">
+      <div id="previewScroll" class="preview-scroll">
+        <div class="scroll-track">
+          <div class="sticky-viewport">
+            <div class="viewport-chrome">
+              <div class="viewport-grid" aria-hidden="true"></div>
+              <div id="deviceStage" class="device-stage" aria-label="直播间预览画布">
+                <div id="backplateLayer" class="stage-layer backplate-layer" data-layer="backplate" style="--layer-accent: #9b7cff;"></div>
+
+                <div id="backgroundLayer" class="stage-layer background-layer" data-layer="background" style="--layer-accent: #35d8ff;">
+                  <img id="backgroundImage" alt="" />
+                  <div class="default-background" aria-hidden="true"></div>
+                </div>
+
+                <div id="hostLayer" class="stage-layer host-layer" data-layer="host" style="--layer-accent: #f5d95b;"></div>
+
+                <div id="stickerBackLayer" class="stage-layer sticker-back-layer" data-layer="sticker-background" style="--layer-accent: #58e18e;"></div>
+
+                <div id="stickerFrontLayer" class="stage-layer sticker-front-layer" data-layer="sticker-text" style="--layer-accent: #ff7ab6;"></div>
+
+                <div id="uiLayer" class="stage-layer ui-layer" data-layer="controls" style="--layer-accent: #00fff0;">
+                  <img id="douyinUiImage" class="douyin-ui-image" src="/assets/overlays/douyin-ui.png" alt="" />
+                  <div class="live-ui top-ui" aria-hidden="true">
+                    <span class="avatar"></span>
+                    <span class="pill short"></span>
+                    <span class="pill"></span>
+                  </div>
+                  <div class="live-ui side-ui" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <div class="live-ui bottom-ui" aria-hidden="true">
+                    <span class="comment-bar"></span>
+                    <span class="round"></span>
+                    <span class="round"></span>
+                  </div>
+                </div>
+              </div>
+              <div id="emptyState" class="empty-state" hidden></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="detail.js"></script>
+  </body>
+</html>
