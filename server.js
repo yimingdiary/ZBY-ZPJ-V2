@@ -6,6 +6,8 @@ const { URL } = require("url");
 const rootDir = __dirname;
 const imagesDir = path.join(rootDir, "images");
 const preferredPort = Number(process.env.PORT || 4173);
+const accessCookieName = "zpj_access_key";
+const defaultAccessKey = "1234";
 
 const imageExtensions = new Set([
   ".avif",
@@ -34,6 +36,18 @@ const mimeTypes = {
   ".webp": "image/webp",
 };
 
+const longCacheExtensions = new Set([
+  ".avif",
+  ".bmp",
+  ".gif",
+  ".jpeg",
+  ".jpg",
+  ".mp4",
+  ".png",
+  ".svg",
+  ".webp",
+]);
+
 const collator = new Intl.Collator("zh-CN", {
   numeric: true,
   sensitivity: "base",
@@ -45,6 +59,131 @@ function send(res, status, body, type = "text/plain; charset=utf-8") {
     "Cache-Control": "no-store",
   });
   res.end(body);
+}
+
+function cacheControlFor(ext) {
+  if (longCacheExtensions.has(ext)) return "public, max-age=31536000, immutable";
+  return "no-store";
+}
+
+function accessKeyEnabled() {
+  return String(process.env.ACCESS_KEY_ENABLED || "false").toLowerCase() === "true";
+}
+
+function expectedAccessKey() {
+  return String(process.env.ACCESS_KEY || defaultAccessKey);
+}
+
+function cookieValue(req, name) {
+  const cookie = req.headers.cookie || "";
+  const match = cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.slice(name.length + 1)) : "";
+}
+
+function authCookie(value) {
+  return `${accessCookieName}=${encodeURIComponent(value)}; Path=/; Max-Age=2592000; HttpOnly; SameSite=Lax`;
+}
+
+function withoutCodeParam(req) {
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  url.searchParams.delete("code");
+  return `${url.pathname}${url.search}`;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function lockPage(req, error = "") {
+  const errorHtml = error ? `<p class="error">${error}</p>` : "";
+  return `<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>访问验证</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { width: 100%; min-height: 100%; margin: 0; background: #171717; color: #f4f4f4; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      body { display: grid; place-items: center; padding: 24px; }
+      main { width: min(360px, 100%); }
+      h1 { margin: 0 0 10px; font-size: 22px; font-weight: 650; letter-spacing: 0; }
+      p { margin: 0 0 20px; color: rgba(255,255,255,.68); font-size: 14px; line-height: 1.6; }
+      form { display: grid; gap: 12px; }
+      input { width: 100%; height: 46px; border: 1px solid rgba(255,255,255,.18); border-radius: 6px; background: rgba(255,255,255,.08); color: #fff; padding: 0 14px; font-size: 18px; outline: none; }
+      input:focus { border-color: rgba(255,255,255,.62); }
+      button { height: 46px; border: 0; border-radius: 6px; background: #f4f4f4; color: #171717; font-size: 15px; font-weight: 650; cursor: pointer; }
+      .error { color: #ffb4a8; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>输入访问码</h1>
+      <p>这个页面需要访问码才能查看。</p>
+      ${errorHtml}
+      <form method="post" action="${escapeHtml(withoutCodeParam(req))}">
+        <input name="code" inputmode="numeric" autocomplete="one-time-code" placeholder="访问码" autofocus />
+        <button type="submit">进入</button>
+      </form>
+    </main>
+  </body>
+</html>`;
+}
+
+function redirectWithAccessCookie(req, res) {
+  res.writeHead(303, {
+    Location: withoutCodeParam(req),
+    "Set-Cookie": authCookie(expectedAccessKey()),
+    "Cache-Control": "no-store",
+  });
+  res.end();
+}
+
+function readRequestBody(req) {
+  return new Promise((resolve) => {
+    let body = "";
+    req.on("data", (chunk) => {
+      body += chunk;
+      if (body.length > 2048) req.destroy();
+    });
+    req.on("end", () => resolve(body));
+    req.on("error", () => resolve(""));
+  });
+}
+
+async function authorize(req, res, url) {
+  if (!accessKeyEnabled()) return true;
+
+  const expected = expectedAccessKey();
+  if (cookieValue(req, accessCookieName) === expected) return true;
+
+  const queryCode = url.searchParams.get("code");
+  if (queryCode === expected) {
+    redirectWithAccessCookie(req, res);
+    return false;
+  }
+
+  if (req.method === "POST") {
+    const body = await readRequestBody(req);
+    const postedCode = new URLSearchParams(body).get("code");
+    if (postedCode === expected) {
+      redirectWithAccessCookie(req, res);
+      return false;
+    }
+
+    send(res, 401, lockPage(req, "访问码不正确。"), mimeTypes[".html"]);
+    return false;
+  }
+
+  send(res, 401, lockPage(req), mimeTypes[".html"]);
+  return false;
 }
 
 function listImages() {
@@ -89,6 +228,7 @@ function serveStatic(req, res, pathname) {
 
     const ext = path.extname(filePath).toLowerCase();
     const type = mimeTypes[ext] || "application/octet-stream";
+    const cacheControl = cacheControlFor(ext);
     const range = req.headers.range;
 
     if (range) {
@@ -100,7 +240,7 @@ function serveStatic(req, res, pathname) {
         res.writeHead(416, {
           "Content-Range": `bytes */${stat.size}`,
           "Accept-Ranges": "bytes",
-          "Cache-Control": "no-store",
+          "Cache-Control": cacheControl,
         });
         res.end();
         return;
@@ -111,7 +251,7 @@ function serveStatic(req, res, pathname) {
         "Content-Length": end - start + 1,
         "Content-Range": `bytes ${start}-${end}/${stat.size}`,
         "Accept-Ranges": "bytes",
-        "Cache-Control": "no-store",
+        "Cache-Control": cacheControl,
       });
       if (req.method === "HEAD") {
         res.end();
@@ -132,15 +272,16 @@ function serveStatic(req, res, pathname) {
         "Content-Type": type,
         "Content-Length": stat.size,
         "Accept-Ranges": "bytes",
-        "Cache-Control": "no-store",
+        "Cache-Control": cacheControl,
       });
       res.end(req.method === "HEAD" ? undefined : data);
     });
   });
 }
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
+  if (!(await authorize(req, res, url))) return;
 
   if (url.pathname === "/api/images") {
     send(res, 200, JSON.stringify(listImages()), mimeTypes[".json"]);

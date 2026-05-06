@@ -14,6 +14,10 @@
       body {
         --stage-width: 100vw;
         --stage-height: 100vh;
+        --ps-content-left: calc(62 / 1920 * 100vw);
+        --ps-content-right: calc((1920 - 1880) / 1920 * 100vw);
+        --ps-content-top: calc(31 / 1920 * 100vw);
+        --ps-content-width: calc(100vw - var(--ps-content-left) - var(--ps-content-right));
         width: 100%;
         min-height: 100%;
         margin: 0;
@@ -36,14 +40,16 @@
       }
 
       #app {
-        width: var(--stage-width);
+        width: var(--ps-content-width);
         min-height: 100vh;
-        margin: 0;
+        margin: 0 var(--ps-content-right) 0 var(--ps-content-left);
+        padding-top: var(--ps-content-top);
       }
 
       .image-frame {
         position: relative;
-        width: var(--stage-width);
+        width: 100%;
+        overflow: hidden;
       }
 
       .ps-stage {
@@ -197,6 +203,8 @@
       const DEBUG_HOTSPOTS_FROM_URL = new URLSearchParams(window.location.search).has(
         "debugHotspots",
       );
+      const CAN_HOVER_PREVIEW =
+        window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches ?? true;
 
       function setDebugHotspots(enabled) {
         document.documentElement.dataset.debugHotspots = enabled ? "true" : "false";
@@ -339,7 +347,9 @@
 
       function previewFilesFor(directory) {
         const cleanDirectory = normalizePreviewDirectory(directory);
-        return hotspotState.previewManifest.get(cleanDirectory) || [];
+        return (hotspotState.previewManifest.get(cleanDirectory) || []).filter(
+          (fileName) => !/-mobile-still\.png$/i.test(fileName),
+        );
       }
 
       function previewLayerClass(fileName) {
@@ -538,6 +548,7 @@
       }
 
       function createHotspotPreview(hotspot) {
+        if (!CAN_HOVER_PREVIEW) return null;
         if (!hotspot.preview) return null;
 
         const preview = document.createElement("span");
@@ -596,8 +607,10 @@
         const preview = createHotspotPreview(hotspot);
         if (preview) link.append(preview);
 
-        link.addEventListener("mouseenter", () => setActivePreview(hotspot.key));
-        link.addEventListener("mouseleave", () => setActivePreview(""));
+        if (CAN_HOVER_PREVIEW) {
+          link.addEventListener("mouseenter", () => setActivePreview(hotspot.key));
+          link.addEventListener("mouseleave", () => setActivePreview(""));
+        }
         return link;
       }
 
@@ -710,7 +723,7 @@
         app.replaceChildren(...images.map(createImageFrame));
         requestAnimationFrame(() => {
           window.dispatchEvent(new Event("ps-content-change"));
-          warmPreviewAssets();
+          if (CAN_HOVER_PREVIEW) warmPreviewAssets();
         });
       }
 
@@ -880,7 +893,7 @@
 
           const hotspot = hotspotAtViewportPoint(event.clientX, event.clientY);
           svg.style.cursor = hotspot ? "pointer" : "";
-          setActivePreview(hotspot?.preview ? hotspot.key : "");
+          if (CAN_HOVER_PREVIEW) setActivePreview(hotspot?.preview ? hotspot.key : "");
         });
 
         svg.addEventListener("mouseleave", () => {

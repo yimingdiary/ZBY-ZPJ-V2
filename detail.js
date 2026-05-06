@@ -3,6 +3,9 @@
   const TOP_TEXT_FALLBACK_OFFSET = 140;
   const SELECTION_PADDING = 24;
   const ALPHA_THRESHOLD = 8;
+  const IS_TOUCH_PREVIEW =
+    window.matchMedia?.("(hover: none), (pointer: coarse)")?.matches ||
+    Math.min(window.innerWidth, window.innerHeight) <= 820;
   const SELECTION_ACCENTS = {
     topText: "#7cead9",
     topBack: "#ff9278",
@@ -31,10 +34,12 @@
     backgroundSize: null,
     layerItems: [],
     stickerItems: [],
+    optimizedAssets: new Map(),
     pointerCurrent: { shiftX: 0, shiftY: 0, tiltX: 0, tiltY: 0, depthX: 0, depthY: 0, press: 0, stageX: 50, stageY: 50 },
     pointerTarget: { shiftX: 0, shiftY: 0, tiltX: 0, tiltY: 0, depthX: 0, depthY: 0, press: 0, stageX: 50, stageY: 50 },
     cssVars: new Map(),
     layerExpanded: false,
+    animationFrame: 0,
   };
 
   const dom = {
@@ -65,6 +70,10 @@
 
   function assetURL(directory, fileName) {
     return encodeURI(`${normalizePreviewDirectory(directory)}/${fileName}`);
+  }
+
+  function mediaURL(directory, fileName, asset) {
+    return encodeURI(asset?.optimized || `${normalizePreviewDirectory(directory)}/${fileName}`);
   }
 
   async function fetchJson(url, fallback) {
@@ -163,9 +172,26 @@
   function filteredPreviewFiles(files) {
     const fileSet = new Set(files);
     return files.filter((fileName) => {
+      if (/-mobile-still\.png$/i.test(fileName)) return false;
       if (fileName === "顶部挂件-文-动.gif" && fileSet.has("顶部挂件-文-动-loop.gif")) return false;
       return true;
     });
+  }
+
+  function optimizedAsset(fileName) {
+    return state.optimizedAssets.get(fileName) || null;
+  }
+
+  function assetStageBox(asset) {
+    if (!asset || asset.kind !== "positioned") return null;
+    const scaleX = STAGE.width / (asset.sourceWidth || STAGE.width);
+    const scaleY = STAGE.height / (asset.sourceHeight || STAGE.height);
+    return {
+      left: asset.left * scaleX,
+      top: asset.top * scaleY,
+      width: asset.width * scaleX,
+      height: asset.height * scaleY,
+    };
   }
 
   function createSelectionFrame(layerElement, accent) {
@@ -224,6 +250,11 @@
         : parseFloat(element.style.top) || 0;
     }
 
+    if (item.box === "positioned") {
+      const box = assetStageBox(item.asset);
+      if (box) return box;
+    }
+
     return { left, top, width, height };
   }
 
@@ -270,6 +301,8 @@
   }
 
   function alphaContentBounds(image) {
+    if (IS_TOUCH_PREVIEW) return null;
+
     const width = image.naturalWidth;
     const height = image.naturalHeight;
     if (!width || !height) return null;
@@ -372,7 +405,7 @@
     });
   }
 
-  function createMediaElement(directory, fileName, className) {
+  function createMediaElement(directory, fileName, className, asset = null) {
     const ext = fileExtension(fileName);
     const isVideo = ["mp4", "webm", "mov"].includes(ext);
     const element = document.createElement(isVideo ? "video" : "img");
@@ -390,33 +423,57 @@
       element.alt = "";
     }
     if (ext === "gif") element.classList.add("animated-media");
-    element.src = assetURL(directory, fileName);
+    element.src = mediaURL(directory, fileName, asset);
     return element;
+  }
+
+  function applyPositionedAsset(element, asset) {
+    const box = assetStageBox(asset);
+    if (!box) return;
+    element.classList.add("positioned-media");
+    element.style.left = `${box.left}px`;
+    element.style.top = `${box.top}px`;
+    element.style.width = `${box.width}px`;
+    element.style.height = `${box.height}px`;
+    element.style.maxWidth = "none";
+    element.style.transform = "translate3d(0, 0, 0)";
+    element.style.objectFit = "fill";
   }
 
   function addLayerItem(item) {
     state.layerItems.push(item);
-    requestAnimationFrame(() => updateSelectionFrame(item));
+    requestAnimationFrame(() => {
+      updateSelectionFrame(item);
+      requestMotionFrame();
+    });
   }
 
   function addFillLayer(layerElement, directory, fileName, options) {
-    const element = createMediaElement(directory, fileName, options.className);
+    const asset = options.asset || optimizedAsset(fileName);
+    const element = createMediaElement(directory, fileName, options.className, asset);
+    if (asset?.kind === "positioned") applyPositionedAsset(element, asset);
     layerElement.appendChild(element);
     const item = {
       element,
       layerElement,
       frame: createSelectionFrame(layerElement, options.accent),
-      box: "fill",
+      box: asset?.kind === "positioned" ? "positioned" : "fill",
+      asset,
       accent: options.accent,
       fit: options.fit,
-      selectionMode: options.selectionMode || "box",
+      selectionMode: asset?.kind === "positioned" ? "box" : options.selectionMode || "box",
     };
     addLayerItem(item);
     return { element, item };
   }
 
-  function createStickerElement(directory, fileName, anchor) {
-    const element = createMediaElement(directory, fileName, `stage-media sticker-media sticker-piece ${anchor}-piece`);
+  function createStickerElement(directory, fileName, anchor, asset = null) {
+    const element = createMediaElement(directory, fileName, `stage-media sticker-media sticker-piece ${anchor}-piece`, asset);
+    if (asset?.kind === "positioned") {
+      applyPositionedAsset(element, asset);
+      element.style.opacity = "1";
+      return element;
+    }
     element.style.left = "50%";
     element.style.maxWidth = "100%";
     element.style.transform = "translate3d(-50%, 0, 0)";
@@ -427,7 +484,8 @@
   }
 
   function addStickerItem(layerElement, directory, entry, roleConfig) {
-    const element = createStickerElement(directory, entry.fileName, roleConfig.anchor);
+    const asset = entry.asset || optimizedAsset(entry.fileName);
+    const element = createStickerElement(directory, entry.fileName, roleConfig.anchor, asset);
     layerElement.appendChild(element);
     const item = {
       role: roleConfig.role,
@@ -435,10 +493,11 @@
       element,
       layerElement,
       frame: createSelectionFrame(layerElement, roleConfig.accent),
-      box: "centered",
+      box: asset?.kind === "positioned" ? "positioned" : "centered",
+      asset,
       anchor: roleConfig.anchor,
       accent: roleConfig.accent,
-      selectionMode: "content",
+      selectionMode: asset?.kind === "positioned" ? "box" : "content",
     };
     state.stickerItems.push(item);
     addLayerItem(item);
@@ -456,6 +515,10 @@
     const bottomBackHeight = displayHeightOnStage(bottomBack);
 
     state.stickerItems.forEach((item) => {
+      if (item.box === "positioned") {
+        updateSelectionFrame(item);
+        return;
+      }
       if (item.role === "topText") {
         item.element.style.top = topBack
           ? `${Math.max(0, (topBackHeight - displayHeightOnStage(item)) / 2)}px`
@@ -508,8 +571,9 @@
 
     const background = cleanFiles.find(isBackgroundFile);
     if (background) {
+      const backgroundAsset = optimizedAsset(background);
       dom.deviceStage.classList.add("has-background");
-      dom.backgroundImage.src = assetURL(directory, background);
+      dom.backgroundImage.src = mediaURL(directory, background, backgroundAsset);
       const backgroundItem = {
         element: dom.backgroundImage,
         layerElement: dom.backgroundLayer,
@@ -593,11 +657,13 @@
     const scale = Math.min(availableWidth / STAGE.width, availableHeight / STAGE.height);
     dom.root.style.setProperty("--stage-scale", scale.toFixed(4));
     updateAllSelectionFrames();
+    requestMotionFrame();
   }
 
   function updateScrollTarget() {
     const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
     state.targetProgress = max > 0 ? dom.previewScroll.scrollTop / max : 0;
+    requestMotionFrame();
   }
 
   function handlePreviewWheel(event) {
@@ -614,6 +680,7 @@
 
   function setPointerTarget(values = {}) {
     Object.assign(state.pointerTarget, values);
+    requestMotionFrame();
   }
 
   function resetPointerTarget() {
@@ -669,6 +736,7 @@
     const overflowWidth = Math.max(0, renderedWidth - STAGE.width) * displayScale;
     const deltaPercent = overflowWidth > 0.5 ? (-deltaX * 92) / overflowWidth : 0;
     state.bgPanTarget = clamp(state.bgPanTarget + deltaPercent, 0, 100);
+    requestMotionFrame();
   }
 
   function beginBackgroundPan(event) {
@@ -695,9 +763,30 @@
     dom.backgroundLayer.classList.remove("is-panning");
     dom.deviceStage.classList.remove("is-panning");
     if (dom.backgroundLayer.hasPointerCapture(event.pointerId)) dom.backgroundLayer.releasePointerCapture(event.pointerId);
+    requestMotionFrame();
+  }
+
+  function valuesSettled(current, target, threshold = 0.01) {
+    return Math.abs(current - target) <= threshold;
+  }
+
+  function motionSettled() {
+    return (
+      valuesSettled(state.smoothProgress, state.targetProgress, 0.0005) &&
+      valuesSettled(state.bgPanCurrent, state.bgPanTarget, 0.01) &&
+      Object.keys(state.pointerCurrent).every((key) =>
+        valuesSettled(state.pointerCurrent[key], state.pointerTarget[key], 0.01),
+      )
+    );
+  }
+
+  function requestMotionFrame() {
+    if (state.animationFrame) return;
+    state.animationFrame = requestAnimationFrame(animateScroll);
   }
 
   function animateScroll() {
+    state.animationFrame = 0;
     const scrollDelta = state.targetProgress - state.smoothProgress;
     state.smoothProgress = Math.abs(scrollDelta) < 0.0005
       ? state.targetProgress
@@ -729,7 +818,7 @@
     setStyleVar("--stage-pointer-y", `${state.pointerCurrent.stageY.toFixed(2)}%`);
     setStyleVar("--pointer-press-opacity", `${state.pointerCurrent.press.toFixed(3)}`);
 
-    requestAnimationFrame(animateScroll);
+    if (!motionSettled()) requestMotionFrame();
   }
 
   function bindEvents() {
@@ -748,11 +837,12 @@
     bindEvents();
     updateScale();
     updateScrollTarget();
-    requestAnimationFrame(animateScroll);
+    requestMotionFrame();
 
-    const [hotspotConfig, manifest] = await Promise.all([
+    const [hotspotConfig, manifest, optimizedManifest] = await Promise.all([
       fetchJson("/hotspots.json", {}),
       fetchJson("/preview-manifest.json", {}),
+      fetchJson("/preview-optimized-manifest.json", {}),
     ]);
     const directory = resolvePreviewDirectory(hotspotConfig);
     if (!directory) {
@@ -768,6 +858,9 @@
       showEmptyState(`预览目录没有可用文件：${directory}`);
       return;
     }
+
+    const optimizedEntry = optimizedManifest[normalizePreviewDirectory(directory)] || {};
+    state.optimizedAssets = new Map(Object.entries(optimizedEntry));
 
     await renderStructuredPreview(directory, files);
     updateScale();
