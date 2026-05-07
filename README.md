@@ -55,6 +55,16 @@ ACCESS_KEY_ENABLED=true ACCESS_KEY=1234 node server.js
 
 Cloudflare Pages 部署时，在 Pages 项目的环境变量中配置 `ACCESS_KEY_ENABLED` 和 `ACCESS_KEY`。项目内的 `functions/_middleware.js` 会在边缘层拦截所有页面和资源请求；输入正确访问码后会写入 cookie，后续访问不需要重复输入。
 
+如果线上仍然可以直接访问，优先检查：
+
+- 是否发布到了 Production 环境，且变量配置在 Production 中。
+- 配置变量后是否重新部署了最新版本。
+- 是否使用 Cloudflare Dashboard 的 Direct Upload 上传静态文件；Direct Upload 不支持 Pages Functions，需要改用 Git 部署或 Wrangler 部署，才能让 `functions/_middleware.js` 生效。
+
+## 移动端显示
+
+首页 PS 外壳会根据浏览器可视视口动态调整。iPhone Safari 底部地址栏展开/收起时，页面使用 `visualViewport` 同步高度，并按 SVG 中真实画布区域坐标裁剪内容，避免图片从顶部工具栏或左右面板背后漏出。
+
 ## 常用维护命令
 
 重新生成 `preview-manifest.json`：

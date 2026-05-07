@@ -12,12 +12,16 @@
 
       html,
       body {
-        --stage-width: 100vw;
-        --stage-height: 100vh;
-        --ps-content-left: calc(62 / 1920 * 100vw);
-        --ps-content-right: calc((1920 - 1880) / 1920 * 100vw);
-        --ps-content-top: calc(31 / 1920 * 100vw);
-        --ps-content-width: calc(100vw - var(--ps-content-left) - var(--ps-content-right));
+        --visual-viewport-width: 100vw;
+        --visual-viewport-height: 100vh;
+        --stage-width: var(--visual-viewport-width);
+        --stage-height: var(--visual-viewport-height);
+        --ps-content-left: calc(61.81 / 1920 * var(--visual-viewport-width));
+        --ps-content-right: calc((1920 - 1880.17) / 1920 * var(--visual-viewport-width));
+        --ps-content-top: calc(60.68 / 1920 * var(--visual-viewport-width));
+        --ps-content-width: calc(
+          var(--visual-viewport-width) - var(--ps-content-left) - var(--ps-content-right)
+        );
         width: 100%;
         min-height: 100%;
         margin: 0;
@@ -41,7 +45,7 @@
 
       #app {
         width: var(--ps-content-width);
-        min-height: 100vh;
+        min-height: var(--visual-viewport-height);
         margin: 0 var(--ps-content-right) 0 var(--ps-content-left);
         padding-top: var(--ps-content-top);
       }
@@ -171,8 +175,8 @@
       .empty-state {
         display: grid;
         place-items: center;
-        width: 100vw;
-        height: 100vh;
+        width: var(--visual-viewport-width);
+        height: var(--visual-viewport-height);
         color: #d6d6d6;
         font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
@@ -192,6 +196,7 @@
     <script>
       const app = document.getElementById("app");
       const psOverlay = document.querySelector(".ps-overlay");
+      const rootStyle = document.documentElement.style;
       const hotspotState = {
         baseSize: { width: 4000, height: 2250 },
         detailPage: "detail.html",
@@ -206,10 +211,25 @@
       const CAN_HOVER_PREVIEW =
         window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches ?? true;
 
+      function viewportSize() {
+        const viewport = window.visualViewport;
+        return {
+          width: viewport?.width || window.innerWidth,
+          height: viewport?.height || window.innerHeight,
+        };
+      }
+
+      function syncViewportVars() {
+        const { width, height } = viewportSize();
+        rootStyle.setProperty("--visual-viewport-width", `${width}px`);
+        rootStyle.setProperty("--visual-viewport-height", `${height}px`);
+      }
+
       function setDebugHotspots(enabled) {
         document.documentElement.dataset.debugHotspots = enabled ? "true" : "false";
       }
 
+      syncViewportVars();
       setDebugHotspots(DEBUG_HOTSPOTS_FROM_URL);
 
       function clamp(value, min, max) {
@@ -760,11 +780,12 @@
       }
 
       function scrollMax() {
-        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        return Math.max(0, document.documentElement.scrollHeight - viewportSize().height);
       }
 
       function adaptSvgToViewport(svg) {
-        const logicalHeight = (1920 * window.innerHeight) / window.innerWidth;
+        const { width, height } = viewportSize();
+        const logicalHeight = (1920 * height) / width;
         svg.setAttribute("viewBox", `0 0 1920 ${logicalHeight}`);
 
         const setRectHeight = (selector, bottomPadding = 0) => {
@@ -790,9 +811,9 @@
           if (track && thumb) {
             const trackTop = trackTopFromRotatedRect(track);
             const trackLength = Math.max(0, logicalHeight - trackTop);
-            const contentHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+            const contentHeight = Math.max(document.documentElement.scrollHeight, height);
             const thumbHeight = clamp(
-              (window.innerHeight / contentHeight) * trackLength,
+              (height / contentHeight) * trackLength,
               44,
               trackLength,
             );
@@ -949,8 +970,15 @@
         scrollThumb.addEventListener("pointercancel", stopDrag);
         window.addEventListener("scroll", updateThumb, { passive: true });
         window.addEventListener("resize", () => {
+          syncViewportVars();
           adaptSvgToViewport(svg);
           updateThumb();
+        });
+        window.visualViewport?.addEventListener("resize", () => {
+          syncViewportVars();
+          adaptSvgToViewport(svg);
+          updateThumb();
+          window.dispatchEvent(new Event("ps-content-change"));
         });
         window.addEventListener("ps-content-change", () => {
           adaptSvgToViewport(svg);
@@ -962,6 +990,12 @@
       psOverlay.addEventListener("load", setupSvgScrollbar);
       requestAnimationFrame(setupSvgScrollbar);
       window.addEventListener("resize", () => {
+        syncViewportVars();
+        const svg = psOverlay.contentDocument?.querySelector("svg");
+        if (svg) adaptSvgToViewport(svg);
+      });
+      window.visualViewport?.addEventListener("resize", () => {
+        syncViewportVars();
         const svg = psOverlay.contentDocument?.querySelector("svg");
         if (svg) adaptSvgToViewport(svg);
       });
