@@ -14,6 +14,7 @@
       body {
         --visual-viewport-width: 100vw;
         --visual-viewport-height: 100vh;
+        --visual-viewport-bottom-gap: 0px;
         --stage-width: var(--visual-viewport-width);
         --stage-height: var(--visual-viewport-height);
         --ps-content-left: calc(61.81 / 1920 * var(--visual-viewport-width));
@@ -66,6 +67,52 @@
         overflow: hidden;
         pointer-events: none;
         background: transparent;
+      }
+
+      .ps-content-mask {
+        position: fixed;
+        inset: 0;
+        z-index: 5;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .ps-content-mask::before,
+      .ps-content-mask::after,
+      .ps-mask-top,
+      .ps-mask-bottom {
+        content: "";
+        position: absolute;
+        background: #171717;
+        pointer-events: none;
+      }
+
+      .ps-content-mask::before {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--ps-content-left);
+      }
+
+      .ps-content-mask::after {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: var(--ps-content-right);
+      }
+
+      .ps-mask-top {
+        top: 0;
+        left: var(--ps-content-left);
+        right: var(--ps-content-right);
+        height: var(--ps-content-top);
+      }
+
+      .ps-mask-bottom {
+        left: var(--ps-content-left);
+        right: var(--ps-content-right);
+        bottom: 0;
+        height: max(var(--visual-viewport-bottom-gap), env(safe-area-inset-bottom));
       }
 
       .ps-overlay {
@@ -184,6 +231,10 @@
   </head>
   <body>
     <main id="app"></main>
+    <div class="ps-content-mask" aria-hidden="true">
+      <span class="ps-mask-top"></span>
+      <span class="ps-mask-bottom"></span>
+    </div>
     <div class="ps-stage" aria-hidden="false">
       <object
         class="ps-overlay"
@@ -220,9 +271,14 @@
       }
 
       function syncViewportVars() {
+        const viewport = window.visualViewport;
         const { width, height } = viewportSize();
+        const bottomGap = viewport
+          ? Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)
+          : 0;
         rootStyle.setProperty("--visual-viewport-width", `${width}px`);
         rootStyle.setProperty("--visual-viewport-height", `${height}px`);
+        rootStyle.setProperty("--visual-viewport-bottom-gap", `${bottomGap}px`);
       }
 
       function setDebugHotspots(enabled) {

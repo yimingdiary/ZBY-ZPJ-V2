@@ -14,7 +14,6 @@
     extra: "#8ae7ff",
     background: "#61c7ff",
     backplate: "#c693ff",
-    host: "#ffc27d",
     ui: "#9ff8f2",
   };
   const ZIP_ROLES = {
@@ -49,8 +48,6 @@
     backplateLayer: document.getElementById("backplateLayer"),
     backgroundLayer: document.getElementById("backgroundLayer"),
     backgroundImage: document.getElementById("backgroundImage"),
-    hostLayer: document.getElementById("hostLayer"),
-    hostPlaceholder: document.getElementById("hostPlaceholder"),
     stickerBackLayer: document.getElementById("stickerBackLayer"),
     stickerFrontLayer: document.getElementById("stickerFrontLayer"),
     uiLayer: document.getElementById("uiLayer"),
@@ -790,7 +787,7 @@
     const scrollDelta = state.targetProgress - state.smoothProgress;
     state.smoothProgress = Math.abs(scrollDelta) < 0.0005
       ? state.targetProgress
-      : state.smoothProgress + scrollDelta * 0.14;
+      : state.smoothProgress + scrollDelta * (IS_TOUCH_PREVIEW ? 0.28 : 0.18);
     const scrollValue = state.smoothProgress.toFixed(4);
     setStyleVar("--scroll", scrollValue);
     setLayerExpanded(state.smoothProgress > 0.025);

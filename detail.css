@@ -69,7 +69,7 @@ video {
 
 .scroll-track {
   position: relative;
-  height: 230vh;
+  height: 185vh;
 }
 
 .sticky-viewport {
@@ -223,36 +223,28 @@ html:not(.is-layer-expanded) .selection-frame {
   cursor: url("/assets/icons/move.svg") 16 16, var(--cursor-move-inline), grabbing;
 }
 
-.host-layer {
+.sticker-back-layer {
   z-index: 2;
   transform:
-    translateX(calc(var(--scroll) * 60px))
-    translateY(calc(var(--scroll) * -28px))
-    translateZ(calc(var(--scroll) * 165px));
-}
-
-.sticker-back-layer {
-  z-index: 3;
-  transform:
-    translateX(calc(var(--scroll) * -70px))
-    translateY(calc(var(--scroll) * -36px))
-    translateZ(calc(var(--scroll) * 380px));
+    translateX(calc(var(--scroll) * -54px))
+    translateY(calc(var(--scroll) * -30px))
+    translateZ(calc(var(--scroll) * 250px));
 }
 
 .sticker-front-layer {
-  z-index: 4;
+  z-index: 3;
   transform:
-    translateX(calc(var(--scroll) * -180px))
-    translateY(calc(var(--scroll) * -46px))
-    translateZ(calc(var(--scroll) * 680px));
+    translateX(calc(var(--scroll) * -128px))
+    translateY(calc(var(--scroll) * -40px))
+    translateZ(calc(var(--scroll) * 470px));
 }
 
 .ui-layer {
-  z-index: 5;
+  z-index: 4;
   transform:
-    translateX(calc(var(--scroll) * -290px))
-    translateY(calc(var(--scroll) * -56px))
-    translateZ(calc(var(--scroll) * 980px));
+    translateX(calc(var(--scroll) * -202px))
+    translateY(calc(var(--scroll) * -50px))
+    translateZ(calc(var(--scroll) * 690px));
 }
 
 .stage-media {
@@ -308,42 +300,6 @@ html:not(.is-layer-expanded) .selection-frame {
 
 #backgroundImage[src] + .default-background {
   display: none;
-}
-
-.host-placeholder {
-  position: absolute;
-  left: 50%;
-  bottom: 335px;
-  width: 43%;
-  height: 51%;
-  transform: translateX(-50%);
-  opacity: 0.86;
-  isolation: isolate;
-}
-
-.host-placeholder::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 31%;
-  aspect-ratio: 1;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.18));
-  box-shadow: inset 0 0 0 4px rgba(255,255,255,0.14);
-}
-
-.host-placeholder span {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 100%;
-  height: 78%;
-  transform: translateX(-50%);
-  border-radius: 45% 45% 20% 20%;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.12));
-  box-shadow: inset 0 0 0 4px rgba(255,255,255,0.11);
 }
 
 .sticker-piece {
