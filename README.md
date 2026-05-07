@@ -6,6 +6,7 @@
 
 - 首页按顺序展示 `images/` 内的作品集长图。
 - `ps-yemian.svg` 作为固定的 Photoshop 风格界面外壳覆盖在页面上，并接管滚轮、滚动条拖拽和热区点击。
+- 首页图片流固定裁剪在 PS 内容显示区内，移动端触摸滑动由 SVG 外壳同步驱动页面滚动。
 - `hotspots.json` 定义作品集图片中的可点击区域，热区可跳转到详情页。
 - 热区悬停时读取 `preview-manifest.json`，在原位置叠加贴片素材预览。
 - 触摸设备不创建首页热区悬浮预览，点击热区直接进入详情页。
@@ -134,6 +135,7 @@ python3 generate-preview-optimized.py
 5. 热区点击默认打开 `detail.html?id=...&preview=...&image=...`。
 6. 热区悬停时，根据 `preview-manifest.json` 中的文件列表创建预览层。
 7. 固定加载 `ps-yemian.svg` 作为 UI 外壳，并将 SVG 内滚轮、滚动条点击和拖动同步到页面滚动。
+8. 使用 `visualViewport` 计算 PS 内容显示区的实际像素边界，并同步写入 `html` 和 `body` 的 CSS 变量；图片流只在该固定裁剪区内可见，滚动时移动裁剪区内部内容。
 
 在触摸设备或无 hover 能力的设备上，首页不会创建和预热热区悬浮动态预览，点击热区会直接进入详情页。
 
