@@ -34,6 +34,8 @@
 
       body {
         overflow-x: hidden;
+        overscroll-behavior-y: none;
+        -webkit-overflow-scrolling: touch;
       }
 
       html {
@@ -58,20 +60,14 @@
         padding: 0;
         overflow: hidden;
         background: transparent;
-        contain: layout paint size;
-        isolation: isolate;
-        clip-path: inset(0);
-        -webkit-mask-image: linear-gradient(#000, #000);
-        transform: translateZ(0);
       }
 
       #contentFlow {
         position: absolute;
-        top: 0;
+        top: calc(var(--content-scroll-y) * -1);
         left: 0;
         width: 100%;
-        transform: translate3d(0, calc(var(--content-scroll-y) * -1), 0);
-        will-change: transform;
+        will-change: top;
       }
 
       #scrollSpacer {
@@ -203,6 +199,13 @@
         touch-action: none;
       }
 
+      @media (hover: none), (pointer: coarse) {
+        .ps-overlay {
+          pointer-events: none;
+          touch-action: auto;
+        }
+      }
+
       .empty-state {
         display: grid;
         place-items: center;
@@ -236,7 +239,7 @@
       const PS_VIEWBOX_WIDTH = 1920;
       const PS_CONTENT_BOX = {
         left: 61.81,
-        top: 60.68,
+        top: 0,
         right: 1880.17,
         bottomInset: 13.34,
       };
@@ -253,6 +256,10 @@
       );
       const CAN_HOVER_PREVIEW =
         window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches ?? true;
+      let scrollSyncFrame = 0;
+      let viewportLayoutFrame = 0;
+      let touchViewportResizeTimer = 0;
+      let touchScrollActive = false;
 
       function viewportSize() {
         const viewport = window.visualViewport;
@@ -289,9 +296,15 @@
       }
 
       function syncContentScroll() {
+        scrollSyncFrame = 0;
         const scrollValue = `${window.scrollY}px`;
         rootStyle.setProperty("--content-scroll-y", scrollValue);
         document.body.style.setProperty("--content-scroll-y", scrollValue);
+      }
+
+      function requestContentScrollSync() {
+        if (scrollSyncFrame) return;
+        scrollSyncFrame = requestAnimationFrame(syncContentScroll);
       }
 
       function updateScrollSpacer() {
@@ -306,6 +319,38 @@
         syncViewportVars();
         syncContentScroll();
         updateScrollSpacer();
+      }
+
+      function syncSvgViewport() {
+        const svg = psOverlay.contentDocument?.querySelector("svg");
+        if (svg) adaptSvgToViewport(svg);
+      }
+
+      function syncViewportLayout() {
+        syncLayout();
+        syncSvgViewport();
+      }
+
+      function scheduleViewportLayoutSync(callback) {
+        window.clearTimeout(touchViewportResizeTimer);
+        if (touchScrollActive) {
+          if (viewportLayoutFrame) {
+            cancelAnimationFrame(viewportLayoutFrame);
+            viewportLayoutFrame = 0;
+          }
+          touchViewportResizeTimer = window.setTimeout(() => {
+            syncViewportLayout();
+            callback?.();
+          }, 140);
+          return;
+        }
+
+        if (viewportLayoutFrame) return;
+        viewportLayoutFrame = requestAnimationFrame(() => {
+          viewportLayoutFrame = 0;
+          syncViewportLayout();
+          callback?.();
+        });
       }
 
       function setDebugHotspots(enabled) {
@@ -1117,15 +1162,13 @@
         scrollThumb.addEventListener("pointercancel", stopDrag);
         window.addEventListener("scroll", updateThumb, { passive: true });
         window.addEventListener("resize", () => {
-          syncLayout();
-          adaptSvgToViewport(svg);
-          updateThumb();
+          scheduleViewportLayoutSync(updateThumb);
         });
         window.visualViewport?.addEventListener("resize", () => {
-          syncLayout();
-          adaptSvgToViewport(svg);
-          updateThumb();
-          window.dispatchEvent(new Event("ps-content-change"));
+          scheduleViewportLayoutSync(() => {
+            updateThumb();
+            window.dispatchEvent(new Event("ps-content-change"));
+          });
         });
         window.addEventListener("ps-content-change", () => {
           adaptSvgToViewport(svg);
@@ -1136,17 +1179,20 @@
 
       psOverlay.addEventListener("load", setupSvgScrollbar);
       requestAnimationFrame(setupSvgScrollbar);
-      window.addEventListener("scroll", syncContentScroll, { passive: true });
-      window.addEventListener("resize", () => {
-        syncLayout();
-        const svg = psOverlay.contentDocument?.querySelector("svg");
-        if (svg) adaptSvgToViewport(svg);
-      });
-      window.visualViewport?.addEventListener("resize", () => {
-        syncLayout();
-        const svg = psOverlay.contentDocument?.querySelector("svg");
-        if (svg) adaptSvgToViewport(svg);
-      });
+      window.addEventListener("scroll", requestContentScrollSync, { passive: true });
+      window.addEventListener("touchstart", () => {
+        touchScrollActive = true;
+      }, { passive: true });
+      window.addEventListener("touchend", () => {
+        touchScrollActive = false;
+        scheduleViewportLayoutSync();
+      }, { passive: true });
+      window.addEventListener("touchcancel", () => {
+        touchScrollActive = false;
+        scheduleViewportLayoutSync();
+      }, { passive: true });
+      window.addEventListener("resize", () => scheduleViewportLayoutSync());
+      window.visualViewport?.addEventListener("resize", () => scheduleViewportLayoutSync());
     </script>
   </body>
 </html>

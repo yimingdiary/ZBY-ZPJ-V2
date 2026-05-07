@@ -1,12 +1,12 @@
 # CONTEXT.md
 
 ### 任务目标
-修复 iPhone Safari 首页无法滑动、图片进入页面即超出 PS 内容显示区，以及滚动后图片露到 PS 框外的问题。
+修复 iPhone Safari 首页图片裁剪后出现的滑动闪屏、抖动、不丝滑，以及确认顶部黑条来源。
 
 ### 当前状态
-- 已完成：已读取 `AGENT.md` 和 `CONTEXT.md`；定位到首页布局变量同时定义在 `html, body` 上，但 JS 只写入 `documentElement`，导致 `#app` 在移动端测试中继承 `body` 的默认值并变成全屏裁剪；已改为用 `visualViewport` 计算 PS 内容显示区实际像素边界，并同步写入 `html` 和 `body`；已将 `--content-scroll-y` 同步写入 `body`，让图片流滚动时真实向上移动；已给固定裁剪区增加 `contain`、`clip-path` 和 `-webkit-mask-image`，强化 iOS Safari 对 transform 子元素的裁剪；已在 SVG 覆盖层内增加 touch 滑动处理，拖动时手动同步 `window.scrollBy`；已更新 README。
-- 进行中：等待用户在 iPhone Safari 真机重新部署后复测首页顶部对齐、边缘裁剪和触摸滑动。
-- 待开始：如真机仍有边缘漏出，需要基于实际截图继续核对 PS SVG 真实内容框坐标。
+- 已完成：已读取 `AGENT.md` 和 `CONTEXT.md`；根据用户反馈定位到上次修复中的高风险点：移动端手写 `touchmove -> window.scrollBy` 会丢失 iOS 原生惯性并触发布局抖动，`-webkit-mask-image/clip-path/transform` 叠在 fixed 裁剪层上也容易造成 Safari 合成闪屏；已移除这些合成裁剪属性，改回轻量 `overflow:hidden`；移动端让 `ps-yemian.svg` 覆盖层不再接管触摸事件，触摸直接落到图片/热区层并使用浏览器原生滚动；图片流改用 absolute `top` 位移，减少 transform 合成闪烁；滚动同步改为 `requestAnimationFrame` 节流；触摸滑动期间延迟 `visualViewport.resize` 布局重算，避免 iOS 地址栏动画时连续重排；已将图片裁剪区顶部改为 `0`，让展示图片和 SVG 顶部对齐；本地移动端模拟验证原生上滑可滚动且图片流同步移动；已确认顶部深色条主要来自 `ps-yemian.svg` 顶部 PS 工具栏，不是图片裁剪外漏；已更新 README。
+- 进行中：等待用户在 iPhone Safari 真机重新部署后复测首页滑动流畅度、闪屏和顶部深色条观感。
+- 待开始：如用户不希望显示 SVG 顶部 PS 工具栏深色条，需要进一步调整或裁切 `ps-yemian.svg` 顶部界面元素。
 
 ### 已做决策
 | 决策 | 理由 | 排除的方案及原因 |
@@ -20,12 +20,14 @@
 | 首页使用固定裁剪视窗承载图片流 | 用户明确要求底层图片只能在 PS 界面框中的镂空部分显示；裁剪视窗从内容结构上限制可见区域，不会出现额外黑框 | 用黑色遮罩盖住溢出会产生界面内黑框，不符合 PS 画布镂空裁剪语义 |
 | 详情页移除空主播层并压紧 3D 深度 | 当前素材没有主播层，沿用原有 5 层深度会让分层间距显得过大 | 保留空 host 层会持续占用视觉间距 |
 | 首页布局变量同时写入 `html` 和 `body` | CSS 变量原先在 `html, body` 选择器上都有定义，子元素实际继承 `body`；只写 `html` 会让移动端裁剪框和滚动变量失效 | 只删除 `body` 上变量风险较高，可能影响已有级联；双写更直接 |
-| SVG 覆盖层内手动处理 touch 滑动 | `<object>` 覆盖在图片上方并接管 pointer，iPhone Safari 原生触摸不一定能传给页面滚动 | 关闭 SVG pointer-events 会破坏热区点击和自定义滚动条交互 |
+| 触摸设备禁用 SVG 覆盖层指针事件，恢复原生滚动 | iPhone Safari 对 fixed + object + 手写 touchmove 滚动容易抖动并失去惯性；移动端没有 hover 预览需求，热区本身在图片层内仍可点击 | 继续手写 touchmove 虽能滚动，但用户复测出现严重闪屏和不丝滑 |
+| 移除首页 fixed 裁剪层上的 `-webkit-mask-image`、`clip-path` 和 transform | 这些属性叠加滚动位移会增加 Safari 合成层闪烁风险；变量继承问题修复后，仅 `overflow:hidden` 已能裁剪 | 保留 mask 作为兜底会继续带来闪屏风险 |
 
 ### 待解决问题
 - [ ] 问题1：需要用 iPhone Safari 真机复测首页顶部、左右边缘和底部地址栏遮挡状态下是否仍有图片漏出。
 - [ ] 问题4：需要用手机复测详情页分层间距是否比原先紧凑，以及移动端滑动是否足够灵敏。
 - [x] 问题5：本地移动端模拟验证 `#app` 裁剪框从全屏修正为 PS 内容区，并验证触摸上滑可驱动 `window.scrollY` 和图片流同步移动。
+- [x] 问题6：本地移动端模拟确认触摸设备上 SVG 覆盖层不再接管触摸，触摸上滑使用原生滚动；初始顶部深色条来自 SVG 顶部工具栏区域。
 - [x] 问题2：Cloudflare Pages Production 环境变量截图显示已配置 `ACCESS_KEY_ENABLED=true` 和 `ACCESS_KEY=1234`；用户确认重新部署后访问码已生效。
 - [x] 问题3：确认线上部署不是 Dashboard Direct Upload；用户使用 GitHub 仓库绑定 Cloudflare Pages，同步部署支持 Pages Functions。
 
