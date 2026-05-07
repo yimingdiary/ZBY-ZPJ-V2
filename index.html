@@ -15,6 +15,7 @@
         --visual-viewport-width: 100vw;
         --visual-viewport-height: 100vh;
         --visual-viewport-bottom-gap: 0px;
+        --ps-bottom-mask-height: max(var(--visual-viewport-bottom-gap), env(safe-area-inset-bottom));
         --stage-width: var(--visual-viewport-width);
         --stage-height: var(--visual-viewport-height);
         --ps-content-left: calc(61.81 / 1920 * var(--visual-viewport-width));
@@ -112,7 +113,18 @@
         left: var(--ps-content-left);
         right: var(--ps-content-right);
         bottom: 0;
-        height: max(var(--visual-viewport-bottom-gap), env(safe-area-inset-bottom));
+        height: var(--ps-bottom-mask-height);
+      }
+
+      @media (hover: none), (pointer: coarse), (max-width: 820px) {
+        html,
+        body {
+          --ps-bottom-mask-height: max(
+            var(--visual-viewport-bottom-gap),
+            env(safe-area-inset-bottom),
+            150px
+          );
+        }
       }
 
       .ps-overlay {
