@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>朱宝玉.psd</title>
      <link rel="icon" href="/assets/icons/logo.svg" type="image/svg+xml">
     <style>
@@ -50,29 +50,25 @@
       }
 
       #app {
-        position: fixed;
-        top: var(--ps-content-top);
-        left: var(--ps-content-left);
+        position: relative;
         z-index: 1;
         width: var(--ps-content-width);
-        height: var(--ps-content-height);
-        margin: 0;
+        min-height: var(--ps-content-height);
+        margin: 0 0 0 var(--ps-content-left);
         padding: 0;
         overflow: hidden;
         background: transparent;
       }
 
       #contentFlow {
-        position: absolute;
-        top: calc(var(--content-scroll-y) * -1);
-        left: 0;
+        position: relative;
         width: 100%;
-        will-change: top;
       }
 
       #scrollSpacer {
+        display: none;
         width: 1px;
-        height: var(--visual-viewport-height);
+        height: 0;
         pointer-events: none;
       }
 
@@ -256,7 +252,9 @@
       );
       const CAN_HOVER_PREVIEW =
         window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches ?? true;
-      let scrollSyncFrame = 0;
+      const IS_TOUCH_HOME =
+        window.matchMedia?.("(hover: none), (pointer: coarse)")?.matches ||
+        Math.min(window.innerWidth, window.innerHeight) <= 820;
       let viewportLayoutFrame = 0;
       let touchViewportResizeTimer = 0;
       let touchScrollActive = false;
@@ -295,29 +293,12 @@
         setLayoutVar("--ps-content-height", `${contentBottom - contentTop}px`);
       }
 
-      function syncContentScroll() {
-        scrollSyncFrame = 0;
-        const scrollValue = `${window.scrollY}px`;
-        rootStyle.setProperty("--content-scroll-y", scrollValue);
-        document.body.style.setProperty("--content-scroll-y", scrollValue);
-      }
-
-      function requestContentScrollSync() {
-        if (scrollSyncFrame) return;
-        scrollSyncFrame = requestAnimationFrame(syncContentScroll);
-      }
-
       function updateScrollSpacer() {
-        const viewportHeight = viewportSize().height;
-        const visibleHeight = app.getBoundingClientRect().height || viewportHeight;
-        const contentHeight = contentFlow.scrollHeight || viewportHeight;
-        const spacerHeight = Math.max(viewportHeight, contentHeight - visibleHeight + viewportHeight);
-        scrollSpacer.style.height = `${spacerHeight}px`;
+        scrollSpacer.style.height = "0px";
       }
 
       function syncLayout() {
         syncViewportVars();
-        syncContentScroll();
         updateScrollSpacer();
       }
 
@@ -1160,7 +1141,9 @@
 
         scrollThumb.addEventListener("pointerup", stopDrag);
         scrollThumb.addEventListener("pointercancel", stopDrag);
-        window.addEventListener("scroll", updateThumb, { passive: true });
+        if (!IS_TOUCH_HOME) {
+          window.addEventListener("scroll", updateThumb, { passive: true });
+        }
         window.addEventListener("resize", () => {
           scheduleViewportLayoutSync(updateThumb);
         });
@@ -1179,7 +1162,6 @@
 
       psOverlay.addEventListener("load", setupSvgScrollbar);
       requestAnimationFrame(setupSvgScrollbar);
-      window.addEventListener("scroll", requestContentScrollSync, { passive: true });
       window.addEventListener("touchstart", () => {
         touchScrollActive = true;
       }, { passive: true });

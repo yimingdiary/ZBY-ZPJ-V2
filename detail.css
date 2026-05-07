@@ -58,7 +58,7 @@ video {
   overscroll-behavior: none;
   overflow-anchor: none;
   scrollbar-width: none;
-  -webkit-overflow-scrolling: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .preview-scroll::-webkit-scrollbar {
@@ -197,18 +197,18 @@ html:not(.is-layer-expanded) .selection-frame {
 .backplate-layer {
   z-index: 0;
   transform:
-    translateX(calc(var(--scroll) * 230px))
-    translateY(calc(var(--scroll) * -24px))
-    translateZ(calc(var(--scroll) * -520px));
+    translateX(calc(var(--scroll) * 92px))
+    translateY(calc(var(--scroll) * -12px))
+    translateZ(calc(var(--scroll) * -180px));
 }
 
 .background-layer {
   z-index: 1;
   pointer-events: auto;
   transform:
-    translateX(calc(var(--scroll) * 176px))
-    translateY(calc(var(--scroll) * -20px))
-    translateZ(calc(var(--scroll) * -330px));
+    translateX(calc(var(--scroll) * 70px))
+    translateY(calc(var(--scroll) * -10px))
+    translateZ(calc(var(--scroll) * -90px));
 }
 
 .device-stage.has-background .background-layer,
@@ -226,25 +226,25 @@ html:not(.is-layer-expanded) .selection-frame {
 .sticker-back-layer {
   z-index: 2;
   transform:
-    translateX(calc(var(--scroll) * -54px))
-    translateY(calc(var(--scroll) * -30px))
-    translateZ(calc(var(--scroll) * 250px));
+    translateX(calc(var(--scroll) * -24px))
+    translateY(calc(var(--scroll) * -14px))
+    translateZ(calc(var(--scroll) * 110px));
 }
 
 .sticker-front-layer {
   z-index: 3;
   transform:
-    translateX(calc(var(--scroll) * -128px))
-    translateY(calc(var(--scroll) * -40px))
-    translateZ(calc(var(--scroll) * 470px));
+    translateX(calc(var(--scroll) * -52px))
+    translateY(calc(var(--scroll) * -18px))
+    translateZ(calc(var(--scroll) * 190px));
 }
 
 .ui-layer {
   z-index: 4;
   transform:
-    translateX(calc(var(--scroll) * -202px))
-    translateY(calc(var(--scroll) * -50px))
-    translateZ(calc(var(--scroll) * 690px));
+    translateX(calc(var(--scroll) * -82px))
+    translateY(calc(var(--scroll) * -22px))
+    translateZ(calc(var(--scroll) * 270px));
 }
 
 .stage-media {
