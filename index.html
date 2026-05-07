@@ -26,6 +26,7 @@
         --ps-content-height: calc(
           var(--visual-viewport-height) - var(--ps-content-top)
         );
+        --ps-mask-color: #171717;
         width: 100%;
         min-height: 100%;
         margin: 0;
@@ -93,6 +94,41 @@
       .ps-overlay {
         width: 100%;
         height: 100%;
+      }
+
+      .ps-content-mask {
+        position: fixed;
+        z-index: 5;
+        pointer-events: none;
+        background: var(--ps-mask-color);
+      }
+
+      .ps-content-mask.top {
+        top: 0;
+        left: 0;
+        width: var(--visual-viewport-width);
+        height: var(--ps-content-top);
+      }
+
+      .ps-content-mask.left {
+        top: var(--ps-content-top);
+        left: 0;
+        width: var(--ps-content-left);
+        height: var(--ps-content-height);
+      }
+
+      .ps-content-mask.right {
+        top: var(--ps-content-top);
+        left: calc(var(--ps-content-left) + var(--ps-content-width));
+        width: calc(var(--visual-viewport-width) - var(--ps-content-left) - var(--ps-content-width));
+        height: var(--ps-content-height);
+      }
+
+      .ps-content-mask.bottom {
+        top: calc(var(--ps-content-top) + var(--ps-content-height));
+        left: 0;
+        width: var(--visual-viewport-width);
+        height: calc(var(--visual-viewport-height) - var(--ps-content-top) - var(--ps-content-height));
       }
 
       .image-layer {
@@ -217,6 +253,10 @@
       <div id="contentFlow"></div>
     </main>
     <div id="scrollSpacer" aria-hidden="true"></div>
+    <div class="ps-content-mask top" aria-hidden="true"></div>
+    <div class="ps-content-mask left" aria-hidden="true"></div>
+    <div class="ps-content-mask right" aria-hidden="true"></div>
+    <div class="ps-content-mask bottom" aria-hidden="true"></div>
     <div class="ps-stage" aria-hidden="false">
       <object
         class="ps-overlay"
