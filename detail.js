@@ -40,6 +40,7 @@
     layerExpanded: false,
     animationFrame: 0,
     lastTouchY: 0,
+    userActivatedPlayback: false,
   };
 
   const dom = {
@@ -403,6 +404,26 @@
     });
   }
 
+  function markVideoReady(video) {
+    video.classList.add("is-video-ready");
+  }
+
+  function prepareVideoElement(video) {
+    video.defaultMuted = true;
+    video.muted = true;
+    video.setAttribute("muted", "");
+    video.disablePictureInPicture = true;
+    video.addEventListener("loadeddata", () => markVideoReady(video), { once: true });
+    video.addEventListener("canplay", () => markVideoReady(video), { once: true });
+    video.addEventListener("playing", () => markVideoReady(video), { once: true });
+  }
+
+  function playVideos() {
+    dom.deviceStage.querySelectorAll("video").forEach((video) => {
+      video.play().catch(() => {});
+    });
+  }
+
   function createMediaElement(directory, fileName, className, asset = null) {
     const ext = fileExtension(fileName);
     const isVideo = ["mp4", "webm", "mov"].includes(ext);
@@ -414,10 +435,13 @@
       element.autoplay = true;
       element.loop = true;
       element.muted = true;
+      element.defaultMuted = true;
       element.playsInline = true;
+      element.setAttribute("muted", "");
       element.setAttribute("playsinline", "");
       element.setAttribute("webkit-playsinline", "");
       element.preload = "auto";
+      prepareVideoElement(element);
     } else {
       element.decoding = "async";
       element.loading = "eager";
@@ -573,8 +597,12 @@
     const background = cleanFiles.find(isBackgroundFile);
     if (background) {
       const backgroundAsset = optimizedAsset(background);
+      const backgroundURL = mediaURL(directory, background, backgroundAsset);
       dom.deviceStage.classList.add("has-background");
-      dom.backgroundImage.src = mediaURL(directory, background, backgroundAsset);
+      dom.backgroundImage.src = backgroundURL;
+      dom.backplateLayer.querySelectorAll("video").forEach((video) => {
+        video.poster = backgroundURL;
+      });
       const backgroundItem = {
         element: dom.backgroundImage,
         layerElement: dom.backgroundLayer,
@@ -615,9 +643,7 @@
     return Promise.all(mediaPromises).then(() => {
       alignStickerTextItems();
       updateAllSelectionFrames();
-      dom.deviceStage.querySelectorAll("video").forEach((video) => {
-        video.play().catch(() => {});
-      });
+      playVideos();
     });
   }
 
@@ -681,7 +707,12 @@
 
   function handlePreviewTouchStart(event) {
     if (!IS_TOUCH_PREVIEW || event.touches.length !== 1) return;
+    nudgeScrollBoundary();
     state.lastTouchY = event.touches[0].clientY;
+    if (!state.userActivatedPlayback) {
+      state.userActivatedPlayback = true;
+      playVideos();
+    }
   }
 
   function handlePreviewTouchMove(event) {
@@ -701,9 +732,16 @@
     const atBottom = dom.previewScroll.scrollTop >= max - 1;
     if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
       event.preventDefault();
-      dom.previewScroll.scrollTop = atTop ? 0 : max;
+      dom.previewScroll.scrollTop = atTop ? 1 : Math.max(0, max - 1);
       updateScrollTarget();
     }
+  }
+
+  function nudgeScrollBoundary() {
+    const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
+    if (max <= 1) return;
+    if (dom.previewScroll.scrollTop <= 0) dom.previewScroll.scrollTop = 1;
+    if (dom.previewScroll.scrollTop >= max) dom.previewScroll.scrollTop = max - 1;
   }
 
   function setPointerTarget(values = {}) {

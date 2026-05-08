@@ -28,6 +28,11 @@ body {
   background: var(--preview);
 }
 
+body {
+  position: fixed;
+  inset: 0;
+}
+
 img,
 video {
   display: block;
@@ -200,18 +205,18 @@ html:not(.is-layer-expanded) .selection-frame {
 .backplate-layer {
   z-index: 0;
   transform:
-    translateX(calc(var(--scroll) * 128px))
-    translateY(calc(var(--scroll) * -16px))
-    translateZ(calc(var(--scroll) * -260px));
+    translateX(calc(var(--scroll) * 180px))
+    translateY(calc(var(--scroll) * -24px))
+    translateZ(calc(-8px + var(--scroll) * -720px));
 }
 
 .background-layer {
   z-index: 1;
   pointer-events: auto;
   transform:
-    translateX(calc(var(--scroll) * 88px))
+    translateX(calc(var(--scroll) * 90px))
     translateY(calc(var(--scroll) * -12px))
-    translateZ(calc(var(--scroll) * -120px));
+    translateZ(calc(-4px + var(--scroll) * -360px));
 }
 
 .device-stage.has-background .background-layer,
@@ -229,25 +234,25 @@ html:not(.is-layer-expanded) .selection-frame {
 .sticker-back-layer {
   z-index: 2;
   transform:
-    translateX(calc(var(--scroll) * -34px))
-    translateY(calc(var(--scroll) * -18px))
-    translateZ(calc(var(--scroll) * 170px));
+    translateX(calc(var(--scroll) * -45px))
+    translateY(calc(var(--scroll) * -20px))
+    translateZ(4px);
 }
 
 .sticker-front-layer {
   z-index: 3;
   transform:
-    translateX(calc(var(--scroll) * -68px))
-    translateY(calc(var(--scroll) * -24px))
-    translateZ(calc(var(--scroll) * 310px));
+    translateX(calc(var(--scroll) * -90px))
+    translateY(calc(var(--scroll) * -32px))
+    translateZ(calc(8px + var(--scroll) * 360px));
 }
 
 .ui-layer {
   z-index: 4;
   transform:
-    translateX(calc(var(--scroll) * -104px))
-    translateY(calc(var(--scroll) * -30px))
-    translateZ(calc(var(--scroll) * 450px));
+    translateX(calc(var(--scroll) * -135px))
+    translateY(calc(var(--scroll) * -44px))
+    translateZ(calc(12px + var(--scroll) * 720px));
 }
 
 .stage-media {
@@ -266,11 +271,16 @@ html:not(.is-layer-expanded) .selection-frame {
 }
 
 .video-media {
-  background: #000;
+  background: transparent;
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
   contain: none;
+  opacity: 0;
   transform: translate3d(0, 0, 0.1px);
+}
+
+.video-media.is-video-ready {
+  opacity: 1;
 }
 
 .media-stage-fill {
