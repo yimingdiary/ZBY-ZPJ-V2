@@ -39,6 +39,7 @@
     cssVars: new Map(),
     layerExpanded: false,
     animationFrame: 0,
+    lastTouchY: 0,
   };
 
   const dom = {
@@ -409,10 +410,13 @@
     element.className = className;
     element.dataset.layerMedia = "true";
     if (isVideo) {
+      element.classList.add("video-media");
       element.autoplay = true;
       element.loop = true;
       element.muted = true;
       element.playsInline = true;
+      element.setAttribute("playsinline", "");
+      element.setAttribute("webkit-playsinline", "");
       element.preload = "auto";
     } else {
       element.decoding = "async";
@@ -675,6 +679,33 @@
     }
   }
 
+  function handlePreviewTouchStart(event) {
+    if (!IS_TOUCH_PREVIEW || event.touches.length !== 1) return;
+    state.lastTouchY = event.touches[0].clientY;
+  }
+
+  function handlePreviewTouchMove(event) {
+    if (!IS_TOUCH_PREVIEW || event.touches.length !== 1) return;
+
+    const touchY = event.touches[0].clientY;
+    const deltaY = touchY - state.lastTouchY;
+    state.lastTouchY = touchY;
+
+    const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
+    if (max <= 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const atTop = dom.previewScroll.scrollTop <= 0;
+    const atBottom = dom.previewScroll.scrollTop >= max - 1;
+    if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+      event.preventDefault();
+      dom.previewScroll.scrollTop = atTop ? 0 : max;
+      updateScrollTarget();
+    }
+  }
+
   function setPointerTarget(values = {}) {
     Object.assign(state.pointerTarget, values);
     requestMotionFrame();
@@ -693,6 +724,7 @@
   }
 
   function updatePointerMotion(event) {
+    if (IS_TOUCH_PREVIEW) return;
     if (state.isPanningBackground) return;
     const rect = dom.previewScroll.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
@@ -737,6 +769,7 @@
   }
 
   function beginBackgroundPan(event) {
+    if (IS_TOUCH_PREVIEW || event.pointerType === "touch") return;
     if (event.button !== 0 || !state.backgroundSize) return;
     state.isPanningBackground = true;
     state.lastPanClientX = event.clientX;
@@ -821,6 +854,8 @@
   function bindEvents() {
     dom.previewScroll.addEventListener("wheel", handlePreviewWheel, { passive: false });
     dom.previewScroll.addEventListener("scroll", updateScrollTarget, { passive: true });
+    dom.previewScroll.addEventListener("touchstart", handlePreviewTouchStart, { passive: true });
+    dom.previewScroll.addEventListener("touchmove", handlePreviewTouchMove, { passive: false });
     dom.previewScroll.addEventListener("pointermove", updatePointerMotion);
     dom.previewScroll.addEventListener("pointerleave", resetPointerTarget);
     dom.backgroundLayer.addEventListener("pointerdown", beginBackgroundPan);
