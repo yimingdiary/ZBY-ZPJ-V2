@@ -205,18 +205,18 @@ html:not(.is-layer-expanded) .selection-frame {
 .backplate-layer {
   z-index: 0;
   transform:
-    translateX(calc(var(--scroll) * 156px))
-    translateY(calc(var(--scroll) * -20px))
-    translateZ(calc(-8px + var(--scroll) * -624px));
+    translateX(calc(var(--scroll) * 130px))
+    translateY(calc(var(--scroll) * -17px))
+    translateZ(calc(-8px + var(--scroll) * -520px));
 }
 
 .background-layer {
   z-index: 1;
   pointer-events: auto;
   transform:
-    translateX(calc(var(--scroll) * 78px))
-    translateY(calc(var(--scroll) * -10px))
-    translateZ(calc(-4px + var(--scroll) * -312px));
+    translateX(calc(var(--scroll) * 65px))
+    translateY(calc(var(--scroll) * -8px))
+    translateZ(calc(-4px + var(--scroll) * -260px));
 }
 
 .device-stage.has-background .background-layer,
@@ -234,25 +234,25 @@ html:not(.is-layer-expanded) .selection-frame {
 .sticker-back-layer {
   z-index: 2;
   transform:
-    translateX(calc(var(--scroll) * -39px))
-    translateY(calc(var(--scroll) * -17px))
+    translateX(calc(var(--scroll) * -32px))
+    translateY(calc(var(--scroll) * -14px))
     translateZ(4px);
 }
 
 .sticker-front-layer {
   z-index: 3;
   transform:
-    translateX(calc(var(--scroll) * -78px))
-    translateY(calc(var(--scroll) * -28px))
-    translateZ(calc(8px + var(--scroll) * 312px));
+    translateX(calc(var(--scroll) * -65px))
+    translateY(calc(var(--scroll) * -23px))
+    translateZ(calc(8px + var(--scroll) * 260px));
 }
 
 .ui-layer {
   z-index: 4;
   transform:
-    translateX(calc(var(--scroll) * -117px))
-    translateY(calc(var(--scroll) * -38px))
-    translateZ(calc(12px + var(--scroll) * 624px));
+    translateX(calc(var(--scroll) * -98px))
+    translateY(calc(var(--scroll) * -32px))
+    translateZ(calc(12px + var(--scroll) * 520px));
 }
 
 .stage-media {
