@@ -12,7 +12,8 @@
 - 热区悬停时读取 `preview-manifest.json`，在原位置叠加贴片素材预览。
 - 触摸设备不创建首页热区悬浮预览，点击热区直接进入详情页。
 - 详情页根据热区关联的 `preview/webp/` 子目录，渲染 1290 x 2791 的直播间贴片分层舞台。
-- 详情页支持滚动触发 3D 视差展开、图层选区框显隐、桌面端背景横向拖动预览、animated WebP 和视频素材播放。
+- 详情页支持滚动触发 3D 视差展开、图层选区框显隐、桌面端背景横向拖动预览、animated WebP 和视频素材播放；触摸设备会降级为轻量 2D 静态预览以避免 iPhone Safari/微信重复刷新崩溃。
+- 当前网页标题版本号为 `朱宝玉.psd-1.0.0`。
 
 ## 运行方式
 
@@ -161,7 +162,7 @@ http://localhost:4173/?debugHotspots
 
 详情页 3D 展开已按无主播层素材重新调整深度：背景视频、背景层、贴片背、贴片文和 UI 层按等距 Z 轴序列展开，并保留轻微初始 Z 偏移，避免 WebKit/微信内核在未滚动时把共面图层渲染成黑屏。移动端当前使用更紧凑的展开距离，减少图层过散和 iPhone Safari 3D 合成压力。用户真机复测发现 iPhone Safari 标签页栏在底部时更容易在滑到底继续滑动时触发重复刷新，把标签页栏改到顶部后不再复现。
 
-详情页直接使用 `preview/webp/` 中的 WebP 分层素材，不再读取 `preview-optimized/` 或裁切映射。为避免 iPhone Safari 和微信内核因一次性解码多张全尺寸 WebP/animated WebP 触发崩溃恢复，触摸设备详情页只加载背景、视频和核心静态背板/底部文案图层，跳过 animated WebP 和额外透明层；桌面端仍加载完整分层。视频层会先使用背景图作为 poster，拿到可播放帧后再显示，避免加载期黑屏。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
+详情页直接使用 `preview/webp/` 中的 WebP 分层素材，不再读取 `preview-optimized/` 或裁切映射。为避免 iPhone Safari 和微信内核因一次性解码多张全尺寸 WebP/animated WebP 触发崩溃恢复，触摸设备详情页只加载背景和核心静态贴片图层，跳过视频、animated WebP 和额外透明层，并关闭 3D 展开，改为 2D 静态舞台；桌面端仍加载完整分层。桌面端 animated WebP 会使用同目录 `*-still.png` 首帧作为底层兜底，避免动图在 3D 合成中解码露空造成频闪。视频层会先使用背景图作为 poster，拿到可播放帧后再显示，避免加载期黑屏。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
 
 ## 配置说明
 
@@ -205,12 +206,14 @@ http://localhost:4173/?debugHotspots
 顶部挂件-背.webp
 顶部挂件-文.webp
 顶部挂件-文-动.webp
+顶部挂件-文-动-still.png
 顶部挂件-文-动-loop.webp
+顶部挂件-文-动-loop-still.png
 底部挂件-背.webp
 底部挂件-文.webp
 ```
 
-额外素材可以使用任意文件名，详情页会放入前景额外层。
+`*-still.png` 是 animated WebP/GIF 的首帧兜底资源，桌面详情页会自动按动图文件名推导加载；移动端不会加载动图。额外素材可以使用任意文件名，详情页会放入前景额外层。
 
 新增或替换 `preview/webp/` 素材后，需要重新生成 `preview-manifest.json`。
 

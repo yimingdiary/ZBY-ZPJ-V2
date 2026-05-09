@@ -267,6 +267,9 @@ html:not(.is-layer-expanded) .selection-frame {
 }
 
 .animated-media {
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+  contain: none;
   will-change: auto;
 }
 
@@ -436,6 +439,35 @@ html:not(.is-layer-expanded) .selection-frame {
 }
 
 @media (hover: none), (pointer: coarse) {
+  .preview-scroll {
+    overflow: hidden;
+  }
+
+  .scroll-track {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .sticky-viewport {
+    perspective: none;
+  }
+
+  .device-stage {
+    transform: translate(-50%, -50%) scale(var(--stage-scale));
+    transform-style: flat;
+    touch-action: none;
+  }
+
+  .stage-layer {
+    transform: none;
+    transform-style: flat;
+    will-change: auto;
+  }
+
+  .selection-frame {
+    display: none;
+  }
+
   .device-stage.has-background,
   .device-stage.has-background .background-layer,
   .device-stage.has-background .background-layer img,

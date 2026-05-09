@@ -1,4 +1,5 @@
 (function () {
+  const DETAIL_VERSION = "1.0.0";
   const STAGE = { width: 1290, height: 2791 };
   const TOP_TEXT_FALLBACK_OFFSET = 140;
   const SELECTION_PADDING = 24;
@@ -58,6 +59,9 @@
     emptyState: document.getElementById("emptyState"),
   };
 
+  document.title = `朱宝玉.psd-${DETAIL_VERSION}`;
+  dom.root.classList.toggle("is-touch-preview", IS_TOUCH_PREVIEW);
+
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
   }
@@ -74,6 +78,11 @@
 
   function mediaURL(directory, fileName, asset) {
     return encodeURI(asset?.optimized || `${normalizePreviewDirectory(directory)}/${fileName}`);
+  }
+
+  function stillFallbackURL(directory, fileName) {
+    if (!isAnimatedPreviewFile(fileName)) return "";
+    return assetURL(directory, fileName.replace(/\.(webp|gif)$/i, "-still.png"));
   }
 
   function shouldUseOptimizedAsset(fileName, asset) {
@@ -207,7 +216,6 @@
       if (fileName && !result.includes(fileName)) result.push(fileName);
     };
 
-    keep(files.find(isBackplateFile));
     keep(files.find(isBackgroundFile));
     roleEntries.forEach(({ entry, config }) => {
       if (!entry || isAnimatedPreviewFile(entry.fileName)) return;
@@ -488,7 +496,16 @@
       element.loading = "eager";
       element.alt = "";
     }
-    if (ext === "gif" || isAnimatedPreviewFile(fileName)) element.classList.add("animated-media");
+    if (ext === "gif" || isAnimatedPreviewFile(fileName)) {
+      element.classList.add("animated-media");
+      const stillURL = stillFallbackURL(directory, fileName);
+      if (stillURL) {
+        element.style.backgroundImage = `url("${stillURL}")`;
+        element.style.backgroundSize = "100% 100%";
+        element.style.backgroundPosition = "center";
+        element.style.backgroundRepeat = "no-repeat";
+      }
+    }
     element.src = mediaURL(directory, fileName, asset);
     return element;
   }
@@ -729,6 +746,11 @@
   }
 
   function updateScrollTarget() {
+    if (IS_TOUCH_PREVIEW) {
+      state.targetProgress = 0;
+      requestMotionFrame();
+      return;
+    }
     const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
     state.targetProgress = max > 0 ? dom.previewScroll.scrollTop / max : 0;
     requestMotionFrame();
