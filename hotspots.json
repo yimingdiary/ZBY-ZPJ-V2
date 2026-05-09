@@ -7,12 +7,12 @@
   "debugHotspots": false,
   "images": [
     {
-      "image": "ZBY_ZPJ_内页_05.jpg",
+      "image": "ZBY_ZPJ_内页_05.webp",
       "areas": [
         {
           "id": "ZBY_ZPJ_005",
           "label": "动态贴片-毛孩子",
-          "preview": "/preview/260117_贴片_宠物生活_毛孩子",
+          "preview": "/preview/webp/260117_贴片_宠物生活_毛孩子",
           "x": 230.9638,
           "y": 289.9725,
           "width": 335.5798,
@@ -21,7 +21,7 @@
         {
           "id": "ZBY_ZPJ_005",
           "label": "动态贴片-猫王猫砂",
-          "preview": "/preview/260109_贴片_铲屎官猫砂站_猫王猫砂",
+          "preview": "/preview/webp/260109_贴片_铲屎官猫砂站_猫王猫砂",
           "x": 612.4,
           "y": 289.9725,
           "width": 335.5798,
@@ -30,7 +30,7 @@
         {
           "id": "ZBY_ZPJ_005",
           "label": "动态贴片-亚宠展",
-          "preview": "/preview/250806_贴片_宠物生活_抢跑亚宠展",
+          "preview": "/preview/webp/250806_贴片_宠物生活_抢跑亚宠展",
           "x": 993.8363,
           "y": 289.9725,
           "width": 335.5798,
@@ -39,7 +39,7 @@
         {
           "id": "ZBY_ZPJ_005",
           "label": "动态贴片-阿飞和巴弟",
-          "preview": "/preview/251121_贴片_宠物生活_阿飞和巴弟",
+          "preview": "/preview/webp/251121_贴片_宠物生活_阿飞和巴弟",
           "x": 1375.2725,
           "y": 289.9725,
           "width": 335.5798,
@@ -48,12 +48,12 @@
       ]
     },
     {
-      "image": "ZBY_ZPJ_内页_06.jpg",
+      "image": "ZBY_ZPJ_内页_06.webp",
       "areas": [
         {
           "id": "ZBY_ZPJ_006",
           "label": "动态贴片-狂欢购",
-          "preview": "/preview/251013_贴片_宠物生活_双十一",
+          "preview": "/preview/webp/251013_贴片_宠物生活_双十一",
           "x": 230.9638,
           "y": 289.9725,
           "width": 335.5798,
@@ -62,7 +62,7 @@
         {
           "id": "ZBY_ZPJ_006",
           "label": "动态贴片-猫砂双十一",
-          "preview": "/preview/251112_贴片_宠物生活_双十一返厂",
+          "preview": "/preview/webp/251112_贴片_宠物生活_双十一返厂",
           "x": 612.4,
           "y": 289.9725,
           "width": 335.5798,
@@ -71,7 +71,7 @@
         {
           "id": "ZBY_ZPJ_006",
           "label": "动态贴片-美的星河",
-          "preview": "/preview/260331_贴片_数码家电_美的",
+          "preview": "/preview/webp/260331_贴片_数码家电_美的",
           "x": 993.8363,
           "y": 289.9725,
           "width": 335.5798,
@@ -80,7 +80,7 @@
         {
           "id": "ZBY_ZPJ_006",
           "label": "动态贴片-弗列加特",
-          "preview": "/preview/250807_贴片_宠物生活_弗列加特",
+          "preview": "/preview/webp/250807_贴片_宠物生活_弗列加特",
           "x": 1375.2725,
           "y": 289.9725,
           "width": 335.5798,

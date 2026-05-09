@@ -1,9 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const previewDir = path.join(__dirname, "preview");
+const previewDir = path.join(__dirname, "preview", "webp");
 const outputFile = path.join(__dirname, "preview-manifest.json");
-const mediaExtensions = new Set([".gif", ".jpeg", ".jpg", ".mp4", ".png", ".webp"]);
+const mediaExtensions = new Set([".mp4", ".webp"]);
 
 const manifest = {};
 
@@ -12,7 +12,7 @@ if (fs.existsSync(previewDir)) {
     .filter((entry) => entry.isDirectory())
     .forEach((entry) => {
       const directory = path.join(previewDir, entry.name);
-      const manifestKey = `/preview/${entry.name}`;
+      const manifestKey = `/preview/webp/${entry.name}`;
 
       manifest[manifestKey] = fs
         .readdirSync(directory, { withFileTypes: true })

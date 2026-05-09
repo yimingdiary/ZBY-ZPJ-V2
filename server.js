@@ -53,6 +53,17 @@ const collator = new Intl.Collator("zh-CN", {
   sensitivity: "base",
 });
 
+const imageExtensionPreference = new Map([
+  [".avif", 5],
+  [".webp", 4],
+  [".jpg", 3],
+  [".jpeg", 3],
+  [".png", 2],
+  [".gif", 1],
+  [".bmp", 0],
+  [".svg", 0],
+]);
+
 function send(res, status, body, type = "text/plain; charset=utf-8") {
   res.writeHead(status, {
     "Content-Type": type,
@@ -189,11 +200,26 @@ async function authorize(req, res, url) {
 function listImages() {
   if (!fs.existsSync(imagesDir)) fs.mkdirSync(imagesDir, { recursive: true });
 
-  return fs
+  const preferredByStem = new Map();
+
+  fs
     .readdirSync(imagesDir, { withFileTypes: true })
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
     .filter((name) => imageExtensions.has(path.extname(name).toLowerCase()))
+    .forEach((name) => {
+      const ext = path.extname(name).toLowerCase();
+      const stem = name.slice(0, -ext.length);
+      const current = preferredByStem.get(stem);
+      const score = imageExtensionPreference.get(ext) || 0;
+      const currentScore = current ? imageExtensionPreference.get(path.extname(current).toLowerCase()) || 0 : -1;
+
+      if (!current || score > currentScore || (score === currentScore && collator.compare(name, current) < 0)) {
+        preferredByStem.set(stem, name);
+      }
+    });
+
+  return [...preferredByStem.values()]
     .sort(collator.compare)
     .map((name) => ({
       name,

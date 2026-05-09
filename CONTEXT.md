@@ -1,11 +1,11 @@
 # CONTEXT.md
 
 ### 任务目标
-继续修复详情页移动端展开图层间距过大，并记录 iPhone Safari 底部标签页栏触发滑到底重复刷新/崩溃的复现条件。
+将项目素材源统一为 WebP：删除旧 JPG/PNG/GIF 分层素材和 `preview-optimized`，详情页直接使用 `preview/webp`。
 
 ### 当前状态
-- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；用户复测澄清 MP4 本身没问题，问题是 `背景.png` 中间镂空区域被优化 JPG 破坏 alpha 后不再透明，导致背后背景视频露出异常；已改为 alpha-capable 背景图如果优化资源是 JPG/JPEG，则详情页回退使用原始 PNG/WebP/GIF，保留透明镂空；已同步修正 `generate-preview-optimized.py`，以后带透明通道的背景优化图保留为 PNG；已去掉舞台、图层和填充媒体的统一圆角，并把 `stage-media` 从 `contain: paint` 改为不裁切绘制，避免背景视频四角、侧贴和文字被圆角裁切；已将触摸设备的详情页滚动改为 `touchmove` 手动驱动内层 `scrollTop`，并把滚动位置限制在 1 到 max-1，减少 iPhone Safari 触底弹性刷新和重载崩溃；用户确认 Safari 默认浏览器标签页栏在底部时会触发滑动展开图层后重复刷新，改成顶部标签页栏后不再复现；已把展开距离从背景视频/UI ±624、背景 ±312、贴片文 312 继续收紧至 ±520、±260；本地已通过 `node --check detail.js`，并用本地服务确认详情页、原始 `背景.png` 和优化 `背景视频.mp4` 可正常请求。
-- 进行中：等待用户在 iPhone Safari 和微信真机重新部署后复测：更紧凑的图层间距是否合适、透明镂空是否正常露出视频、圆角裁切是否消失。
+- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已将 `hotspots.json` 的首页图片名改为 `.webp`，预览目录改为 `/preview/webp/...`；已将 `generate-preview-manifest.js` 改为只扫描 `preview/webp/` 下的 `.webp` 和 `.mp4`；已重新生成 `preview-manifest.json`，所有预览 key 均为 `/preview/webp/...`；已从 `detail.js` 移除 `preview-optimized-manifest.json` 请求，详情页直接加载 WebP 分层素材；已删除 `images/` 内 JPG、`preview/` 下除 `webp` 外的旧分层目录、`preview-optimized/`、`preview-optimized-manifest.json` 和 `generate-preview-optimized.py`；当前 `images/` 只剩 18 张 WebP，`preview/` 下只剩 `webp` 文件夹。
+- 进行中：等待本地和真机复测直接使用 `preview/webp` 后的详情页动画、透明镂空和背景视频表现。
 - 待开始：如 iPhone Safari 在底部标签页栏模式仍需要彻底规避，需要为该浏览器模式进一步降低移动端 3D 旋转/位移，或单独降级为更轻的非 3D/静态 poster 展开方案。
 
 ### 已做决策
@@ -30,6 +30,9 @@
 | 移动端详情页手动驱动内层触摸滚动 | iPhone Safari 原生滚动到内层底部后会把继续上滑交给页面级弹性刷新，可能触发重载和崩溃；手动限制 `scrollTop` 可避免触边 | 继续只在边界拦截 `touchmove` 已被真机反馈证明不够稳定 |
 | 取消舞台媒体圆角和 paint 裁切 | 用户反馈背景视频四角、侧贴和文字都有被圆角裁切的观感；统一圆角和 paint containment 会让图层边缘被裁 | 只去掉视频圆角不能覆盖文字/侧贴被裁的问题 |
 | 记录 iPhone Safari 底部标签页栏复现条件 | 用户真机确认标签页栏在底部时会触发滑到底重复刷新，改到顶部后不再复现；这是判断是否继续代码降级的重要环境条件 | 把问题完全归因于视频或图层代码不准确，会导致继续在错误方向上排查 |
+| 首页同名图片优先加载 WebP | 用户已将长图转换为 WebP，实测首页长图体积从约 19.70 MB 降到约 7.36 MB，可减少首屏和后续懒加载传输压力 | 同时保留并返回 JPG/WebP 会重复显示和重复加载；直接批量改 `hotspots.json` 后缀会增加配置迁移成本 |
+| 热区按文件主名兼容不同后缀 | 保留兼容逻辑可避免未来同名素材换后缀时热区失效；当前 `hotspots.json` 已改为 `.webp` 图片名和 `/preview/webp/...` 目录 | 只依赖完全相同文件名更脆弱，素材格式迁移时容易漏改 |
+| 删除 `preview-optimized` 并直接使用 `preview/webp` | 用户明确要求先不考虑裁切优化，统一使用 WebP 分层素材，减少目录复杂度和网络体积 | 继续保留 `preview-optimized` 会造成双素材源维护；保留旧 PNG/GIF/JPG 分层目录会增加部署体积 |
 
 ### 待解决问题
 - [ ] 问题1：需要用 iPhone Safari 真机复测首页顶部、左右边缘和底部地址栏遮挡状态下是否仍有图片漏出。
@@ -39,6 +42,8 @@
 - [ ] 问题9：需要用 iPhone Safari 真机复测 `260117_贴片_宠物生活_毛孩子` 的背景镂空区域是否正常透明露出背景视频，不再显示 JPG 破坏 alpha 后的异常区域。
 - [ ] 问题11：需要用微信真机复测详情页初始打开是否不再黑屏，视频是否能在触摸后播放。
 - [ ] 问题13：需要用手机真机复测详情页背景视频、侧贴和文字边缘是否不再被圆角裁切。
+- [ ] 问题14：需要用户部署后复测首页 WebP 长图是否明显缩短加载时间，且热区点击仍可进入详情页。
+- [ ] 问题15：详情页已直接使用 `preview/webp`，需要真机复测 animated WebP、透明镂空、背景视频和 3D 展开是否稳定。
 - [x] 问题5：本地移动端模拟验证 `#app` 裁剪框从全屏修正为 PS 内容区，并验证触摸上滑可驱动 `window.scrollY` 和图片流同步移动。
 - [x] 问题6：本地移动端模拟确认触摸设备上 SVG 覆盖层不再接管触摸，触摸上滑使用原生滚动；初始顶部深色条来自 SVG 顶部工具栏区域。
 - [x] 问题2：Cloudflare Pages Production 环境变量截图显示已配置 `ACCESS_KEY_ENABLED=true` 和 `ACCESS_KEY=1234`；用户确认重新部署后访问码已生效。
@@ -61,7 +66,6 @@
 - `detail.css`
 - `hotspots.json`
 - `preview-manifest.json`
-- `preview-optimized-manifest.json`
 - `images-manifest.json`
 - `README.md`
 - `yulan-README.md`

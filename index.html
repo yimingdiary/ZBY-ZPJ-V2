@@ -497,6 +497,10 @@
         return String(directory || "").replace(/\/$/, "");
       }
 
+      function imageStem(name) {
+        return String(name || "").replace(/\.[^.]+$/, "");
+      }
+
       async function loadPreviewManifest() {
         try {
           const response = await fetch("/preview-manifest.json");
@@ -783,8 +787,22 @@
         return link;
       }
 
+      function hotspotsForImage(imageName) {
+        const directMatch = hotspotState.byImage.get(imageName) || [];
+        if (directMatch.length) return directMatch;
+
+        const stem = imageStem(imageName);
+        if (!stem) return [];
+
+        for (const [configuredImage, hotspots] of hotspotState.byImage.entries()) {
+          if (imageStem(configuredImage) === stem) return hotspots;
+        }
+
+        return [];
+      }
+
       function createHotspotLayer(imageName) {
-        const hotspots = hotspotState.byImage.get(imageName) || [];
+        const hotspots = hotspotsForImage(imageName);
         if (!hotspots.length) return null;
 
         const layer = document.createElement("div");
@@ -807,7 +825,7 @@
           if (!insideFrame) continue;
 
           const imageName = frame.dataset.imageName;
-          const hotspots = hotspotState.byImage.get(imageName) || [];
+          const hotspots = hotspotsForImage(imageName);
           const localX = ((clientX - rect.left) / rect.width) * 100;
           const localY = ((clientY - rect.top) / rect.height) * 100;
 

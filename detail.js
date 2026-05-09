@@ -187,7 +187,10 @@
     const fileSet = new Set(files);
     return files.filter((fileName) => {
       if (/-mobile-still\.png$/i.test(fileName)) return false;
-      if (fileName === "顶部挂件-文-动.gif" && fileSet.has("顶部挂件-文-动-loop.gif")) return false;
+      if (/^顶部挂件-文-动\.(gif|webp)$/i.test(fileName)) {
+        const loopFile = fileName.replace(/-动\.(gif|webp)$/i, "-动-loop.$1");
+        if (fileSet.has(loopFile)) return false;
+      }
       return true;
     });
   }
@@ -462,7 +465,7 @@
       element.loading = "eager";
       element.alt = "";
     }
-    if (ext === "gif") element.classList.add("animated-media");
+    if (ext === "gif" || /-动(?:-loop)?\.(webp)$/i.test(fileName)) element.classList.add("animated-media");
     element.src = mediaURL(directory, fileName, asset);
     return element;
   }
@@ -919,10 +922,9 @@
     updateScrollTarget();
     requestMotionFrame();
 
-    const [hotspotConfig, manifest, optimizedManifest] = await Promise.all([
+    const [hotspotConfig, manifest] = await Promise.all([
       fetchJson("/hotspots.json", {}),
       fetchJson("/preview-manifest.json", {}),
-      fetchJson("/preview-optimized-manifest.json", {}),
     ]);
     const directory = resolvePreviewDirectory(hotspotConfig);
     if (!directory) {
@@ -938,9 +940,6 @@
       showEmptyState(`预览目录没有可用文件：${directory}`);
       return;
     }
-
-    const optimizedEntry = optimizedManifest[normalizePreviewDirectory(directory)] || {};
-    state.optimizedAssets = new Map(Object.entries(optimizedEntry));
 
     await renderStructuredPreview(directory, files);
     updateScale();
