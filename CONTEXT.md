@@ -1,11 +1,11 @@
 # CONTEXT.md
 
 ### 任务目标
-将项目素材源统一为 WebP：删除旧 JPG/PNG/GIF 分层素材和 `preview-optimized`，详情页直接使用 `preview/webp`。
+修复详情页切换为 `preview/webp` 后在 iPhone Safari/微信中重复刷新并崩溃的问题。
 
 ### 当前状态
-- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已将 `hotspots.json` 的首页图片名改为 `.webp`，预览目录改为 `/preview/webp/...`；已将 `generate-preview-manifest.js` 改为只扫描 `preview/webp/` 下的 `.webp` 和 `.mp4`；已重新生成 `preview-manifest.json`，所有预览 key 均为 `/preview/webp/...`；已从 `detail.js` 移除 `preview-optimized-manifest.json` 请求，详情页直接加载 WebP 分层素材；已删除 `images/` 内 JPG、`preview/` 下除 `webp` 外的旧分层目录、`preview-optimized/`、`preview-optimized-manifest.json` 和 `generate-preview-optimized.py`；当前 `images/` 只剩 18 张 WebP，`preview/` 下只剩 `webp` 文件夹。
-- 进行中：等待本地和真机复测直接使用 `preview/webp` 后的详情页动画、透明镂空和背景视频表现。
+- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；用户反馈切换到 `preview/webp` 后详情页再次出现疯狂重复刷新并导致网页崩溃；已判断主要风险来自触摸设备一次性解码多张全尺寸 WebP/animated WebP 并参与 3D 合成，导致 WebKit/微信内核进程崩溃后自动恢复页面；已在 `detail.js` 增加移动端安全加载策略：触摸设备只加载背景、背景视频和核心静态背板/底部文案图层，跳过 animated WebP 和额外透明层；触摸设备视频预加载从 `auto` 改为 `metadata`，并且只在用户触摸激活后尝试播放；桌面端仍加载完整 WebP 分层；已通过 `node --check detail.js`。
+- 进行中：等待用户重新部署后在 iPhone Safari/微信真机复测详情页是否停止重复刷新/崩溃。
 - 待开始：如 iPhone Safari 在底部标签页栏模式仍需要彻底规避，需要为该浏览器模式进一步降低移动端 3D 旋转/位移，或单独降级为更轻的非 3D/静态 poster 展开方案。
 
 ### 已做决策
@@ -33,6 +33,7 @@
 | 首页同名图片优先加载 WebP | 用户已将长图转换为 WebP，实测首页长图体积从约 19.70 MB 降到约 7.36 MB，可减少首屏和后续懒加载传输压力 | 同时保留并返回 JPG/WebP 会重复显示和重复加载；直接批量改 `hotspots.json` 后缀会增加配置迁移成本 |
 | 热区按文件主名兼容不同后缀 | 保留兼容逻辑可避免未来同名素材换后缀时热区失效；当前 `hotspots.json` 已改为 `.webp` 图片名和 `/preview/webp/...` 目录 | 只依赖完全相同文件名更脆弱，素材格式迁移时容易漏改 |
 | 删除 `preview-optimized` 并直接使用 `preview/webp` | 用户明确要求先不考虑裁切优化，统一使用 WebP 分层素材，减少目录复杂度和网络体积 | 继续保留 `preview-optimized` 会造成双素材源维护；保留旧 PNG/GIF/JPG 分层目录会增加部署体积 |
+| 触摸设备详情页降级加载 WebP 分层 | 未裁切 WebP 图层在浏览器内仍按全尺寸纹理解码，animated WebP 还会带来多帧解码压力；移动端需优先保证页面不崩溃 | 继续在手机加载全部 WebP 分层会复现重复刷新/崩溃；立即恢复 `preview-optimized` 与用户刚要求的目录收敛方向冲突 |
 
 ### 待解决问题
 - [ ] 问题1：需要用 iPhone Safari 真机复测首页顶部、左右边缘和底部地址栏遮挡状态下是否仍有图片漏出。
@@ -43,7 +44,7 @@
 - [ ] 问题11：需要用微信真机复测详情页初始打开是否不再黑屏，视频是否能在触摸后播放。
 - [ ] 问题13：需要用手机真机复测详情页背景视频、侧贴和文字边缘是否不再被圆角裁切。
 - [ ] 问题14：需要用户部署后复测首页 WebP 长图是否明显缩短加载时间，且热区点击仍可进入详情页。
-- [ ] 问题15：详情页已直接使用 `preview/webp`，需要真机复测 animated WebP、透明镂空、背景视频和 3D 展开是否稳定。
+- [ ] 问题15：详情页触摸设备已降级加载 `preview/webp`，需要真机复测是否停止重复刷新/崩溃；如仍崩溃，需要进一步把移动端详情页降级为静态 poster 或恢复裁切版 WebP 优化管线。
 - [x] 问题5：本地移动端模拟验证 `#app` 裁剪框从全屏修正为 PS 内容区，并验证触摸上滑可驱动 `window.scrollY` 和图片流同步移动。
 - [x] 问题6：本地移动端模拟确认触摸设备上 SVG 覆盖层不再接管触摸，触摸上滑使用原生滚动；初始顶部深色条来自 SVG 顶部工具栏区域。
 - [x] 问题2：Cloudflare Pages Production 环境变量截图显示已配置 `ACCESS_KEY_ENABLED=true` 和 `ACCESS_KEY=1234`；用户确认重新部署后访问码已生效。

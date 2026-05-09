@@ -161,7 +161,7 @@ http://localhost:4173/?debugHotspots
 
 详情页 3D 展开已按无主播层素材重新调整深度：背景视频、背景层、贴片背、贴片文和 UI 层按等距 Z 轴序列展开，并保留轻微初始 Z 偏移，避免 WebKit/微信内核在未滚动时把共面图层渲染成黑屏。移动端当前使用更紧凑的展开距离，减少图层过散和 iPhone Safari 3D 合成压力。用户真机复测发现 iPhone Safari 标签页栏在底部时更容易在滑到底继续滑动时触发重复刷新，把标签页栏改到顶部后不再复现。
 
-详情页直接使用 `preview/webp/` 中的 WebP 分层素材，不再读取 `preview-optimized/` 或裁切映射。视频层会先使用背景图作为 poster，拿到可播放帧后再显示，避免加载期黑屏。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
+详情页直接使用 `preview/webp/` 中的 WebP 分层素材，不再读取 `preview-optimized/` 或裁切映射。为避免 iPhone Safari 和微信内核因一次性解码多张全尺寸 WebP/animated WebP 触发崩溃恢复，触摸设备详情页只加载背景、视频和核心静态背板/底部文案图层，跳过 animated WebP 和额外透明层；桌面端仍加载完整分层。视频层会先使用背景图作为 poster，拿到可播放帧后再显示，避免加载期黑屏。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
 
 ## 配置说明
 

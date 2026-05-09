@@ -195,6 +195,28 @@
     });
   }
 
+  function isAnimatedPreviewFile(fileName) {
+    return /-动(?:-loop)?\.(gif|webp)$/i.test(fileName);
+  }
+
+  function mobileSafePreviewFiles(files) {
+    if (!IS_TOUCH_PREVIEW) return files;
+    const result = [];
+    const roleEntries = selectRoleEntries(files);
+    const keep = (fileName) => {
+      if (fileName && !result.includes(fileName)) result.push(fileName);
+    };
+
+    keep(files.find(isBackplateFile));
+    keep(files.find(isBackgroundFile));
+    roleEntries.forEach(({ entry, config }) => {
+      if (!entry || isAnimatedPreviewFile(entry.fileName)) return;
+      if (config.role === "topText") return;
+      keep(entry.fileName);
+    });
+    return result;
+  }
+
   function optimizedAsset(fileName) {
     return state.optimizedAssets.get(fileName) || null;
   }
@@ -437,6 +459,7 @@
   }
 
   function playVideos() {
+    if (IS_TOUCH_PREVIEW && !state.userActivatedPlayback) return;
     dom.deviceStage.querySelectorAll("video").forEach((video) => {
       video.play().catch(() => {});
     });
@@ -458,14 +481,14 @@
       element.setAttribute("muted", "");
       element.setAttribute("playsinline", "");
       element.setAttribute("webkit-playsinline", "");
-      element.preload = "auto";
+      element.preload = IS_TOUCH_PREVIEW ? "metadata" : "auto";
       prepareVideoElement(element);
     } else {
       element.decoding = "async";
       element.loading = "eager";
       element.alt = "";
     }
-    if (ext === "gif" || /-动(?:-loop)?\.(webp)$/i.test(fileName)) element.classList.add("animated-media");
+    if (ext === "gif" || isAnimatedPreviewFile(fileName)) element.classList.add("animated-media");
     element.src = mediaURL(directory, fileName, asset);
     return element;
   }
@@ -593,7 +616,7 @@
   }
 
   function renderStructuredPreview(directory, files) {
-    const cleanFiles = filteredPreviewFiles(files);
+    const cleanFiles = mobileSafePreviewFiles(filteredPreviewFiles(files));
     const roleFileNames = new Set();
     cleanFiles.forEach((fileName) => {
       const entry = normalizeAssetEntry(fileName);
