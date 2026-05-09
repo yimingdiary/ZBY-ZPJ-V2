@@ -39,7 +39,8 @@
     cssVars: new Map(),
     layerExpanded: false,
     animationFrame: 0,
-    lastTouchY: 0,
+    touchStartY: 0,
+    touchStartScrollTop: 0,
     userActivatedPlayback: false,
   };
 
@@ -73,6 +74,20 @@
 
   function mediaURL(directory, fileName, asset) {
     return encodeURI(asset?.optimized || `${normalizePreviewDirectory(directory)}/${fileName}`);
+  }
+
+  function shouldUseOptimizedAsset(fileName, asset) {
+    if (!asset?.optimized) return false;
+    const sourceExt = fileExtension(fileName);
+    const optimizedExt = fileExtension(asset.optimized);
+    const isAlphaCapableBackground = isBackgroundFile(fileName) && ["png", "webp", "gif"].includes(sourceExt);
+    if (isAlphaCapableBackground && ["jpg", "jpeg"].includes(optimizedExt)) return false;
+    return true;
+  }
+
+  function resolvedAsset(fileName) {
+    const asset = optimizedAsset(fileName);
+    return shouldUseOptimizedAsset(fileName, asset) ? asset : null;
   }
 
   async function fetchJson(url, fallback) {
@@ -474,7 +489,7 @@
   }
 
   function addFillLayer(layerElement, directory, fileName, options) {
-    const asset = options.asset || optimizedAsset(fileName);
+    const asset = options.asset || resolvedAsset(fileName);
     const element = createMediaElement(directory, fileName, options.className, asset);
     if (asset?.kind === "positioned") applyPositionedAsset(element, asset);
     layerElement.appendChild(element);
@@ -509,7 +524,7 @@
   }
 
   function addStickerItem(layerElement, directory, entry, roleConfig) {
-    const asset = entry.asset || optimizedAsset(entry.fileName);
+    const asset = entry.asset || resolvedAsset(entry.fileName);
     const element = createStickerElement(directory, entry.fileName, roleConfig.anchor, asset);
     layerElement.appendChild(element);
     const item = {
@@ -596,7 +611,7 @@
 
     const background = cleanFiles.find(isBackgroundFile);
     if (background) {
-      const backgroundAsset = optimizedAsset(background);
+      const backgroundAsset = resolvedAsset(background);
       const backgroundURL = mediaURL(directory, background, backgroundAsset);
       dom.deviceStage.classList.add("has-background");
       dom.backgroundImage.src = backgroundURL;
@@ -708,7 +723,8 @@
   function handlePreviewTouchStart(event) {
     if (!IS_TOUCH_PREVIEW || event.touches.length !== 1) return;
     nudgeScrollBoundary();
-    state.lastTouchY = event.touches[0].clientY;
+    state.touchStartY = event.touches[0].clientY;
+    state.touchStartScrollTop = dom.previewScroll.scrollTop;
     if (!state.userActivatedPlayback) {
       state.userActivatedPlayback = true;
       playVideos();
@@ -719,22 +735,16 @@
     if (!IS_TOUCH_PREVIEW || event.touches.length !== 1) return;
 
     const touchY = event.touches[0].clientY;
-    const deltaY = touchY - state.lastTouchY;
-    state.lastTouchY = touchY;
-
     const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
     if (max <= 0) {
       event.preventDefault();
       return;
     }
 
-    const atTop = dom.previewScroll.scrollTop <= 0;
-    const atBottom = dom.previewScroll.scrollTop >= max - 1;
-    if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
-      event.preventDefault();
-      dom.previewScroll.scrollTop = atTop ? 1 : Math.max(0, max - 1);
-      updateScrollTarget();
-    }
+    event.preventDefault();
+    const dragDelta = state.touchStartY - touchY;
+    dom.previewScroll.scrollTop = clamp(state.touchStartScrollTop + dragDelta, 1, Math.max(1, max - 1));
+    updateScrollTarget();
   }
 
   function nudgeScrollBoundary() {
@@ -892,7 +902,7 @@
   function bindEvents() {
     dom.previewScroll.addEventListener("wheel", handlePreviewWheel, { passive: false });
     dom.previewScroll.addEventListener("scroll", updateScrollTarget, { passive: true });
-    dom.previewScroll.addEventListener("touchstart", handlePreviewTouchStart, { passive: true });
+    dom.previewScroll.addEventListener("touchstart", handlePreviewTouchStart, { passive: false });
     dom.previewScroll.addEventListener("touchmove", handlePreviewTouchMove, { passive: false });
     dom.previewScroll.addEventListener("pointermove", updatePointerMotion);
     dom.previewScroll.addEventListener("pointerleave", resetPointerTarget);

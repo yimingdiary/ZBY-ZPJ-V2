@@ -65,7 +65,7 @@ video {
   overscroll-behavior: none;
   overflow-anchor: none;
   scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: auto;
 }
 
 .preview-scroll::-webkit-scrollbar {
@@ -128,12 +128,13 @@ video {
     rotateZ(calc(var(--scroll) * 4deg));
   transform-style: preserve-3d;
   transform-origin: center;
-  border-radius: 70px;
+  border-radius: 0;
+  overflow: visible;
   background: transparent;
   box-shadow: none;
   cursor: default;
   user-select: none;
-  touch-action: pan-y;
+  touch-action: none;
   will-change: transform;
 }
 
@@ -149,7 +150,6 @@ video {
   position: absolute;
   inset: 0;
   overflow: visible;
-  border-radius: 70px;
   transform-style: preserve-3d;
   pointer-events: none;
   transition: opacity 160ms ease;
@@ -205,18 +205,18 @@ html:not(.is-layer-expanded) .selection-frame {
 .backplate-layer {
   z-index: 0;
   transform:
-    translateX(calc(var(--scroll) * 180px))
-    translateY(calc(var(--scroll) * -24px))
-    translateZ(calc(-8px + var(--scroll) * -720px));
+    translateX(calc(var(--scroll) * 156px))
+    translateY(calc(var(--scroll) * -20px))
+    translateZ(calc(-8px + var(--scroll) * -624px));
 }
 
 .background-layer {
   z-index: 1;
   pointer-events: auto;
   transform:
-    translateX(calc(var(--scroll) * 90px))
-    translateY(calc(var(--scroll) * -12px))
-    translateZ(calc(-4px + var(--scroll) * -360px));
+    translateX(calc(var(--scroll) * 78px))
+    translateY(calc(var(--scroll) * -10px))
+    translateZ(calc(-4px + var(--scroll) * -312px));
 }
 
 .device-stage.has-background .background-layer,
@@ -234,25 +234,25 @@ html:not(.is-layer-expanded) .selection-frame {
 .sticker-back-layer {
   z-index: 2;
   transform:
-    translateX(calc(var(--scroll) * -45px))
-    translateY(calc(var(--scroll) * -20px))
+    translateX(calc(var(--scroll) * -39px))
+    translateY(calc(var(--scroll) * -17px))
     translateZ(4px);
 }
 
 .sticker-front-layer {
   z-index: 3;
   transform:
-    translateX(calc(var(--scroll) * -90px))
-    translateY(calc(var(--scroll) * -32px))
-    translateZ(calc(8px + var(--scroll) * 360px));
+    translateX(calc(var(--scroll) * -78px))
+    translateY(calc(var(--scroll) * -28px))
+    translateZ(calc(8px + var(--scroll) * 312px));
 }
 
 .ui-layer {
   z-index: 4;
   transform:
-    translateX(calc(var(--scroll) * -135px))
-    translateY(calc(var(--scroll) * -44px))
-    translateZ(calc(12px + var(--scroll) * 720px));
+    translateX(calc(var(--scroll) * -117px))
+    translateY(calc(var(--scroll) * -38px))
+    translateZ(calc(12px + var(--scroll) * 624px));
 }
 
 .stage-media {
@@ -263,7 +263,7 @@ html:not(.is-layer-expanded) .selection-frame {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   will-change: transform, opacity;
-  contain: paint;
+  contain: layout style;
 }
 
 .animated-media {
@@ -288,7 +288,6 @@ html:not(.is-layer-expanded) .selection-frame {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 70px;
 }
 
 .background-media {
@@ -318,7 +317,6 @@ html:not(.is-layer-expanded) .selection-frame {
 .default-background {
   position: absolute;
   inset: 0;
-  border-radius: 70px;
   background: transparent;
   transform: translate3d(var(--pointer-depth-x), var(--pointer-depth-y), 0);
 }

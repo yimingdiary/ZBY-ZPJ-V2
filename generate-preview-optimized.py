@@ -42,10 +42,14 @@ def union_bbox(boxes):
 
 def save_background(source, target):
     with Image.open(source) as image:
-        target_name = f"{source.stem}.jpg"
+        has_alpha = image.mode in {"RGBA", "LA"} or "transparency" in image.info
+        target_name = f"{source.stem}.png" if has_alpha else f"{source.stem}.jpg"
         target = target / target_name
         target.parent.mkdir(parents=True, exist_ok=True)
-        image.convert("RGB").save(target, "JPEG", quality=82, optimize=True, progressive=True)
+        if has_alpha:
+            image.convert("RGBA").save(target, "PNG", optimize=True)
+        else:
+            image.convert("RGB").save(target, "JPEG", quality=82, optimize=True, progressive=True)
         return {
             "fileName": source.name,
             "optimized": asset_path(target.parent, target_name),
