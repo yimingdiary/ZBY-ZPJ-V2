@@ -12,8 +12,8 @@
 - 热区悬停时读取 `preview-manifest.json`，在原位置叠加贴片素材预览。
 - 触摸设备不创建首页热区悬浮预览，点击热区直接进入详情页。
 - 详情页根据热区关联的 `preview/webp/` 子目录，渲染 1290 x 2791 的直播间贴片分层舞台。
-- 详情页支持滚动触发 3D 视差展开、图层选区框显隐、桌面端背景横向拖动预览、animated WebP 和视频素材播放；触摸设备会降级为轻量 2D 静态预览以避免 iPhone Safari/微信重复刷新崩溃。
-- 当前网页标题版本号为 `朱宝玉.psd-1.0.0`。
+- 详情页支持滚动触发 3D 视差展开、图层选区框显隐、桌面端背景横向拖动预览、animated WebP 和视频素材播放；移动端保留 3D 展开，但优先使用裁切后的 WebP 图层和分批加载降低 WebKit 合成压力。
+- 当前网页标题版本号为 `朱宝玉.psd-1.0.1`。
 
 ## 运行方式
 
@@ -78,6 +78,15 @@ node generate-preview-manifest.js
 
 该脚本会扫描 `preview/webp/` 下每个子目录中的 `.webp` 和 `.mp4` 文件，并写入 `preview-manifest.json`。
 
+生成裁切后的 WebP 图层和坐标清单：
+
+```bash
+python3 -m pip install --user Pillow
+python3 generate-preview-optimized.py
+```
+
+该脚本会读取 `preview/webp/` 下每个全尺寸透明图层，按 alpha 内容裁切为 `preview-optimized/` 内的独立 WebP，并写入 `preview-optimized-manifest.json`。背景层继续使用原始 `preview/webp/背景.webp`，避免重复压缩造成体积变大。
+
 ## 目录结构
 
 ```text
@@ -92,12 +101,15 @@ node generate-preview-manifest.js
 ├── detail.js                   # 详情页素材解析、渲染和交互逻辑
 ├── functions/_middleware.js    # Cloudflare Pages 访问码中间件
 ├── generate-preview-manifest.js# 预览素材清单生成脚本
+├── generate-preview-optimized.py# 裁切 WebP 图层生成脚本
 ├── hotspots.json               # 首页图片热区配置
 ├── images-manifest.json        # 静态图片清单兜底
 ├── preview-manifest.json       # 预览素材清单
+├── preview-optimized-manifest.json # 裁切图层坐标清单
 ├── images/                     # 首页作品集图片
 ├── preview/
 │   └── webp/                   # 每个贴片项目的 WebP 分层素材目录
+├── preview-optimized/          # 裁切后的 WebP 图层，按 manifest 坐标放回舞台
 └── assets/
     ├── icons/                  # logo、移动光标等 SVG
     └── overlays/               # 直播间 UI 覆盖图
@@ -162,7 +174,7 @@ http://localhost:4173/?debugHotspots
 
 详情页 3D 展开已按无主播层素材重新调整深度：背景视频、背景层、贴片背、贴片文和 UI 层按等距 Z 轴序列展开，并保留轻微初始 Z 偏移，避免 WebKit/微信内核在未滚动时把共面图层渲染成黑屏。移动端当前使用更紧凑的展开距离，减少图层过散和 iPhone Safari 3D 合成压力。用户真机复测发现 iPhone Safari 标签页栏在底部时更容易在滑到底继续滑动时触发重复刷新，把标签页栏改到顶部后不再复现。
 
-详情页直接使用 `preview/webp/` 中的 WebP 分层素材，不再读取 `preview-optimized/` 或裁切映射。为避免 iPhone Safari 和微信内核因一次性解码多张全尺寸 WebP/animated WebP 触发崩溃恢复，触摸设备详情页只加载背景和核心静态贴片图层，跳过视频、animated WebP 和额外透明层，并关闭 3D 展开，改为 2D 静态舞台；桌面端仍加载完整分层。桌面端 animated WebP 会使用同目录 `*-still.png` 首帧作为底层兜底，避免动图在 3D 合成中解码露空造成频闪。视频层会先使用背景图作为 poster，拿到可播放帧后再显示，避免加载期黑屏。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
+详情页以 `preview/webp/` 作为源素材目录，同时读取 `preview-optimized-manifest.json` 中的裁切坐标；除背景和视频外，静态贴片、animated WebP 和额外透明层会优先加载 `preview-optimized/` 中裁切后的 WebP，并按 `left/top/width/height/sourceWidth/sourceHeight` 放回 1290 x 2791 舞台坐标。这样保持和原始静态整图的精准对齐，也保留滚动 3D 展开，但移动端不再把每个透明图层都当作全尺寸纹理解码。触摸设备会先加载背景和核心静态层，animated WebP、额外层和视频延后加载；视频仍需用户触摸激活后才尝试播放。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
 
 ## 配置说明
 
@@ -206,23 +218,20 @@ http://localhost:4173/?debugHotspots
 顶部挂件-背.webp
 顶部挂件-文.webp
 顶部挂件-文-动.webp
-顶部挂件-文-动-still.png
 顶部挂件-文-动-loop.webp
-顶部挂件-文-动-loop-still.png
 底部挂件-背.webp
 底部挂件-文.webp
 ```
 
-`*-still.png` 是 animated WebP/GIF 的首帧兜底资源，桌面详情页会自动按动图文件名推导加载；移动端不会加载动图。额外素材可以使用任意文件名，详情页会放入前景额外层。
-
-新增或替换 `preview/webp/` 素材后，需要重新生成 `preview-manifest.json`。
+额外素材可以使用任意文件名，详情页会放入前景额外层。新增或替换全尺寸 WebP 图层后，需要重新生成 `preview-manifest.json` 和 `preview-optimized-manifest.json`。
 
 ## 添加新贴片
 
 1. 在 `preview/webp/` 下新增一个目录，并放入 WebP 分层素材。
 2. 运行 `node generate-preview-manifest.js` 更新 `preview-manifest.json`。
-3. 在 `hotspots.json` 中为对应 `images/` 图片增加热区，`preview` 指向 `/preview/webp/...` 新目录。
-4. 重启或刷新 `node server.js` 打开的页面检查效果。
+3. 运行 `python3 generate-preview-optimized.py` 更新 `preview-optimized/` 和 `preview-optimized-manifest.json`。
+4. 在 `hotspots.json` 中为对应 `images/` 图片增加热区，`preview` 指向 `/preview/webp/...` 新目录。
+5. 重启或刷新 `node server.js` 打开的页面检查效果。
 
 ## 注意事项
 

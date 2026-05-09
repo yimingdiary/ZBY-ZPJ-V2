@@ -1,5 +1,5 @@
 (function () {
-  const DETAIL_VERSION = "1.0.0";
+  const DETAIL_VERSION = "1.0.1";
   const STAGE = { width: 1290, height: 2791 };
   const TOP_TEXT_FALLBACK_OFFSET = 140;
   const SELECTION_PADDING = 24;
@@ -43,6 +43,7 @@
     touchStartY: 0,
     touchStartScrollTop: 0,
     userActivatedPlayback: false,
+    activationTasks: [],
   };
 
   const dom = {
@@ -78,11 +79,6 @@
 
   function mediaURL(directory, fileName, asset) {
     return encodeURI(asset?.optimized || `${normalizePreviewDirectory(directory)}/${fileName}`);
-  }
-
-  function stillFallbackURL(directory, fileName) {
-    if (!isAnimatedPreviewFile(fileName)) return "";
-    return assetURL(directory, fileName.replace(/\.(webp|gif)$/i, "-still.png"));
   }
 
   function shouldUseOptimizedAsset(fileName, asset) {
@@ -209,20 +205,7 @@
   }
 
   function mobileSafePreviewFiles(files) {
-    if (!IS_TOUCH_PREVIEW) return files;
-    const result = [];
-    const roleEntries = selectRoleEntries(files);
-    const keep = (fileName) => {
-      if (fileName && !result.includes(fileName)) result.push(fileName);
-    };
-
-    keep(files.find(isBackgroundFile));
-    roleEntries.forEach(({ entry, config }) => {
-      if (!entry || isAnimatedPreviewFile(entry.fileName)) return;
-      if (config.role === "topText") return;
-      keep(entry.fileName);
-    });
-    return result;
+    return files;
   }
 
   function optimizedAsset(fileName) {
@@ -496,16 +479,7 @@
       element.loading = "eager";
       element.alt = "";
     }
-    if (ext === "gif" || isAnimatedPreviewFile(fileName)) {
-      element.classList.add("animated-media");
-      const stillURL = stillFallbackURL(directory, fileName);
-      if (stillURL) {
-        element.style.backgroundImage = `url("${stillURL}")`;
-        element.style.backgroundSize = "100% 100%";
-        element.style.backgroundPosition = "center";
-        element.style.backgroundRepeat = "no-repeat";
-      }
-    }
+    if (ext === "gif" || isAnimatedPreviewFile(fileName)) element.classList.add("animated-media");
     element.src = mediaURL(directory, fileName, asset);
     return element;
   }
@@ -632,6 +606,41 @@
     });
   }
 
+  function scheduleDeferredPreviewTasks(tasks) {
+    if (!tasks.length) return;
+    let index = 0;
+    const runNext = () => {
+      const task = tasks[index];
+      index += 1;
+      Promise.resolve(task())
+        .then(() => {
+          alignStickerTextItems();
+          updateAllSelectionFrames();
+          playVideos();
+        })
+        .finally(() => {
+          if (index < tasks.length) window.setTimeout(runNext, IS_TOUCH_PREVIEW ? 180 : 0);
+        });
+    };
+    const start = () => window.setTimeout(runNext, IS_TOUCH_PREVIEW ? 420 : 0);
+    if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 900 });
+    else start();
+  }
+
+  function enqueueActivationTask(task) {
+    if (!IS_TOUCH_PREVIEW || state.userActivatedPlayback) {
+      scheduleDeferredPreviewTasks([task]);
+      return;
+    }
+    state.activationTasks.push(task);
+  }
+
+  function flushActivationTasks() {
+    if (!state.activationTasks.length) return;
+    const tasks = state.activationTasks.splice(0);
+    scheduleDeferredPreviewTasks(tasks);
+  }
+
   function renderStructuredPreview(directory, files) {
     const cleanFiles = mobileSafePreviewFiles(filteredPreviewFiles(files));
     const roleFileNames = new Set();
@@ -640,15 +649,20 @@
       if (ZIP_ROLES[entry.base]) roleFileNames.add(fileName);
     });
     const mediaPromises = [];
+    const deferredTasks = [];
 
     const backplate = cleanFiles.find(isBackplateFile);
     if (backplate) {
-      const { element } = addFillLayer(dom.backplateLayer, directory, backplate, {
-        className: "stage-media media-stage-fill backplate-media",
-        accent: SELECTION_ACCENTS.backplate,
-        fit: "contain",
-      });
-      mediaPromises.push(waitForMediaElement(element));
+      const addBackplate = () => {
+        const { element } = addFillLayer(dom.backplateLayer, directory, backplate, {
+          className: "stage-media media-stage-fill backplate-media",
+          accent: SELECTION_ACCENTS.backplate,
+          fit: "contain",
+        });
+        return waitForMediaElement(element);
+      };
+      if (IS_TOUCH_PREVIEW) enqueueActivationTask(addBackplate);
+      else mediaPromises.push(addBackplate());
       roleFileNames.add(backplate);
     }
 
@@ -679,21 +693,29 @@
 
     selectRoleEntries(cleanFiles).forEach(({ entry, config }) => {
       const layerElement = config.layer === "front" ? dom.stickerFrontLayer : dom.stickerBackLayer;
-      const item = addStickerItem(layerElement, directory, entry, config);
-      mediaPromises.push(waitForMediaElement(item.element).then(() => prepareSelectionBox(item)));
+      const addRoleItem = () => {
+        const item = addStickerItem(layerElement, directory, entry, config);
+        return waitForMediaElement(item.element).then(() => prepareSelectionBox(item));
+      };
+      if (IS_TOUCH_PREVIEW && isAnimatedPreviewFile(entry.fileName)) deferredTasks.push(addRoleItem);
+      else mediaPromises.push(addRoleItem());
     });
 
     cleanFiles
       .filter((fileName) => !roleFileNames.has(fileName))
       .filter((fileName) => !isBackgroundFile(fileName) && !isBackplateFile(fileName))
       .forEach((fileName) => {
-        const { element, item } = addFillLayer(dom.stickerFrontLayer, directory, fileName, {
-          className: "stage-media media-stage-fill extra-media",
-          accent: SELECTION_ACCENTS.extra,
-          fit: "contain",
-          selectionMode: "content",
-        });
-        mediaPromises.push(waitForMediaElement(element).then(() => prepareSelectionBox(item)));
+        const addExtraItem = () => {
+          const { element, item } = addFillLayer(dom.stickerFrontLayer, directory, fileName, {
+            className: "stage-media media-stage-fill extra-media",
+            accent: SELECTION_ACCENTS.extra,
+            fit: "contain",
+            selectionMode: "content",
+          });
+          return waitForMediaElement(element).then(() => prepareSelectionBox(item));
+        };
+        if (IS_TOUCH_PREVIEW) deferredTasks.push(addExtraItem);
+        else mediaPromises.push(addExtraItem());
       });
 
     addUiLayer();
@@ -702,6 +724,7 @@
       alignStickerTextItems();
       updateAllSelectionFrames();
       playVideos();
+      scheduleDeferredPreviewTasks(deferredTasks);
     });
   }
 
@@ -746,11 +769,6 @@
   }
 
   function updateScrollTarget() {
-    if (IS_TOUCH_PREVIEW) {
-      state.targetProgress = 0;
-      requestMotionFrame();
-      return;
-    }
     const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
     state.targetProgress = max > 0 ? dom.previewScroll.scrollTop / max : 0;
     requestMotionFrame();
@@ -775,6 +793,7 @@
     state.touchStartScrollTop = dom.previewScroll.scrollTop;
     if (!state.userActivatedPlayback) {
       state.userActivatedPlayback = true;
+      flushActivationTasks();
       playVideos();
     }
   }
@@ -967,9 +986,10 @@
     updateScrollTarget();
     requestMotionFrame();
 
-    const [hotspotConfig, manifest] = await Promise.all([
+    const [hotspotConfig, manifest, optimizedManifest] = await Promise.all([
       fetchJson("/hotspots.json", {}),
       fetchJson("/preview-manifest.json", {}),
+      fetchJson("/preview-optimized-manifest.json", {}),
     ]);
     const directory = resolvePreviewDirectory(hotspotConfig);
     if (!directory) {
@@ -985,6 +1005,9 @@
       showEmptyState(`预览目录没有可用文件：${directory}`);
       return;
     }
+
+    const optimizedEntry = optimizedManifest[normalizePreviewDirectory(directory)] || {};
+    state.optimizedAssets = new Map(Object.entries(optimizedEntry));
 
     await renderStructuredPreview(directory, files);
     updateScale();
