@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>朱宝玉.psd-1.0.1</title>
+    <title>朱宝玉.psd-1.0.2</title>
      <link rel="icon" href="/assets/icons/logo.svg" type="image/svg+xml">
     <style>
       * {
@@ -475,16 +475,32 @@
         }
       }
 
+      const DETAIL_TARGET_STORAGE_PREFIX = "zby-zpj:detail-target:";
+
+      function rememberHotspotTarget(hotspot) {
+        if (!hotspot?.id) return;
+        try {
+          window.localStorage?.setItem(
+            `${DETAIL_TARGET_STORAGE_PREFIX}${hotspot.id}`,
+            JSON.stringify({
+              id: hotspot.id,
+              image: hotspot.image || "",
+              preview: hotspot.preview || "",
+              updatedAt: Date.now(),
+            }),
+          );
+        } catch {}
+      }
+
       function hotspotTarget(hotspot) {
         if (hotspot.href) return hotspot.href;
         const params = new URLSearchParams({ id: hotspot.id });
-        if (hotspot.preview) params.set("preview", hotspot.preview);
-        if (hotspot.image) params.set("image", hotspot.image);
         return `${hotspotState.detailPage}?${params.toString()}`;
       }
 
       function navigateToHotspot(hotspot) {
         if (!hotspot?.id && !hotspot?.href) return;
+        rememberHotspotTarget(hotspot);
         window.open(hotspotTarget(hotspot), "_blank", "noopener");
       }
 
@@ -776,6 +792,8 @@
         link.style.top = hotspot.top;
         link.style.width = hotspot.width;
         link.style.height = hotspot.height;
+        link.addEventListener("pointerdown", () => rememberHotspotTarget(hotspot), { passive: true });
+        link.addEventListener("click", () => rememberHotspotTarget(hotspot));
 
         const preview = createHotspotPreview(hotspot);
         if (preview) link.append(preview);

@@ -1,9 +1,13 @@
 (function () {
-  const DETAIL_VERSION = "1.0.1";
+  const DETAIL_VERSION = "1.0.2";
   const STAGE = { width: 1290, height: 2791 };
   const TOP_TEXT_FALLBACK_OFFSET = 140;
   const SELECTION_PADDING = 24;
   const ALPHA_THRESHOLD = 8;
+  const DETAIL_TARGET_STORAGE_PREFIX = "zby-zpj:detail-target:";
+  const TOUCH_SCROLL_RATIO = 1.15;
+  const TOUCH_SMOOTHING = 0.55;
+  const DESKTOP_SMOOTHING = 0.18;
   const IS_TOUCH_PREVIEW =
     window.matchMedia?.("(hover: none), (pointer: coarse)")?.matches ||
     Math.min(window.innerWidth, window.innerHeight) <= 820;
@@ -42,6 +46,10 @@
     animationFrame: 0,
     touchStartY: 0,
     touchStartScrollTop: 0,
+    mobileScrollbarDragging: false,
+    mobileScrollbarStartY: 0,
+    mobileScrollbarStartScrollTop: 0,
+    mobileScrollbarPointerId: null,
     userActivatedPlayback: false,
     activationTasks: [],
   };
@@ -58,6 +66,9 @@
     uiLayer: document.getElementById("uiLayer"),
     douyinUiImage: document.getElementById("douyinUiImage"),
     emptyState: document.getElementById("emptyState"),
+    mobileScrollbar: document.getElementById("mobileScrollBar"),
+    mobileScrollbarTrack: document.getElementById("mobileScrollTrack"),
+    mobileScrollbarThumb: document.getElementById("mobileScrollThumb"),
   };
 
   document.title = `朱宝玉.psd-${DETAIL_VERSION}`;
@@ -105,6 +116,44 @@
     }
   }
 
+  function rememberDetailTarget(id, preview, image = "") {
+    if (!id || !preview) return;
+    try {
+      window.localStorage?.setItem(
+        `${DETAIL_TARGET_STORAGE_PREFIX}${id}`,
+        JSON.stringify({
+          id,
+          image,
+          preview: normalizePreviewDirectory(preview),
+          updatedAt: Date.now(),
+        }),
+      );
+    } catch {}
+  }
+
+  function storedPreviewDirectory(id, image = "") {
+    if (!id) return "";
+    try {
+      const raw = window.localStorage?.getItem(`${DETAIL_TARGET_STORAGE_PREFIX}${id}`);
+      if (!raw) return "";
+      const item = JSON.parse(raw);
+      if (item?.id !== id) return "";
+      if (image && item.image && item.image !== image) return "";
+      return normalizePreviewDirectory(item.preview || item.directory || item.path || "");
+    } catch {
+      return "";
+    }
+  }
+
+  function replaceUrlWithIdOnly(id) {
+    if (!id || !window.history?.replaceState) return;
+    const params = new URLSearchParams(window.location.search);
+    const keys = [...params.keys()];
+    if (keys.length <= 1 && params.get("id") === id && !window.location.hash) return;
+    const nextUrl = `${window.location.pathname}?${new URLSearchParams({ id }).toString()}`;
+    window.history.replaceState(null, "", nextUrl);
+  }
+
   function flattenHotspots(config = {}) {
     const items = [];
     const imageEntries = Array.isArray(config.images) ? config.images : [];
@@ -130,13 +179,20 @@
 
   function resolvePreviewDirectory(config) {
     const params = new URLSearchParams(window.location.search);
+    const id = params.get("id") || "";
+    const image = params.get("image") || "";
     const directDirectory = normalizePreviewDirectory(
       params.get("preview") || params.get("directory") || params.get("path"),
     );
-    if (directDirectory) return directDirectory;
+    if (directDirectory) {
+      rememberDetailTarget(id, directDirectory, image);
+      replaceUrlWithIdOnly(id);
+      return directDirectory;
+    }
 
-    const id = params.get("id") || "";
-    const image = params.get("image") || "";
+    const storedDirectory = storedPreviewDirectory(id, image);
+    if (storedDirectory) return storedDirectory;
+
     const hotspots = flattenHotspots(config);
     const match =
       hotspots.find((item) => item.id === id && (!image || item.image === image)) ||
@@ -765,17 +821,54 @@
     const scale = Math.min(availableWidth / STAGE.width, availableHeight / STAGE.height);
     dom.root.style.setProperty("--stage-scale", scale.toFixed(4));
     updateAllSelectionFrames();
+    updateMobileScrollbar();
     requestMotionFrame();
   }
 
+  function scrollMax() {
+    return Math.max(0, dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight);
+  }
+
+  function setPreviewScrollTop(value) {
+    const max = scrollMax();
+    if (max <= 0) return;
+    dom.previewScroll.scrollTop = clamp(value, 1, Math.max(1, max - 1));
+    updateScrollTarget();
+  }
+
+  function updateMobileScrollbar() {
+    if (!dom.mobileScrollbar || !dom.mobileScrollbarTrack || !dom.mobileScrollbarThumb) return;
+    const max = scrollMax();
+    dom.mobileScrollbar.hidden = !IS_TOUCH_PREVIEW || max <= 0;
+    if (dom.mobileScrollbar.hidden) return;
+
+    const trackHeight = dom.mobileScrollbarTrack.getBoundingClientRect().height;
+    if (trackHeight <= 0) return;
+
+    const ratio = dom.previewScroll.clientHeight / Math.max(dom.previewScroll.scrollHeight, 1);
+    const thumbHeight = clamp(trackHeight * ratio, 48, trackHeight);
+    const travel = Math.max(0, trackHeight - thumbHeight);
+    const progress = max > 0 ? dom.previewScroll.scrollTop / max : 0;
+    dom.mobileScrollbarThumb.style.height = `${thumbHeight.toFixed(2)}px`;
+    dom.mobileScrollbarThumb.style.top = `${(travel * clamp(progress, 0, 1)).toFixed(2)}px`;
+  }
+
+  function activatePreviewPlayback() {
+    if (state.userActivatedPlayback) return;
+    state.userActivatedPlayback = true;
+    flushActivationTasks();
+    playVideos();
+  }
+
   function updateScrollTarget() {
-    const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
+    const max = scrollMax();
     state.targetProgress = max > 0 ? dom.previewScroll.scrollTop / max : 0;
+    updateMobileScrollbar();
     requestMotionFrame();
   }
 
   function handlePreviewWheel(event) {
-    const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
+    const max = scrollMax();
     if (max <= 0) return;
 
     const next = dom.previewScroll.scrollTop + event.deltaY;
@@ -791,18 +884,14 @@
     nudgeScrollBoundary();
     state.touchStartY = event.touches[0].clientY;
     state.touchStartScrollTop = dom.previewScroll.scrollTop;
-    if (!state.userActivatedPlayback) {
-      state.userActivatedPlayback = true;
-      flushActivationTasks();
-      playVideos();
-    }
+    activatePreviewPlayback();
   }
 
   function handlePreviewTouchMove(event) {
     if (!IS_TOUCH_PREVIEW || event.touches.length !== 1) return;
 
     const touchY = event.touches[0].clientY;
-    const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
+    const max = scrollMax();
     if (max <= 0) {
       event.preventDefault();
       return;
@@ -810,15 +899,59 @@
 
     event.preventDefault();
     const dragDelta = state.touchStartY - touchY;
-    dom.previewScroll.scrollTop = clamp(state.touchStartScrollTop + dragDelta, 1, Math.max(1, max - 1));
-    updateScrollTarget();
+    setPreviewScrollTop(state.touchStartScrollTop + dragDelta * TOUCH_SCROLL_RATIO);
   }
 
   function nudgeScrollBoundary() {
-    const max = dom.previewScroll.scrollHeight - dom.previewScroll.clientHeight;
+    const max = scrollMax();
     if (max <= 1) return;
     if (dom.previewScroll.scrollTop <= 0) dom.previewScroll.scrollTop = 1;
     if (dom.previewScroll.scrollTop >= max) dom.previewScroll.scrollTop = max - 1;
+  }
+
+  function beginMobileScrollbarDrag(event) {
+    if (!IS_TOUCH_PREVIEW || !dom.mobileScrollbarTrack || event.button > 0) return;
+    const max = scrollMax();
+    if (max <= 0) return;
+
+    event.preventDefault();
+    activatePreviewPlayback();
+    nudgeScrollBoundary();
+
+    const trackRect = dom.mobileScrollbarTrack.getBoundingClientRect();
+    const thumbHeight = dom.mobileScrollbarThumb?.getBoundingClientRect().height || 0;
+    if (event.target !== dom.mobileScrollbarThumb && trackRect.height > 0) {
+      const progress = clamp((event.clientY - trackRect.top) / trackRect.height, 0, 1);
+      setPreviewScrollTop(progress * max);
+    }
+
+    state.mobileScrollbarDragging = true;
+    state.mobileScrollbarStartY = event.clientY;
+    state.mobileScrollbarStartScrollTop = dom.previewScroll.scrollTop;
+    state.mobileScrollbarPointerId = event.pointerId;
+    dom.mobileScrollbar.classList.add("is-dragging");
+    dom.mobileScrollbar.setPointerCapture?.(event.pointerId);
+    if (thumbHeight > 0) updateMobileScrollbar();
+  }
+
+  function moveMobileScrollbarDrag(event) {
+    if (!state.mobileScrollbarDragging || state.mobileScrollbarPointerId !== event.pointerId) return;
+    const max = scrollMax();
+    const trackHeight = dom.mobileScrollbarTrack?.getBoundingClientRect().height || 0;
+    const thumbHeight = dom.mobileScrollbarThumb?.getBoundingClientRect().height || 0;
+    const travel = Math.max(1, trackHeight - thumbHeight);
+
+    event.preventDefault();
+    const dragProgress = (event.clientY - state.mobileScrollbarStartY) / travel;
+    setPreviewScrollTop(state.mobileScrollbarStartScrollTop + dragProgress * max);
+  }
+
+  function endMobileScrollbarDrag(event) {
+    if (!state.mobileScrollbarDragging || state.mobileScrollbarPointerId !== event.pointerId) return;
+    state.mobileScrollbarDragging = false;
+    state.mobileScrollbarPointerId = null;
+    dom.mobileScrollbar?.classList.remove("is-dragging");
+    dom.mobileScrollbar?.releasePointerCapture?.(event.pointerId);
   }
 
   function setPointerTarget(values = {}) {
@@ -935,7 +1068,7 @@
     const scrollDelta = state.targetProgress - state.smoothProgress;
     state.smoothProgress = Math.abs(scrollDelta) < 0.0005
       ? state.targetProgress
-      : state.smoothProgress + scrollDelta * (IS_TOUCH_PREVIEW ? 0.28 : 0.18);
+      : state.smoothProgress + scrollDelta * (IS_TOUCH_PREVIEW ? TOUCH_SMOOTHING : DESKTOP_SMOOTHING);
     const scrollValue = state.smoothProgress.toFixed(4);
     setStyleVar("--scroll", scrollValue);
     setLayerExpanded(state.smoothProgress > 0.025);
@@ -973,6 +1106,10 @@
     dom.previewScroll.addEventListener("touchmove", handlePreviewTouchMove, { passive: false });
     dom.previewScroll.addEventListener("pointermove", updatePointerMotion);
     dom.previewScroll.addEventListener("pointerleave", resetPointerTarget);
+    dom.mobileScrollbar?.addEventListener("pointerdown", beginMobileScrollbarDrag);
+    dom.mobileScrollbar?.addEventListener("pointermove", moveMobileScrollbarDrag);
+    dom.mobileScrollbar?.addEventListener("pointerup", endMobileScrollbarDrag);
+    dom.mobileScrollbar?.addEventListener("pointercancel", endMobileScrollbarDrag);
     dom.backgroundLayer.addEventListener("pointerdown", beginBackgroundPan);
     dom.backgroundLayer.addEventListener("pointermove", moveBackgroundPan);
     dom.backgroundLayer.addEventListener("pointerup", endBackgroundPan);
