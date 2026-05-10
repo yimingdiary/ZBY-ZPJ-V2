@@ -267,8 +267,16 @@ html:not(.is-layer-expanded) .selection-frame {
   cursor: url("/assets/icons/move.svg") 16 16, var(--cursor-move-inline), grabbing;
 }
 
-.sticker-back-layer {
+.host-layer {
   z-index: 2;
+  transform:
+    translateX(calc(var(--scroll) * 18px))
+    translateY(calc(var(--scroll) * -11px))
+    translateZ(calc(var(--scroll) * -80px));
+}
+
+.sticker-back-layer {
+  z-index: 3;
   transform:
     translateX(calc(var(--scroll) * -32px))
     translateY(calc(var(--scroll) * -14px))
@@ -276,7 +284,7 @@ html:not(.is-layer-expanded) .selection-frame {
 }
 
 .sticker-front-layer {
-  z-index: 3;
+  z-index: 4;
   transform:
     translateX(calc(var(--scroll) * -65px))
     translateY(calc(var(--scroll) * -23px))
@@ -284,7 +292,7 @@ html:not(.is-layer-expanded) .selection-frame {
 }
 
 .ui-layer {
-  z-index: 4;
+  z-index: 5;
   transform:
     translateX(calc(var(--scroll) * -98px))
     translateY(calc(var(--scroll) * -32px))
@@ -399,6 +407,23 @@ html:not(.is-layer-expanded) .selection-frame {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
+}
+
+.host-image {
+  position: absolute;
+  left: 0;
+  top: 291px;
+  width: 1292px;
+  height: auto;
+  object-fit: contain;
+  opacity: 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.host-image:not([src]) {
+  display: none;
 }
 
 .douyin-ui-image[src=""] {

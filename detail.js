@@ -4,7 +4,6 @@
   const TOP_TEXT_FALLBACK_OFFSET = 140;
   const SELECTION_PADDING = 24;
   const ALPHA_THRESHOLD = 8;
-  const DETAIL_TARGET_STORAGE_PREFIX = "zby-zpj:detail-target:";
   const TOUCH_SCROLL_RATIO = 1.15;
   const TOUCH_SMOOTHING = 0.55;
   const DESKTOP_SMOOTHING = 0.18;
@@ -19,6 +18,7 @@
     extra: "#8ae7ff",
     background: "#61c7ff",
     backplate: "#c693ff",
+    host: "#ffd36a",
     ui: "#9ff8f2",
   };
   const ZIP_ROLES = {
@@ -61,6 +61,8 @@
     backplateLayer: document.getElementById("backplateLayer"),
     backgroundLayer: document.getElementById("backgroundLayer"),
     backgroundImage: document.getElementById("backgroundImage"),
+    hostLayer: document.getElementById("hostLayer"),
+    hostImage: document.getElementById("hostImage"),
     stickerBackLayer: document.getElementById("stickerBackLayer"),
     stickerFrontLayer: document.getElementById("stickerFrontLayer"),
     uiLayer: document.getElementById("uiLayer"),
@@ -116,33 +118,20 @@
     }
   }
 
-  function rememberDetailTarget(id, preview, image = "") {
-    if (!id || !preview) return;
-    try {
-      window.localStorage?.setItem(
-        `${DETAIL_TARGET_STORAGE_PREFIX}${id}`,
-        JSON.stringify({
-          id,
-          image,
-          preview: normalizePreviewDirectory(preview),
-          updatedAt: Date.now(),
-        }),
-      );
-    } catch {}
+  function previewDirectoryForItem(item) {
+    return normalizePreviewDirectory(item?.preview || item?.zip || item?.directory || "");
   }
 
-  function storedPreviewDirectory(id, image = "") {
-    if (!id) return "";
-    try {
-      const raw = window.localStorage?.getItem(`${DETAIL_TARGET_STORAGE_PREFIX}${id}`);
-      if (!raw) return "";
-      const item = JSON.parse(raw);
-      if (item?.id !== id) return "";
-      if (image && item.image && item.image !== image) return "";
-      return normalizePreviewDirectory(item.preview || item.directory || item.path || "");
-    } catch {
-      return "";
-    }
+  function canonicalHotspotId(config, id, image, directory) {
+    const cleanDirectory = normalizePreviewDirectory(directory);
+    if (!cleanDirectory) return id;
+
+    const hotspots = flattenHotspots(config);
+    const directoryMatches = hotspots.filter((item) => previewDirectoryForItem(item) === cleanDirectory);
+    if (!directoryMatches.length) return id;
+
+    const imageMatch = directoryMatches.find((item) => image && item.image === image);
+    return (imageMatch || directoryMatches[0]).id || id;
   }
 
   function replaceUrlWithIdOnly(id) {
@@ -177,28 +166,28 @@
     return items;
   }
 
-  function resolvePreviewDirectory(config) {
+  function resolvePreviewTarget(config) {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id") || "";
     const image = params.get("image") || "";
+    const hotspots = flattenHotspots(config);
     const directDirectory = normalizePreviewDirectory(
       params.get("preview") || params.get("directory") || params.get("path"),
     );
     if (directDirectory) {
-      rememberDetailTarget(id, directDirectory, image);
-      replaceUrlWithIdOnly(id);
-      return directDirectory;
+      const canonicalId = canonicalHotspotId(config, id, image, directDirectory);
+      replaceUrlWithIdOnly(canonicalId);
+      const directMatch =
+        hotspots.find((item) => item.id === canonicalId && previewDirectoryForItem(item) === directDirectory) ||
+        hotspots.find((item) => previewDirectoryForItem(item) === directDirectory);
+      return { directory: directDirectory, hotspot: directMatch || null };
     }
 
-    const storedDirectory = storedPreviewDirectory(id, image);
-    if (storedDirectory) return storedDirectory;
-
-    const hotspots = flattenHotspots(config);
     const match =
       hotspots.find((item) => item.id === id && (!image || item.image === image)) ||
       hotspots.find((item) => item.id === id);
 
-    return normalizePreviewDirectory(match?.preview || match?.zip || match?.directory || "");
+    return { directory: previewDirectoryForItem(match), hotspot: match || null };
   }
 
   function fileBaseName(path) {
@@ -242,6 +231,11 @@
 
   function isBackplateFile(fileName) {
     return /^背景视频\.(mp4|webm|mov)$/i.test(fileName) || /\.(mp4|webm|mov)$/i.test(fileName);
+  }
+
+  function selectBackplateFile(files) {
+    const backplates = files.filter(isBackplateFile);
+    return backplates.find((fileName) => /-h264\.mp4$/i.test(fileName)) || backplates[0] || "";
   }
 
   function filteredPreviewFiles(files) {
@@ -334,6 +328,12 @@
       top = item.anchor === "bottom"
         ? STAGE.height - (parseFloat(element.style.bottom) || 0) - height
         : parseFloat(element.style.top) || 0;
+    }
+
+    if (item.box === "absolute") {
+      const style = getComputedStyle(element);
+      left = parseFloat(element.style.left || style.left) || 0;
+      top = parseFloat(element.style.top || style.top) || 0;
     }
 
     if (item.box === "positioned") {
@@ -495,20 +495,44 @@
     video.classList.add("is-video-ready");
   }
 
+  function primeVideoFrame(video) {
+    if (video.dataset.framePrimed === "true") return;
+    video.dataset.framePrimed = "true";
+
+    const loadFrame = () => {
+      if (video.readyState >= 2) {
+        markVideoReady(video);
+        return;
+      }
+      try {
+        const targetTime = Number.isFinite(video.duration) && video.duration > 0
+          ? Math.min(0.05, video.duration)
+          : 0.05;
+        video.currentTime = targetTime;
+      } catch {
+        video.dataset.framePrimed = "false";
+      }
+    };
+
+    if (video.readyState >= 1) loadFrame();
+    else video.addEventListener("loadedmetadata", loadFrame, { once: true });
+  }
+
   function prepareVideoElement(video) {
     video.defaultMuted = true;
     video.muted = true;
     video.setAttribute("muted", "");
     video.disablePictureInPicture = true;
     video.addEventListener("loadeddata", () => markVideoReady(video), { once: true });
+    video.addEventListener("loadedmetadata", () => primeVideoFrame(video), { once: true });
+    video.addEventListener("seeked", () => markVideoReady(video), { once: true });
     video.addEventListener("canplay", () => markVideoReady(video), { once: true });
     video.addEventListener("playing", () => markVideoReady(video), { once: true });
   }
 
   function playVideos() {
-    if (IS_TOUCH_PREVIEW && !state.userActivatedPlayback) return;
     dom.deviceStage.querySelectorAll("video").forEach((video) => {
-      video.play().catch(() => {});
+      video.play().then(() => markVideoReady(video)).catch(() => primeVideoFrame(video));
     });
   }
 
@@ -528,7 +552,7 @@
       element.setAttribute("muted", "");
       element.setAttribute("playsinline", "");
       element.setAttribute("webkit-playsinline", "");
-      element.preload = IS_TOUCH_PREVIEW ? "metadata" : "auto";
+      element.preload = "auto";
       prepareVideoElement(element);
     } else {
       element.decoding = "async";
@@ -697,7 +721,7 @@
     scheduleDeferredPreviewTasks(tasks);
   }
 
-  function renderStructuredPreview(directory, files) {
+  function renderStructuredPreview(directory, files, options = {}) {
     const cleanFiles = mobileSafePreviewFiles(filteredPreviewFiles(files));
     const roleFileNames = new Set();
     cleanFiles.forEach((fileName) => {
@@ -707,7 +731,7 @@
     const mediaPromises = [];
     const deferredTasks = [];
 
-    const backplate = cleanFiles.find(isBackplateFile);
+    const backplate = selectBackplateFile(cleanFiles);
     if (backplate) {
       const addBackplate = () => {
         const { element } = addFillLayer(dom.backplateLayer, directory, backplate, {
@@ -717,8 +741,7 @@
         });
         return waitForMediaElement(element);
       };
-      if (IS_TOUCH_PREVIEW) enqueueActivationTask(addBackplate);
-      else mediaPromises.push(addBackplate());
+      mediaPromises.push(addBackplate());
       roleFileNames.add(backplate);
     }
 
@@ -774,6 +797,7 @@
         else mediaPromises.push(addExtraItem());
       });
 
+    addHostLayer(options.showHost === true);
     addUiLayer();
 
     return Promise.all(mediaPromises).then(() => {
@@ -804,6 +828,37 @@
     dom.douyinUiImage.addEventListener("error", markMissing, { once: true });
     if (dom.douyinUiImage.complete) {
       if (dom.douyinUiImage.naturalWidth) markLoaded();
+      else markMissing();
+    }
+  }
+
+  function addHostLayer(shouldShow) {
+    if (!dom.hostImage || !dom.hostLayer) return;
+    dom.hostLayer.hidden = !shouldShow;
+    if (!shouldShow) {
+      dom.hostLayer.classList.remove("has-host");
+      return;
+    }
+
+    const markLoaded = () => {
+      dom.hostLayer.classList.add("has-host");
+      addLayerItem({
+        element: dom.hostImage,
+        layerElement: dom.hostLayer,
+        frame: createSelectionFrame(dom.hostLayer, SELECTION_ACCENTS.host),
+        box: "absolute",
+        accent: SELECTION_ACCENTS.host,
+        selectionMode: "content",
+      });
+    };
+    const markMissing = () => {
+      dom.hostLayer.classList.remove("has-host");
+      dom.hostImage.removeAttribute("src");
+    };
+    dom.hostImage.addEventListener("load", markLoaded, { once: true });
+    dom.hostImage.addEventListener("error", markMissing, { once: true });
+    if (dom.hostImage.complete) {
+      if (dom.hostImage.naturalWidth) markLoaded();
       else markMissing();
     }
   }
@@ -1128,7 +1183,8 @@
       fetchJson("/preview-manifest.json", {}),
       fetchJson("/preview-optimized-manifest.json", {}),
     ]);
-    const directory = resolvePreviewDirectory(hotspotConfig);
+    const target = resolvePreviewTarget(hotspotConfig);
+    const directory = target.directory;
     if (!directory) {
       showEmptyState("没有找到这个热区对应的预览目录");
       return;
@@ -1146,7 +1202,9 @@
     const optimizedEntry = optimizedManifest[normalizePreviewDirectory(directory)] || {};
     state.optimizedAssets = new Map(Object.entries(optimizedEntry));
 
-    await renderStructuredPreview(directory, files);
+    await renderStructuredPreview(directory, files, {
+      showHost: target.hotspot?.showHost === true,
+    });
     updateScale();
   }
 

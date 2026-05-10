@@ -8,10 +8,10 @@
 - 首页同名多格式图片会优先加载 WebP/AVIF 等更轻格式，避免 JPG 和 WebP 重复显示。
 - `ps-yemian.svg` 作为固定的 Photoshop 风格界面外壳覆盖在页面上，并接管滚轮、滚动条拖拽和热区点击。
 - 首页图片流按 PS 内容显示区宽度排版，移动端触摸滑动使用浏览器原生文档滚动以保留 60fps 惯性和流畅度；PS 内容区外用固定遮挡层防止滚动图片漏出。
-- `hotspots.json` 定义作品集图片中的可点击区域，热区可跳转到详情页。
+- `hotspots.json` 定义作品集图片中的可点击区域，每个贴片热区使用独立 id，热区可跳转到详情页。
 - 热区悬停时读取 `preview-manifest.json`，在原位置叠加贴片素材预览。
 - 触摸设备不创建首页热区悬浮预览，点击热区直接进入详情页。
-- 详情页根据热区关联的 `preview/webp/` 子目录，渲染 1290 x 2791 的直播间贴片分层舞台。
+- 详情页根据热区关联的 `preview/webp/` 子目录，渲染 1290 x 2791 的直播间贴片分层舞台，并叠加主播层与直播间 UI 覆盖层。
 - 详情页支持滚动触发 3D 视差展开、图层选区框显隐、桌面端背景横向拖动预览、animated WebP 和视频素材播放；移动端保留 3D 展开，但优先使用裁切后的 WebP 图层和分批加载降低 WebKit 合成压力。
 - 当前网页标题版本号为 `朱宝玉.psd-1.0.2`。
 
@@ -135,7 +135,7 @@ python3 generate-preview-optimized.py
 2. 优先请求 `/api/images` 获取图片列表，失败时回退到 `/images-manifest.json`。
 3. 为每张图片创建 `.image-frame`，图片使用 `images/` 内 WebP 文件。
 4. 根据 `hotspots.json` 为对应图片生成绝对定位热区。
-5. 热区点击默认打开 `detail.html?id=...`，并在同源 `localStorage` 中暂存该 id 对应的预览目录；旧版 `preview/image` 长链接仍可被详情页读取并自动整理为短 URL。
+5. 热区点击默认打开 `detail.html?id=...`，其中 id 对应单个贴片热区；旧版 `preview/image` 长链接仍可被详情页读取，并会按预览目录整理为对应的新短 URL。
 6. 热区悬停时，根据 `preview-manifest.json` 中的文件列表创建预览层。
 7. 固定加载 `ps-yemian.svg` 作为 UI 外壳，并将 SVG 内滚轮、滚动条点击和拖动同步到页面滚动。
 8. 使用 `visualViewport` 计算 PS 内容显示区的实际像素边界，并同步写入 `html` 和 `body` 的 CSS 变量；图片流按该宽度正常参与文档流滚动，不再用 JS 每帧移动长图。
@@ -154,14 +154,15 @@ http://localhost:4173/?debugHotspots
 
 `detail.html` 提供固定的图层容器，`detail.js` 负责运行时填充素材：
 
-1. 优先兼容读取 URL 参数中的 `preview`、`directory` 或 `path`；如果 URL 只带 `id`，则优先读取首页点击时暂存的预览目录，再回退到 `hotspots.json` 中按 `id` 和可选 `image` 查找。
+1. 优先兼容读取 URL 参数中的 `preview`、`directory` 或 `path`；如果 URL 只带 `id`，则通过 `hotspots.json` 中每个贴片独立的 id 查找预览目录。旧长链接会按 `preview` 目录匹配新 id 并整理为短 URL。
 2. 读取 `preview-manifest.json`，找到该预览目录的文件列表。
 3. 识别 `背景.webp` 作为背景层。
 4. 识别 `背景视频.mp4/webm/mov` 或其他视频文件作为背板层。
 5. 按文件名识别四类主贴片：`顶部挂件-文`、`顶部挂件-背`、`底部挂件-文`、`底部挂件-背`。
 6. 同名素材存在动态版本时，优先使用 `-动-loop.webp`，其次使用 `-动.webp`。
 7. 其他未归类图片作为额外前景素材渲染。
-8. `assets/overlays/douyin-ui.png` 存在时作为最上层直播间 UI 覆盖图，否则显示 CSS 占位控件。
+8. `assets/overlays/zhubo.webp` 作为主播层显示在背景前、贴片层后。
+9. `assets/overlays/douyin-ui.webp` 存在时作为最上层直播间 UI 覆盖图，否则显示 CSS 占位控件。
 
 详情页通过 CSS 变量驱动交互：
 
@@ -174,7 +175,7 @@ http://localhost:4173/?debugHotspots
 
 移动端详情页右侧有一个悬浮滚动条触控区，宽度为屏幕的 20vw，覆盖在画面右侧之上，不参与布局也不改变舞台居中；桌面端继续使用鼠标滚轮和页面滚动，不显示该滚动条。
 
-详情页 3D 展开已按无主播层素材重新调整深度：背景视频、背景层、贴片背、贴片文和 UI 层按等距 Z 轴序列展开，并保留轻微初始 Z 偏移，避免 WebKit/微信内核在未滚动时把共面图层渲染成黑屏。移动端当前使用更紧凑的展开距离，减少图层过散和 iPhone Safari 3D 合成压力。用户真机复测发现 iPhone Safari 标签页栏在底部时更容易在滑到底继续滑动时触发重复刷新，把标签页栏改到顶部后不再复现。
+详情页 3D 展开已按当前素材重新调整深度：背景视频、背景层、主播层、贴片背、贴片文和 UI 层按 Z 轴序列展开，并保留轻微初始 Z 偏移，避免 WebKit/微信内核在未滚动时把共面图层渲染成黑屏。移动端当前使用更紧凑的展开距离，减少图层过散和 iPhone Safari 3D 合成压力。用户真机复测发现 iPhone Safari 标签页栏在底部时更容易在滑到底继续滑动时触发重复刷新，把标签页栏改到顶部后不再复现。
 
 详情页以 `preview/webp/` 作为源素材目录，同时读取 `preview-optimized-manifest.json` 中的裁切坐标；除背景和视频外，静态贴片、animated WebP 和额外透明层会优先加载 `preview-optimized/` 中裁切后的 WebP，并按 `left/top/width/height/sourceWidth/sourceHeight` 放回 1290 x 2791 舞台坐标。这样保持和原始静态整图的精准对齐，也保留滚动 3D 展开，但移动端不再把每个透明图层都当作全尺寸纹理解码。触摸设备会先加载背景和核心静态层，animated WebP、额外层和视频延后加载；视频仍需用户触摸激活后才尝试播放。舞台媒体不再统一加圆角和 paint containment，避免视频、侧贴和文字图层被圆角裁切。
 
@@ -194,7 +195,7 @@ http://localhost:4173/?debugHotspots
       "image": "ZBY_ZPJ_内页_05.webp",
       "areas": [
         {
-          "id": "ZBY_ZPJ_005",
+          "id": "ZBY_ZPJ_005_260117",
           "label": "动态贴片-毛孩子",
           "preview": "/preview/webp/260117_贴片_宠物生活_毛孩子",
           "x": 230.9638,
