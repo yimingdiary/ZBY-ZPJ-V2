@@ -1,11 +1,11 @@
 # CONTEXT.md
 
 ### 任务目标
-修复详情页短 URL 在同图多贴片场景下的重复 id 冲突，并切换覆盖层素材与新增主播层。
+修复移动端详情页滚动条样式，并将主播层切换为按设备分流的视频素材。
 
 ### 当前状态
-- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已撤掉上一版错误的 2D 降级和 `*-still.png` PNG 首帧资源；已恢复移动端详情页 3D 展开；首页和详情页标题更新为 `朱宝玉.psd-1.0.2`；新增 `generate-preview-optimized.py`，从 `preview/webp/` 的全尺寸 WebP 图层生成 `preview-optimized/` 裁切 WebP 和 `preview-optimized-manifest.json` 坐标清单；`detail.js` 已重新读取裁切 manifest，除背景/视频外优先使用裁切 WebP 并按原舞台坐标定位；触摸设备先加载背景和核心静态层，animated WebP、额外透明层和视频延后加载；首页热区点击已改为 `detail.html?id=...` 短 URL；移动端详情页已提高触摸展开跟随速度，并新增右侧 20vw 悬浮滚动条触控区；`hotspots.json` 已将每个贴片热区改为独立 id，避免同一作品图上的四个贴片打开同一内容；详情页旧版 `preview/image` 长 URL 会按预览目录整理到对应的新独立 id；直播间 UI 覆盖图已从 `douyin-ui.png` 切换为 `douyin-ui.webp`，并新增 `zhubo.webp` 主播层，层级位于背景前、贴片层后；已通过 `node --check detail.js`、`hotspots.json` JSON 解析、本地 HTTP 和 Chrome Headless 移动视口验证。
-- 进行中：等待真机复测独立 id、主播层位置和移动端详情页稳定性。
+- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已撤掉上一版错误的 2D 降级和 `*-still.png` PNG 首帧资源；已恢复移动端详情页 3D 展开；首页和详情页标题更新为 `朱宝玉.psd-1.0.2`；新增 `generate-preview-optimized.py`，从 `preview/webp/` 的全尺寸 WebP 图层生成 `preview-optimized/` 裁切 WebP 和 `preview-optimized-manifest.json` 坐标清单；`detail.js` 已重新读取裁切 manifest，除背景/视频外优先使用裁切 WebP 并按原舞台坐标定位；触摸设备先加载背景和核心静态层，animated WebP、额外透明层和视频延后加载；首页热区点击已改为 `detail.html?id=...` 短 URL；移动端详情页已提高触摸展开跟随速度，并新增右侧 20vw 悬浮滚动条触控区；`hotspots.json` 已将每个贴片热区改为独立 id，避免同一作品图上的四个贴片打开同一内容；详情页旧版 `preview/image` 长 URL 会按预览目录整理到对应的新独立 id；直播间 UI 覆盖图已从 `douyin-ui.png` 切换为 `douyin-ui.webp`；主播层已从 `zhubo.webp` 静态图切换为视频，Apple 设备优先使用 `assets/overlays/zhubo-apple.mov`，其他设备优先使用 `assets/overlays/zhubo.webm`，保留原 left/top/width 坐标和贴片整体宽度比例；移动端详情页滚动条已改为细线 + 圆点拖动样式，20vw 触控区不参与舞台布局；本地服务已补充 `.mov` 和 `.webm` MIME/cache 支持；已通过 `node --check detail.js`、`hotspots.json` JSON 解析、本地 HTTP、Google Chrome Headless 移动视口和模拟 Android 源选择验证。
+- 进行中：等待真机复测主播视频在 iPhone Safari/微信和非 Apple 设备浏览器中的显示、自动播放/触摸激活表现，以及新版移动端滚动条手感和视觉协调性。
 - 待开始：等待线上部署后用电脑端复测动效图是否不再频闪，并用 iPhone Safari/微信真机复测移动端详情页是否停止重复刷新/崩溃且仍保留 3D 展开；真机复测右侧悬浮滚动条是否不影响图片视觉居中。
 
 ### 已做决策
@@ -44,6 +44,10 @@
 | 旧长链接按 `preview` 目录整理到新独立 id | 已分享的旧链接仍应能打开正确预览，同时后续刷新应保持唯一短 URL | 直接保留旧 id 会继续制造重复内容；完全不兼容旧长链接会影响已发链接 |
 | `douyin-ui` 覆盖层改用 WebP 并删除 PNG | 用户已提供 WebP 版本，体积更小且符合当前 WebP 素材策略 | 同时保留 PNG/WebP 会产生重复维护和误引用风险 |
 | 新增 `zhubo.webp` 主播层，位于背景前、贴片层后 | 用户需要恢复主播层级，且主播应被贴片覆盖、不能挡住贴片素材 | 放在 UI 层会遮挡界面，放在背景后会不可见或层级错误 |
+| 主播层改为按设备选择视频素材 | 用户提供 Apple 专用 MOV 和其他设备 WebM，按设备优先级加载可避免单一格式在部分浏览器不兼容导致不显示 | 继续使用 `zhubo.webp` 不符合新素材要求；只写单个 `<source>` 无法覆盖不同设备格式兼容性 |
+| 主播视频保持原 CSS 坐标和宽度 | 用户明确要求比例不变，仍按贴片整体宽度等宽，x/y 坐标保持当前不变 | 重新按视频天然尺寸或居中计算会改变既有画面对齐 |
+| 移动端详情页滚动条改为细线 + 圆点 | 用户明确指出应是一条线和可拖动圆点，且整体样式不能突兀；细线圆点保留操作性但弱化视觉存在感 | 继续使用高亮长条 thumb 会像系统控件贴在画面上，视觉过重 |
+| 本地服务补充 MOV/WebM MIME | 主播层和预览视频依赖这些格式，本地服务正确返回 MIME 能避免浏览器按二进制兜底处理 | 只改前端路径会让本地验证和部分部署环境仍可能出现格式识别问题 |
 
 ### 待解决问题
 - [ ] 问题1：需要用 iPhone Safari 真机复测首页顶部、左右边缘和底部地址栏遮挡状态下是否仍有图片漏出。
@@ -59,7 +63,9 @@
 - [ ] 问题17：本地 Chrome Headless 已验证短 URL 点击在重复 id 场景下进入正确预览，旧长 URL 会自动变为只带 id；仍需线上部署后真机确认。
 - [ ] 问题18：本地移动视口已验证右侧 20vw 悬浮滚动条显示、舞台中心偏移为 0 且可拖动滚动；仍需真机复测是否好拖、不卡顿。
 - [ ] 问题19：本地 Chrome Headless 已验证 8 个热区有 8 个唯一 id，同一张图上的 4 个贴片分别打开不同预览目录，旧猫砂长链接会整理为 `id=ZBY_ZPJ_005_260109`；仍需线上和真机确认。
-- [ ] 问题20：本地 Chrome Headless 已验证 `zhubo.webp` 和 `douyin-ui.webp` 正常加载，图层顺序为背景后主播、再贴片、最后 UI；仍需真机复测主播层位置和大小是否符合预期。
+- [ ] 问题20：本地 Chrome Headless 已验证主播视频层和 `douyin-ui.webp` 正常加载，图层顺序为背景后主播、再贴片、最后 UI；仍需真机复测主播层位置和大小是否符合预期。
+- [ ] 问题21：本地 Chrome Headless 已验证 Apple/Mac 环境选择 `zhubo-apple.mov`，模拟 Android 环境选择 `zhubo.webm`，两者均可进入可播放状态；仍需 iPhone Safari/微信和真实非 Apple 设备复测透明视频显示与播放。
+- [ ] 问题22：本地 Chrome Headless 已验证移动端滚动条为 1px 细线和 18px 圆点，且右侧 20vw 触控区仍可显示；仍需真机复测拖动手感和视觉是否协调。
 - [x] 问题5：本地移动端模拟验证 `#app` 裁剪框从全屏修正为 PS 内容区，并验证触摸上滑可驱动 `window.scrollY` 和图片流同步移动。
 - [x] 问题6：本地移动端模拟确认触摸设备上 SVG 覆盖层不再接管触摸，触摸上滑使用原生滚动；初始顶部深色条来自 SVG 顶部工具栏区域。
 - [x] 问题2：Cloudflare Pages Production 环境变量截图显示已配置 `ACCESS_KEY_ENABLED=true` 和 `ACCESS_KEY=1234`；用户确认重新部署后访问码已生效。
@@ -75,6 +81,8 @@
 - 首页短 URL 必须使用每个贴片独立 id，不能再复用整张图 id；旧版 `preview/image` 长链接仍需兼容并整理到新 id。
 - 移动端右侧滚动条必须悬浮覆盖，不参与舞台布局和居中计算。
 - 主播层必须位于背景层前、贴片层后；直播间 UI 使用 `assets/overlays/douyin-ui.webp`。
+- 主播层视频必须按设备优先加载：Apple 设备优先 `assets/overlays/zhubo-apple.mov`，其他设备优先 `assets/overlays/zhubo.webm`，并保持原 x/y 坐标和 1292px 宽度规则。
+- 移动端详情页滚动条必须是细线 + 圆点拖动的视觉，20vw 右侧触控区不改变舞台居中。
 
 ### 参考资料
 - `AGENT.md`

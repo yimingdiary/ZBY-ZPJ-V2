@@ -30,9 +30,11 @@ const mimeTypes = {
   ".jpg": "image/jpeg",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".mov": "video/quicktime",
   ".mp4": "video/mp4",
   ".png": "image/png",
   ".svg": "image/svg+xml; charset=utf-8",
+  ".webm": "video/webm",
   ".webp": "image/webp",
 };
 
@@ -42,9 +44,11 @@ const longCacheExtensions = new Set([
   ".gif",
   ".jpeg",
   ".jpg",
+  ".mov",
   ".mp4",
   ".png",
   ".svg",
+  ".webm",
   ".webp",
 ]);
 

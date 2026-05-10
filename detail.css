@@ -89,25 +89,42 @@ video {
 
 .mobile-scrollbar-track {
   position: absolute;
-  top: 12dvh;
-  right: max(10px, env(safe-area-inset-right));
-  width: 3px;
-  height: 76dvh;
+  top: 14dvh;
+  right: max(14px, calc(env(safe-area-inset-right) + 10px));
+  width: 1px;
+  height: 72dvh;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.2) 12%,
+    rgba(255, 255, 255, 0.24) 88%,
+    rgba(255, 255, 255, 0)
+  );
+  box-shadow: 0 0 0 0.5px rgba(10, 15, 18, 0.18);
 }
 
 .mobile-scrollbar-thumb {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 24px;
-  min-height: 48px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  background: rgba(244, 251, 249, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.24),
+    0 0 0 4px rgba(9, 14, 18, 0.08);
   transform: translateX(-50%);
-  will-change: top, height;
+  will-change: top;
+}
+
+.mobile-scrollbar.is-dragging .mobile-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 5px rgba(255, 255, 255, 0.12);
 }
 
 .scroll-track {
@@ -420,6 +437,14 @@ html:not(.is-layer-expanded) .selection-frame {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
+}
+
+.host-video.video-media {
+  opacity: 0;
+}
+
+.host-video.video-media.is-video-ready {
+  opacity: 1;
 }
 
 .host-image:not([src]) {

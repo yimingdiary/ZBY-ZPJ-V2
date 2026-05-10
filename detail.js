@@ -7,6 +7,10 @@
   const TOUCH_SCROLL_RATIO = 1.15;
   const TOUCH_SMOOTHING = 0.55;
   const DESKTOP_SMOOTHING = 0.18;
+  const HOST_VIDEO_SOURCES = {
+    apple: "/assets/overlays/zhubo-apple.mov",
+    other: "/assets/overlays/zhubo.webm",
+  };
   const IS_TOUCH_PREVIEW =
     window.matchMedia?.("(hover: none), (pointer: coarse)")?.matches ||
     Math.min(window.innerWidth, window.innerHeight) <= 820;
@@ -519,6 +523,8 @@
   }
 
   function prepareVideoElement(video) {
+    if (video.dataset.videoPrepared === "true") return;
+    video.dataset.videoPrepared = "true";
     video.defaultMuted = true;
     video.muted = true;
     video.setAttribute("muted", "");
@@ -528,6 +534,18 @@
     video.addEventListener("seeked", () => markVideoReady(video), { once: true });
     video.addEventListener("canplay", () => markVideoReady(video), { once: true });
     video.addEventListener("playing", () => markVideoReady(video), { once: true });
+  }
+
+  function isAppleDevice() {
+    const platform = navigator.userAgentData?.platform || navigator.platform || "";
+    const ua = navigator.userAgent || "";
+    return /Mac|iPhone|iPad|iPod/i.test(platform) || /iPhone|iPad|iPod|Macintosh/i.test(ua);
+  }
+
+  function hostVideoCandidates() {
+    const appleSource = { url: HOST_VIDEO_SOURCES.apple, type: "video/quicktime" };
+    const otherSource = { url: HOST_VIDEO_SOURCES.other, type: "video/webm" };
+    return isAppleDevice() ? [appleSource, otherSource] : [otherSource, appleSource];
   }
 
   function playVideos() {
@@ -837,10 +855,14 @@
     dom.hostLayer.hidden = !shouldShow;
     if (!shouldShow) {
       dom.hostLayer.classList.remove("has-host");
+      dom.hostImage.removeAttribute("src");
+      dom.hostImage.load?.();
       return;
     }
 
+    prepareVideoElement(dom.hostImage);
     const markLoaded = () => {
+      if (dom.hostLayer.classList.contains("has-host")) return;
       dom.hostLayer.classList.add("has-host");
       addLayerItem({
         element: dom.hostImage,
@@ -851,16 +873,29 @@
         selectionMode: "content",
       });
     };
+    const candidates = hostVideoCandidates();
+    let sourceIndex = 0;
+    const loadCurrentSource = () => {
+      const source = candidates[sourceIndex];
+      dom.hostImage.classList.remove("is-video-ready");
+      dom.hostImage.src = source.url;
+      dom.hostImage.type = source.type;
+      dom.hostImage.load();
+      if (state.userActivatedPlayback) dom.hostImage.play().catch(() => primeVideoFrame(dom.hostImage));
+    };
     const markMissing = () => {
+      if (sourceIndex < candidates.length - 1) {
+        sourceIndex += 1;
+        loadCurrentSource();
+        return;
+      }
       dom.hostLayer.classList.remove("has-host");
       dom.hostImage.removeAttribute("src");
+      dom.hostImage.load?.();
     };
-    dom.hostImage.addEventListener("load", markLoaded, { once: true });
-    dom.hostImage.addEventListener("error", markMissing, { once: true });
-    if (dom.hostImage.complete) {
-      if (dom.hostImage.naturalWidth) markLoaded();
-      else markMissing();
-    }
+    dom.hostImage.addEventListener("loadedmetadata", markLoaded, { once: true });
+    dom.hostImage.addEventListener("error", markMissing);
+    loadCurrentSource();
   }
 
   function showEmptyState(message) {
@@ -900,8 +935,7 @@
     const trackHeight = dom.mobileScrollbarTrack.getBoundingClientRect().height;
     if (trackHeight <= 0) return;
 
-    const ratio = dom.previewScroll.clientHeight / Math.max(dom.previewScroll.scrollHeight, 1);
-    const thumbHeight = clamp(trackHeight * ratio, 48, trackHeight);
+    const thumbHeight = clamp(18, 12, trackHeight);
     const travel = Math.max(0, trackHeight - thumbHeight);
     const progress = max > 0 ? dom.previewScroll.scrollTop / max : 0;
     dom.mobileScrollbarThumb.style.height = `${thumbHeight.toFixed(2)}px`;
@@ -976,7 +1010,8 @@
     const trackRect = dom.mobileScrollbarTrack.getBoundingClientRect();
     const thumbHeight = dom.mobileScrollbarThumb?.getBoundingClientRect().height || 0;
     if (event.target !== dom.mobileScrollbarThumb && trackRect.height > 0) {
-      const progress = clamp((event.clientY - trackRect.top) / trackRect.height, 0, 1);
+      const travel = Math.max(1, trackRect.height - thumbHeight);
+      const progress = clamp((event.clientY - trackRect.top - thumbHeight / 2) / travel, 0, 1);
       setPreviewScrollTop(progress * max);
     }
 
