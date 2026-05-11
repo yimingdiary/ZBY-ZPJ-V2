@@ -4,8 +4,8 @@
 排查 EdgeOne Pages 部署后 `i.zhubaoyu.com` 未显示访问码输入页的问题，并补齐 EdgeOne 访问码中间件。
 
 ### 当前状态
-- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已确认线上 `https://i.zhubaoyu.com/` 当前返回 `200 OK` 首页 HTML，响应头为 `Server: edgeone-pages`，说明访问码中间件未在 EdgeOne 上拦截；已新增根目录 `middleware.js`，用于 EdgeOne Pages 执行同样的访问码校验；已保留 `functions/_middleware.js` 给 Cloudflare Pages 使用；已更新 `README.md` 增加 EdgeOne Pages 说明。
-- 进行中：等待用户将新增 `middleware.js` 部署到 EdgeOne Pages 后复测。
+- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已确认线上 `https://i.zhubaoyu.com/` 曾返回 `200 OK` 首页 HTML，响应头为 `Server: edgeone-pages`，说明原 Cloudflare 访问码中间件未在 EdgeOne 上拦截；用户部署根目录 `middleware.js` 后 EdgeOne 返回 `545 Error return from script`，确认 EdgeOne 已开始执行脚本但入口/运行时适配有误；已将访问码核心逻辑抽到 `access-control.js`，Cloudflare 入口 `functions/_middleware.js` 和 EdgeOne 入口 `middleware.js` 仅作为薄适配层；已按 EdgeOne 官方要求把根目录 `middleware.js` 改为导出 `middleware(context)`。
+- 进行中：等待用户将共享访问码逻辑和新的 EdgeOne 入口部署到 EdgeOne Pages 后复测。
 - 待开始：部署后用无痕窗口或清理 `zpj_access_key` cookie 访问 `https://i.zhubaoyu.com/`，确认未授权状态返回访问码页。
 
 ### 已做决策
@@ -13,6 +13,7 @@
 |---|---|---|
 | 使用 `ACCESS_KEY_ENABLED` 控制访问码开关 | Cloudflare Pages 环境变量可以直接被 Pages Functions 读取 | 纯前端 JS 校验会暴露访问码，无法真正保护资源 |
 | EdgeOne Pages 使用根目录 `middleware.js` 执行访问码拦截 | 线上响应头显示当前服务为 `edgeone-pages`，原 `functions/_middleware.js` 是 Cloudflare Pages 结构，EdgeOne 未执行它时环境变量不会产生拦截效果 | 只补环境变量或只重新部署静态文件无法让没有入口的中间件运行 |
+| 访问码核心逻辑抽到 `access-control.js`，平台入口只做适配 | 不同 Pages 平台识别的文件路径和导出函数不同，无法真正只靠一个入口覆盖所有平台；共享核心逻辑可以避免每个平台复制一套访问码实现 | 为每个平台复制完整代码会增加维护成本；只保留 Cloudflare 入口无法兼容 EdgeOne |
 | `ACCESS_KEY` 未配置时默认 `1234` | 符合用户要求，部署时也能快速启用 | 强制必须配置会增加部署步骤 |
 | 本地 `server.js` 同步接入访问码 | 方便部署前复现 Cloudflare Pages 行为 | 只写 Pages 中间件会导致本地无法测试 |
 | Cloudflare Pages 需使用 Git 或 Wrangler 部署访问码中间件 | 官方文档说明 Dashboard Direct Upload 不支持 Functions；直接上传静态资源时 `functions/_middleware.js` 不会运行 | 仅配置环境变量无法让未部署的 Functions 生效 |
@@ -53,7 +54,7 @@
 
 ### 待解决问题
 - [ ] 问题1：需要用 iPhone Safari 真机复测首页顶部、左右边缘和底部地址栏遮挡状态下是否仍有图片漏出。
-- [ ] 问题23：EdgeOne Pages 已新增根目录 `middleware.js`，需要线上重新部署后确认访问码页生效；如果仍不生效，需检查 EdgeOne 是否启用了中间件/函数能力以及变量是否在 Production 生效范围。
+- [ ] 问题23：EdgeOne Pages 已改为官方要求的 `middleware(context)` 入口，并复用 `access-control.js`；需要线上重新部署后确认访问码页生效；如果仍不生效，需检查 EdgeOne Pages 中间件是否支持相对 import 以及运行时环境变量是否通过全局 `env` 暴露。
 - [ ] 问题4：需要用手机复测详情页再次收紧后的等距分层是否符合预期，以及 iPhone Safari 底部/顶部标签页栏两种模式下滑到底继续滑动是否表现一致。
 - [ ] 问题7：需要用 iPhone Safari 真机复测首页是否恢复接近 60fps 原生滚动，以及缩放黑屏是否消失。
 - [ ] 问题8：需要用 iPhone Safari 真机复测新增固定遮挡层后，滑动时图片是否仍会露到 PS 界面外。
@@ -79,7 +80,7 @@
 ### 关键约束
 - 必须遵守根目录 `AGENT.md`：项目结构、技术栈、状态或任务进度变化时，同步维护 `README.md` 和 `CONTEXT.md`。
 - 访问码应在请求层拦截，不能只做前端提示。
-- EdgeOne Pages 使用根目录 `middleware.js`，Cloudflare Pages 使用 `functions/_middleware.js`；两套入口需保持访问码逻辑一致。
+- EdgeOne Pages 使用根目录 `middleware.js`，Cloudflare Pages 使用 `functions/_middleware.js`；两套入口必须只调用共享 `access-control.js`，避免重复维护访问码逻辑。
 - 默认访问码为 `1234`，开关关闭时不能影响公开访问。
 - 详情页移动端优先保证 iPhone Safari 不误触刷新、不重复加载，再保留尽可能完整的 3D 分层效果。
 - 首页短 URL 必须使用每个贴片独立 id，不能再复用整张图 id；旧版 `preview/image` 长链接仍需兼容并整理到新 id。
@@ -101,5 +102,6 @@
 - `preview-optimized-manifest.json`
 - `images-manifest.json`
 - `README.md`
+- `access-control.js`
 - `middleware.js`
 - `yulan-README.md`

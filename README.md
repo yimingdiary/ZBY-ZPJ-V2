@@ -60,6 +60,8 @@ Cloudflare Pages 部署时，在 Pages 项目的环境变量中配置 `ACCESS_KE
 
 EdgeOne Pages 部署时，也需要在 Pages 项目的环境变量中配置 `ACCESS_KEY_ENABLED` 和 `ACCESS_KEY`。EdgeOne 读取根目录 `middleware.js` 执行访问码拦截；只配置环境变量但没有部署这个文件时，页面会继续直接公开访问。
 
+访问码核心逻辑集中在 `access-control.js`。不同 Pages 平台只保留各自要求的入口文件，例如 EdgeOne 使用根目录 `middleware.js` 导出 `middleware(context)`，Cloudflare 使用 `functions/_middleware.js` 导出 `onRequest(context)`。
+
 如果线上仍然可以直接访问，优先检查：
 
 - 是否发布到了 Production 环境，且变量配置在 Production 中。
