@@ -58,11 +58,14 @@ ACCESS_KEY_ENABLED=true ACCESS_KEY=1234 node server.js
 
 Cloudflare Pages 部署时，在 Pages 项目的环境变量中配置 `ACCESS_KEY_ENABLED` 和 `ACCESS_KEY`。项目内的 `functions/_middleware.js` 会在边缘层拦截所有页面和资源请求；输入正确访问码后会写入 cookie，后续访问不需要重复输入。
 
+EdgeOne Pages 部署时，也需要在 Pages 项目的环境变量中配置 `ACCESS_KEY_ENABLED` 和 `ACCESS_KEY`。EdgeOne 读取根目录 `middleware.js` 执行访问码拦截；只配置环境变量但没有部署这个文件时，页面会继续直接公开访问。
+
 如果线上仍然可以直接访问，优先检查：
 
 - 是否发布到了 Production 环境，且变量配置在 Production 中。
 - 配置变量后是否重新部署了最新版本。
 - 是否使用 Cloudflare Dashboard 的 Direct Upload 上传静态文件；Direct Upload 不支持 Pages Functions，需要改用 Git 部署或 Wrangler 部署，才能让 `functions/_middleware.js` 生效。
+- 如果使用 EdgeOne Pages，确认线上最新部署包含根目录 `middleware.js`，并清理浏览器中旧的 `zpj_access_key` cookie 后再测试。
 
 ## 移动端显示
 
