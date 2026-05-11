@@ -5,7 +5,7 @@
 
 ### 当前状态
 - 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已撤掉上一版错误的 2D 降级和 `*-still.png` PNG 首帧资源；已恢复移动端详情页 3D 展开；首页和详情页标题更新为 `朱宝玉.psd-1.0.2`；新增 `generate-preview-optimized.py`，从 `preview/webp/` 的全尺寸 WebP 图层生成 `preview-optimized/` 裁切 WebP 和 `preview-optimized-manifest.json` 坐标清单；`detail.js` 已重新读取裁切 manifest，除背景/视频外优先使用裁切 WebP 并按原舞台坐标定位；触摸设备先加载背景和核心静态层，animated WebP、额外透明层和视频延后加载；首页热区点击已改为 `detail.html?id=...` 短 URL；移动端详情页已提高触摸展开跟随速度，并新增右侧 20vw 悬浮滚动条触控区；`hotspots.json` 已将每个贴片热区改为独立 id，避免同一作品图上的四个贴片打开同一内容；详情页旧版 `preview/image` 长 URL 会按预览目录整理到对应的新独立 id；直播间 UI 覆盖图已从 `douyin-ui.png` 切换为 `douyin-ui.webp`；主播层已从 `zhubo.webp` 静态图切换为视频，Apple 设备优先使用 `assets/overlays/zhubo-apple.mov`，其他设备优先使用 `assets/overlays/zhubo.webm`，保留原 left/top/width 坐标和贴片整体宽度比例；移动端详情页滚动条已改为细线 + 圆点拖动样式，20vw 触控区不参与舞台布局；本轮已将移动端详情页右侧滑动条可见轨道从 `72dvh` 缩短到 `43.2dvh`，整体居中后比上一版减少 40%；本地服务已补充 `.mov` 和 `.webm` MIME/cache 支持；已通过 `node --check detail.js`、`hotspots.json` JSON 解析、本地 HTTP、Google Chrome Headless 移动视口和模拟 Android 源选择验证。
-- 进行中：准备将最新版本提交推送到 GitHub。
+- 进行中：无。
 - 待开始：等待线上部署后用电脑端复测动效图是否不再频闪，并用 iPhone Safari/微信真机复测移动端详情页是否停止重复刷新/崩溃且仍保留 3D 展开；真机复测右侧悬浮滚动条是否不影响图片视觉居中。
 
 ### 已做决策
@@ -84,6 +84,7 @@
 - 主播层必须位于背景层前、贴片层后；直播间 UI 使用 `assets/overlays/douyin-ui.webp`。
 - 主播层视频必须按设备优先加载：Apple 设备优先 `assets/overlays/zhubo-apple.mov`，其他设备优先 `assets/overlays/zhubo.webm`，并保持原 x/y 坐标和 1292px 宽度规则。
 - 移动端详情页滚动条必须是细线 + 圆点拖动的视觉，20vw 右侧触控区不改变舞台居中。
+- 本轮最新版本已提交并推送到 GitHub `origin/main`。
 
 ### 参考资料
 - `AGENT.md`
