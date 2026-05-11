@@ -89,10 +89,10 @@ video {
 
 .mobile-scrollbar-track {
   position: absolute;
-  top: 14dvh;
+  top: 28.4dvh;
   right: max(14px, calc(env(safe-area-inset-right) + 10px));
   width: 1px;
-  height: 72dvh;
+  height: 43.2dvh;
   border-radius: 999px;
   background: linear-gradient(
     to bottom,
