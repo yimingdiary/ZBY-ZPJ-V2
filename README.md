@@ -90,7 +90,7 @@ python3 -m pip install --user Pillow
 python3 generate-preview-optimized.py
 ```
 
-该脚本会读取 `preview/webp/` 下每个全尺寸透明图层，按 alpha 内容裁切为 `preview-optimized/` 内的独立 WebP，并写入 `preview-optimized-manifest.json`。背景层继续使用原始 `preview/webp/背景.webp`，避免重复压缩造成体积变大。
+该脚本会读取 `preview/webp/` 下每个全尺寸透明图层，按 alpha 内容裁切为 `preview-optimized/` 内的独立 WebP，并写入 `preview-optimized-manifest.json`。对 animated WebP，脚本会合并所有帧的 alpha 内容范围后裁切，并保留动画帧输出为 WebP。背景层继续使用原始 `preview/webp/背景.webp`，避免重复压缩造成体积变大。
 
 ## 目录结构
 

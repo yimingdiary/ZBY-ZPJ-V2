@@ -1,12 +1,12 @@
 # CONTEXT.md
 
 ### 任务目标
-排查 EdgeOne Pages 部署后 `i.zhubaoyu.com` 未显示访问码输入页的问题，并补齐 EdgeOne 访问码中间件。
+将两个已替换为动态 WebP 的 `跑马灯.webp` 重新裁切并更新到 `preview-optimized/` 与 `preview-optimized-manifest.json`。
 
 ### 当前状态
-- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已确认线上 `https://i.zhubaoyu.com/` 曾返回 `200 OK` 首页 HTML，响应头为 `Server: edgeone-pages`，说明原 Cloudflare 访问码中间件未在 EdgeOne 上拦截；用户部署根目录 `middleware.js` 后 EdgeOne 返回 `545 Error return from script`，确认 EdgeOne 已开始执行脚本但入口/运行时适配有误；已将访问码核心逻辑抽到 `access-control.js`，Cloudflare 入口 `functions/_middleware.js` 和 EdgeOne 入口 `middleware.js` 仅作为薄适配层；已按 EdgeOne 官方要求把根目录 `middleware.js` 改为导出 `middleware(context)`。
-- 进行中：等待用户将共享访问码逻辑和新的 EdgeOne 入口部署到 EdgeOne Pages 后复测。
-- 待开始：部署后用无痕窗口或清理 `zpj_access_key` cookie 访问 `https://i.zhubaoyu.com/`，确认未授权状态返回访问码页。
+- 已完成：已按要求读取 `AGENT.md` 和 `CONTEXT.md`；已确认 `260109_贴片_铲屎官猫砂站_猫王猫砂/跑马灯.webp` 为 120 帧 animated WebP、`251112_贴片_宠物生活_双十一返厂/跑马灯.webp` 为 111 帧 animated WebP；已重新生成两个对应的 `preview-optimized/.../跑马灯-crop.webp`，并更新 `preview-optimized-manifest.json` 坐标；已补充 `README.md` 中 animated WebP 裁切说明。
+- 进行中：无。
+- 待开始：本地或线上打开详情页确认两个跑马灯动态裁切层播放正常且位置对齐。
 
 ### 已做决策
 | 决策 | 理由 | 排除的方案及原因 |
@@ -51,6 +51,7 @@
 | 移动端详情页滚动条改为细线 + 圆点 | 用户明确指出应是一条线和可拖动圆点，且整体样式不能突兀；细线圆点保留操作性但弱化视觉存在感 | 继续使用高亮长条 thumb 会像系统控件贴在画面上，视觉过重 |
 | 移动端详情页右侧滑动条轨道缩短 40% | 用户反馈右侧滑动条太长；将可见轨道从 `72dvh` 改为 `43.2dvh` 并居中，保留 20vw 触控区和圆点可拖动能力 | 缩小 20vw 触控区会降低可拖动命中率，并可能改变用户已确认的悬浮覆盖策略 |
 | 本地服务补充 MOV/WebM MIME | 主播层和预览视频依赖这些格式，本地服务正确返回 MIME 能避免浏览器按二进制兜底处理 | 只改前端路径会让本地验证和部分部署环境仍可能出现格式识别问题 |
+| 动态 `跑马灯.webp` 使用所有帧 alpha 合并范围裁切 | 单帧 bbox 会漏掉动画移动到其他位置的内容；合并所有帧后裁切能保证动画播放过程不被截断 | 只保留旧静态 crop 会丢失新动画；按首帧裁切可能导致后续帧内容出界 |
 
 ### 待解决问题
 - [ ] 问题1：需要用 iPhone Safari 真机复测首页顶部、左右边缘和底部地址栏遮挡状态下是否仍有图片漏出。
@@ -70,6 +71,7 @@
 - [ ] 问题20：本地 Chrome Headless 已验证主播视频层和 `douyin-ui.webp` 正常加载，图层顺序为背景后主播、再贴片、最后 UI；仍需真机复测主播层位置和大小是否符合预期。
 - [ ] 问题21：本地 Chrome Headless 已验证 Apple/Mac 环境选择 `zhubo-apple.mov`，模拟 Android 环境选择 `zhubo.webm`，两者均可进入可播放状态；仍需 iPhone Safari/微信和真实非 Apple 设备复测透明视频显示与播放。
 - [ ] 问题22：本地 Chrome Headless 已验证移动端滚动条为 1px 细线和 18px 圆点，右侧 20vw 触控区仍可显示；本轮已验证 844px 移动视口下轨道高度为 364.6px，即 `43.2dvh`，较上一版 `72dvh` 缩短 40%；仍需真机复测拖动手感和视觉是否协调。
+- [ ] 问题24：两个动态 `跑马灯-crop.webp` 已重新生成并确认保留动画帧；需要在详情页目测确认播放位置和舞台对齐无误。
 - [x] 问题5：本地移动端模拟验证 `#app` 裁剪框从全屏修正为 PS 内容区，并验证触摸上滑可驱动 `window.scrollY` 和图片流同步移动。
 - [x] 问题6：本地移动端模拟确认触摸设备上 SVG 覆盖层不再接管触摸，触摸上滑使用原生滚动；初始顶部深色条来自 SVG 顶部工具栏区域。
 - [x] 问题2：Cloudflare Pages Production 环境变量截图显示已配置 `ACCESS_KEY_ENABLED=true` 和 `ACCESS_KEY=1234`；用户确认重新部署后访问码已生效。
@@ -89,6 +91,7 @@
 - 主播层视频必须按设备优先加载：Apple 设备优先 `assets/overlays/zhubo-apple.mov`，其他设备优先 `assets/overlays/zhubo.webm`，并保持原 x/y 坐标和 1292px 宽度规则。
 - 移动端详情页滚动条必须是细线 + 圆点拖动的视觉，20vw 右侧触控区不改变舞台居中。
 - 本轮最新版本已提交并推送到 GitHub `origin/main`。
+- 两个动态跑马灯裁切后的输出必须继续使用 `preview-optimized/` 中的 animated WebP，不能退回静态首帧。
 
 ### 参考资料
 - `AGENT.md`
@@ -100,6 +103,8 @@
 - `hotspots.json`
 - `preview-manifest.json`
 - `preview-optimized-manifest.json`
+- `preview-optimized/260109_贴片_铲屎官猫砂站_猫王猫砂/跑马灯-crop.webp`
+- `preview-optimized/251112_贴片_宠物生活_双十一返厂/跑马灯-crop.webp`
 - `images-manifest.json`
 - `README.md`
 - `access-control.js`
