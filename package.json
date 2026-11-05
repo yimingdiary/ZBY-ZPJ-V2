@@ -1,0 +1,35 @@
+{
+  "name": "zby-portfolio-v2",
+  "version": "1.0.0",
+  "description": "将现有图片式作品集重构为代码驱动的现代化网站，实现可视化编辑、模块化管理、GitHub 存储及 CDN 加速。",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/compile-schema.mjs && astro check && astro build && node scripts/build-worker.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "playwright test",
+    "check": "astro check",
+    "schema:build": "node scripts/compile-schema.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/react": "^6.0.0",
+    "@puckeditor/core": "^0.24.0",
+    "ajv": "^8.20.0",
+    "astro": "^7.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@playwright/test": "^1.64.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3"
+  },
+  "private": true,
+  "type": "module"
+}

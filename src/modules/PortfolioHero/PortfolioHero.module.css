@@ -1,0 +1,65 @@
+.hero {
+  color: var(--hero-ink);
+  padding: var(--hero-space) var(--space-page) 3cqw;
+}
+.heading {
+  margin: 0;
+  font-weight: 400;
+  font-family: var(--hero-font);
+  line-height: 0;
+}
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-weight: 400;
+}
+.captions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  gap: 15px;
+  margin-top: 0;
+}
+.captions h2 {
+  font-size: var(--size-subtitle);
+  font-weight: 300;
+  margin: 0;
+}
+.captions p {
+  font-family: var(--font-label);
+  font-size: var(--size-caption);
+  margin: 0.5cqw 0 0;
+  text-align: center;
+  line-height: 1.2;
+}
+.captions p span {
+  display: block;
+}
+.captions p:last-child {
+  text-align: right;
+  font: 300 clamp(11px, 1.2cqw, 23px) var(--font-body);
+}
+@media (max-width: 600px) {
+  .hero {
+    padding-top: 19cqw;
+    padding-bottom: 20cqw;
+  }
+  .captions {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+  }
+  .captions h2 {
+    grid-column: 1/-1;
+    font-size: 25px;
+  }
+  .captions p {
+    text-align: left !important;
+    font-size: 10px;
+  }
+  .captions p:last-child {
+    text-align: right !important;
+    font-size: 10px;
+  }
+}

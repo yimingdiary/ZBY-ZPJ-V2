@@ -1,0 +1,34 @@
+.footer {
+  margin: auto 1.5cqw 1.4cqw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0 0.6cqw;
+  min-height: 2cqw;
+}
+.footer span:first-child {
+  font-family: var(--font-display);
+  transform: scaleX(0.65);
+  transform-origin: left center;
+  font-size: var(--size-year);
+  letter-spacing: -0.2cqw;
+  line-height: 0.9;
+}
+.footer span:last-child {
+  font-size: var(--size-footer-caption);
+  line-height: 1;
+}
+@media (max-width: 600px) {
+  .footer {
+    padding: 8px;
+    margin: auto 12px 12px;
+  }
+  .footer span:first-child {
+    font-size: 24px;
+  }
+  .footer span:last-child {
+    font-size: 15px;
+  }
+}

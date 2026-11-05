@@ -1,0 +1,60 @@
+{
+  "root": {
+    "props": {
+      "chrome": true
+    }
+  },
+  "content": [
+    {
+      "type": "Navigation",
+      "props": {
+        "id": "navigation-home",
+        "version": 1,
+        "brand": "DESIGN\nPORTFOLIO",
+        "items": [
+          {
+            "label": "[贴片设计",
+            "href": ""
+          },
+          {
+            "label": "[战报设计",
+            "href": ""
+          },
+          {
+            "label": "[海报设计",
+            "href": ""
+          },
+          {
+            "label": "[物料设计",
+            "href": ""
+          }
+        ],
+        "motto": "KEEP EXPLORING"
+      }
+    },
+    {
+      "type": "PortfolioHero",
+      "props": {
+        "id": "hero-home",
+        "version": 1,
+        "title": "PORTFOLIO",
+        "subtitle": "[設計作品集]",
+        "welcome": "Welcome To\nMy Channel",
+        "motto": "[KEEP LEARNING]",
+        "font": "display",
+        "ink": "inherit",
+        "spacing": 14.5
+      }
+    },
+    {
+      "type": "Footer",
+      "props": {
+        "id": "footer-home",
+        "version": 1,
+        "years": "2023-2026",
+        "category": "[平面/视觉]"
+      }
+    }
+  ],
+  "zones": {}
+}

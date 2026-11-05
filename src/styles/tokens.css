@@ -1,0 +1,42 @@
+@import "./fonts.generated.css";
+/* 全局设计令牌：模块只引用语义名称，不复制数值。 */
+@font-face {
+  font-family: Geyster;
+  src: url("/fonts/geyster.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: SourceHan;
+  src: url("/fonts/source-han-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: Alibaba;
+  src: url("/fonts/alibaba-light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: Gerbil;
+  src: url("/fonts/gerbil.woff2") format("woff2");
+  font-display: swap;
+}
+:root {
+  --font-display: Gerbil, Arial, sans-serif;
+  --font-accent: Geyster, Arial, sans-serif;
+  --font-body: AlibabaPage, Alibaba, "PingFang SC", sans-serif;
+  --font-label: SourceHanPage, SourceHan, sans-serif;
+  --color-paper: #f8f8f8;
+  --color-ink: #080808;
+  --color-guide: #727272;
+  --color-chrome: #535353;
+  --space-page: 5.3%;
+  --size-nav: clamp(12px, 1.2cqw, 23px);
+  --size-caption: clamp(11px, 0.75cqw, 15px);
+  --size-subtitle: clamp(20px, 2.5cqw, 48px);
+  --size-year: 2.7cqw;
+  --size-footer-caption: 1.8cqw;
+  --line-guide: 1px;
+  --duration-fast: 180ms;
+}
