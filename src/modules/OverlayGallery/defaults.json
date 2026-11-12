@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "title": "Overlay",
+  "subtitle": "动态设计",
+  "category": "贴片设计",
+  "items": [
+    {
+      "src": "/images/overlay/ice-cream.jpg",
+      "alt": "哈根达斯与梦龙直播贴片设计"
+    },
+    {
+      "src": "/images/overlay/crocs.jpg",
+      "alt": "crocs 直播贴片设计"
+    },
+    {
+      "src": "/images/overlay/junlebao.jpg",
+      "alt": "君乐宝小小鲁班直播贴片设计"
+    },
+    {
+      "src": "/images/overlay/auldey.jpg",
+      "alt": "奥迪双钻直播贴片设计"
+    }
+  ]
+}

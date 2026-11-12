@@ -23,3 +23,24 @@ path.parent.mkdir(parents=True,exist_ok=True)
 E.indent(out)
 E.ElementTree(out).write(path,encoding='unicode',xml_declaration=False)
 print(f'{path.name}: {len(out)} source elements')
+
+# 第二屏标题的四条原始线与四个节点。
+source=root/'cankao/261105_ZBY_ZPJ_V2,0_内页_02.svg'
+svg=E.parse(source).getroot()
+style=svg.find(f'{{{ns}}}defs/{{{ns}}}style').text
+rules=[]
+for selectors,body in re.findall(r'([^{}]+)\{([^{}]+)\}',style):
+ rules.append((set(re.findall(r'\.([\w-]+)',selectors)),dict(re.findall(r'([\w-]+)\s*:\s*([^;]+)',body))))
+group=next(g for g in svg if any(n.tag==f'{{{ns}}}text' and ''.join(n.itertext())=='Abo' for n in g.iter()))
+out=E.Element(f'{{{ns}}}svg',{'viewBox':'103 147.2 524 101.8','fill':'none','preserveAspectRatio':'none'})
+for node in group:
+ if node.tag.split('}')[-1] not in ('line','circle','path'):continue
+ item=copy.deepcopy(node);classes=set(item.attrib.pop('class','').split())
+ for selectors,props in rules:
+  if classes&selectors:
+   for k,v in props.items():item.set(k,v.strip())
+ out.append(item)
+path=root/'public/decorations/about-guides.svg'
+E.indent(out)
+E.ElementTree(out).write(path,encoding='unicode',xml_declaration=False)
+print(f'{path.name}: {len(out)} source elements')

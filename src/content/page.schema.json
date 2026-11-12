@@ -14,9 +14,7 @@
               "type": "boolean"
             }
           },
-          "required": [
-            "chrome"
-          ]
+          "required": ["chrome"]
         },
         "readOnly": {
           "type": "object",
@@ -28,9 +26,7 @@
           "additionalProperties": false
         }
       },
-      "required": [
-        "props"
-      ]
+      "required": ["props"]
     },
     "content": {
       "type": "array",
@@ -78,10 +74,7 @@
                           "pattern": "^(#|/[^/]|https://|$)"
                         }
                       },
-                      "required": [
-                        "label",
-                        "href"
-                      ]
+                      "required": ["label", "href"]
                     }
                   },
                   "motto": {
@@ -89,13 +82,7 @@
                     "maxLength": 300
                   }
                 },
-                "required": [
-                  "id",
-                  "version",
-                  "brand",
-                  "items",
-                  "motto"
-                ]
+                "required": ["id", "version", "brand", "items", "motto"]
               },
               "readOnly": {
                 "type": "object",
@@ -119,10 +106,7 @@
                 "additionalProperties": false
               }
             },
-            "required": [
-              "type",
-              "props"
-            ]
+            "required": ["type", "props"]
           },
           {
             "type": "object",
@@ -161,10 +145,7 @@
                     "maxLength": 300
                   },
                   "font": {
-                    "enum": [
-                      "display",
-                      "body"
-                    ]
+                    "enum": ["display", "body"]
                   },
                   "ink": {
                     "type": "string",
@@ -222,10 +203,7 @@
                 "additionalProperties": false
               }
             },
-            "required": [
-              "type",
-              "props"
-            ]
+            "required": ["type", "props"]
           },
           {
             "type": "object",
@@ -255,12 +233,7 @@
                     "maxLength": 300
                   }
                 },
-                "required": [
-                  "id",
-                  "version",
-                  "years",
-                  "category"
-                ]
+                "required": ["id", "version", "years", "category"]
               },
               "readOnly": {
                 "type": "object",
@@ -281,10 +254,532 @@
                 "additionalProperties": false
               }
             },
-            "required": [
-              "type",
-              "props"
-            ]
+            "required": ["type", "props"]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "AboutMe"
+              },
+              "props": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "const": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "englishName": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "portraitAlt": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "company": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "role": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "period": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "portrait": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "pattern": "^/images/[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+                  },
+                  "summary": {
+                    "type": "string",
+                    "maxLength": 3000
+                  },
+                  "facts": {
+                    "type": "array",
+                    "maxItems": 12,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "maxLength": 1000
+                        },
+                        "value": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": ["label", "value"]
+                    }
+                  },
+                  "achievements": {
+                    "type": "array",
+                    "maxItems": 12,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "maxLength": 1000
+                        },
+                        "description": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": ["title", "description"]
+                    }
+                  },
+                  "education": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "school": {
+                          "type": "string",
+                          "maxLength": 1000
+                        },
+                        "qualification": {
+                          "type": "string",
+                          "maxLength": 1000
+                        },
+                        "major": {
+                          "type": "string",
+                          "maxLength": 1000
+                        },
+                        "period": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": ["school", "qualification", "major", "period"]
+                    }
+                  },
+                  "skills": {
+                    "type": "array",
+                    "maxItems": 20,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "maxLength": 1000
+                        }
+                      },
+                      "required": ["label"]
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "version",
+                  "title",
+                  "name",
+                  "englishName",
+                  "portraitAlt",
+                  "company",
+                  "role",
+                  "period",
+                  "portrait",
+                  "summary",
+                  "facts",
+                  "achievements",
+                  "education",
+                  "skills"
+                ]
+              },
+              "readOnly": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "version": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "boolean"
+                  },
+                  "englishName": {
+                    "type": "boolean"
+                  },
+                  "portraitAlt": {
+                    "type": "boolean"
+                  },
+                  "company": {
+                    "type": "boolean"
+                  },
+                  "role": {
+                    "type": "boolean"
+                  },
+                  "period": {
+                    "type": "boolean"
+                  },
+                  "portrait": {
+                    "type": "boolean"
+                  },
+                  "summary": {
+                    "type": "boolean"
+                  },
+                  "facts": {
+                    "type": "boolean"
+                  },
+                  "achievements": {
+                    "type": "boolean"
+                  },
+                  "education": {
+                    "type": "boolean"
+                  },
+                  "skills": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "required": ["type", "props"]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "Contents"
+              },
+              "props": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "const": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "subtitle": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "items": {
+                    "type": "array",
+                    "maxItems": 4,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "letter": {
+                          "type": "string",
+                          "maxLength": 1
+                        },
+                        "number": {
+                          "type": "string",
+                          "maxLength": 2
+                        },
+                        "label": {
+                          "type": "string",
+                          "maxLength": 300
+                        },
+                        "english": {
+                          "type": "string",
+                          "maxLength": 300
+                        },
+                        "href": {
+                          "type": "string",
+                          "maxLength": 500,
+                          "pattern": "^(#|/[^/]|https://|$)"
+                        }
+                      },
+                      "required": [
+                        "letter",
+                        "number",
+                        "label",
+                        "english",
+                        "href"
+                      ]
+                    }
+                  }
+                },
+                "required": ["id", "version", "title", "subtitle", "items"]
+              },
+              "readOnly": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "version": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "boolean"
+                  },
+                  "subtitle": {
+                    "type": "boolean"
+                  },
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "required": ["type", "props"]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "Closing"
+              },
+              "props": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "const": 1
+                  },
+                  "brand": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "items": {
+                    "type": "array",
+                    "maxItems": 8,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "maxLength": 300
+                        },
+                        "href": {
+                          "type": "string",
+                          "maxLength": 500,
+                          "pattern": "^(#|/[^/]|https://|$)"
+                        }
+                      },
+                      "required": ["label", "href"]
+                    }
+                  },
+                  "motto": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 12
+                  },
+                  "subtitle": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "wish": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "welcome": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "learning": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "years": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "category": {
+                    "type": "string",
+                    "maxLength": 300
+                  }
+                },
+                "required": [
+                  "id",
+                  "version",
+                  "brand",
+                  "items",
+                  "motto",
+                  "title",
+                  "subtitle",
+                  "wish",
+                  "welcome",
+                  "learning",
+                  "years",
+                  "category"
+                ]
+              },
+              "readOnly": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "version": {
+                    "type": "boolean"
+                  },
+                  "brand": {
+                    "type": "boolean"
+                  },
+                  "items": {
+                    "type": "boolean"
+                  },
+                  "motto": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "boolean"
+                  },
+                  "subtitle": {
+                    "type": "boolean"
+                  },
+                  "wish": {
+                    "type": "boolean"
+                  },
+                  "welcome": {
+                    "type": "boolean"
+                  },
+                  "learning": {
+                    "type": "boolean"
+                  },
+                  "years": {
+                    "type": "boolean"
+                  },
+                  "category": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "required": ["type", "props"]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "OverlayGallery"
+              },
+              "props": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "version": {
+                    "const": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "subtitle": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "category": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "items": {
+                    "type": "array",
+                    "maxItems": 12,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "src": {
+                          "type": "string",
+                          "maxLength": 500,
+                          "pattern": "^/images/[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+                        },
+                        "alt": {
+                          "type": "string",
+                          "maxLength": 300
+                        }
+                      },
+                      "required": ["src", "alt"]
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "version",
+                  "title",
+                  "subtitle",
+                  "category",
+                  "items"
+                ]
+              },
+              "readOnly": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "version": {
+                    "type": "boolean"
+                  },
+                  "title": {
+                    "type": "boolean"
+                  },
+                  "subtitle": {
+                    "type": "boolean"
+                  },
+                  "category": {
+                    "type": "boolean"
+                  },
+                  "items": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "required": ["type", "props"]
           }
         ]
       }
@@ -295,8 +790,5 @@
       "additionalProperties": false
     }
   },
-  "required": [
-    "root",
-    "content"
-  ]
+  "required": ["root", "content"]
 }

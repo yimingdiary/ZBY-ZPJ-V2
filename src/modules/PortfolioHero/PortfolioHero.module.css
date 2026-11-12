@@ -63,3 +63,12 @@
     font-size: 10px;
   }
 }
+/* 封面保持一屏；后续内容加入后，不再依靠整份文档的 auto 外边距撑高。 */
+.hero {
+  min-height: calc(100svh - 10.78cqw);
+}
+@media (max-width: 600px) {
+  .hero {
+    min-height: calc(100svh - 184px);
+  }
+}

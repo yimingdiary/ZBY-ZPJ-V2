@@ -17,6 +17,8 @@ const data = JSON.parse(await readFile('content/published/home.json', 'utf8'));
   <body><Page data={data} /></body>
 </html>
 <script>
+  import {attachTitleFrame} from '../design/title-frame';
+  document.querySelectorAll<SVGSVGElement>('svg[data-framed-title]').forEach(attachTitleFrame);
   import {attachPhotoshopFrame} from '../design/photoshop-frame';
   document.querySelectorAll<HTMLObjectElement>('object[data-photoshop-frame]').forEach(attachPhotoshopFrame);
 </script>

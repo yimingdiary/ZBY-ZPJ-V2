@@ -14,15 +14,18 @@ test("PS 工具交互、滚轮、轨道和滑块与页面同步，正文仍可�
       () => getComputedStyle(document.documentElement).scrollbarWidth,
     ),
   ).toBe("none");
-  await page.locator("header").evaluate((header) => {
-    const section = document.createElement("section");
-    section.innerHTML = '<button id="ps-test-action">正文按钮</button>';
-    section.style.cssText = "height:3000px;padding:30px";
-    section.querySelector("button")!.addEventListener("click", () => {
-      section.dataset.clicked = "true";
+  await page
+    .locator("header")
+    .first()
+    .evaluate((header) => {
+      const section = document.createElement("section");
+      section.innerHTML = '<button id="ps-test-action">正文按钮</button>';
+      section.style.cssText = "height:3000px;padding:30px";
+      section.querySelector("button")!.addEventListener("click", () => {
+        section.dataset.clicked = "true";
+      });
+      header.after(section);
     });
-    header.after(section);
-  });
   await page.locator("#ps-test-action").click();
   await expect(page.locator('section[data-clicked="true"]')).toHaveCount(1);
   const svg = page
@@ -104,16 +107,20 @@ test("手机触摸外壳可滚动，拖动滑块不会被原生手势取消", as
   try {
     const page = await context.newPage();
     await page.goto("http://127.0.0.1:4321/");
+    await page.evaluate(() => document.fonts.ready);
     await page.waitForFunction(() =>
       document
         .querySelector<HTMLObjectElement>("object")
         ?.contentDocument?.querySelector("[data-ps-scrollbar-ready]"),
     );
-    await page.locator("header").evaluate((e) => {
-      const block = document.createElement("div");
-      block.style.height = "3000px";
-      e.parentElement!.append(block);
-    });
+    await page
+      .locator("header")
+      .first()
+      .evaluate((e) => {
+        const block = document.createElement("div");
+        block.style.height = "3000px";
+        e.parentElement!.append(block);
+      });
     const svg = page
       .frames()
       .find((f) => f.url().endsWith("/decorations/ps-yemian.svg"))!;
@@ -121,6 +128,13 @@ test("手机触摸外壳可滚动，拖动滑块不会被原生手势取消", as
     await expect
       .poll(() => thumb.evaluate((e) => e.getBoundingClientRect().height))
       .toBeLessThan(500);
+    // 新增长内容后等待 ResizeObserver 完成外壳适配，再读取触摸坐标。
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
     const box = (await thumb.boundingBox())!,
       x = box.x + box.width / 2,
       y = box.y + box.height / 2;

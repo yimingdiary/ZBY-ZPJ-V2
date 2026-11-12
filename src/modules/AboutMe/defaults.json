@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "title": "About Me",
+  "name": "朱宝玉",
+  "englishName": "BARRY ZHU",
+  "portrait": "/images/barry-zhu-portrait.png",
+  "portraitAlt": "朱宝玉个人照片",
+  "facts": [
+    {
+      "label": "求职意向",
+      "value": "直播内容设计师"
+    },
+    {
+      "label": "学历",
+      "value": "大学本科"
+    },
+    {
+      "label": "专业",
+      "value": "视觉传达设计"
+    },
+    {
+      "label": "出生",
+      "value": "2001.01.11"
+    },
+    {
+      "label": "期望薪资",
+      "value": "1.1—1.5w"
+    },
+    {
+      "label": "邮箱",
+      "value": "i@zhubaoyu.com"
+    }
+  ],
+  "company": "交个朋友优选科技有限公司",
+  "role": "高级直播内容设计师",
+  "period": "2023.09 - 至今",
+  "summary": "主导交个朋友抖音主号（2492万+粉丝）及垂类矩阵账号（96+账号）直播物料设计，包括贴片、战报、海报等，累计支持800+场直播活动，产出1330+视觉作品，具备618、双11、双12及年货节等大促经验。曾对接张雨绮、罗永浩等明星红人相关设计项目。",
+  "achievements": [
+    {
+      "title": "贴片动态设计",
+      "description": "设计高质量动态贴片，强化信息层级与视觉吸引力，提升直播观看体验，促成品牌方多次追加抽奖资源。"
+    },
+    {
+      "title": "全套物料设计",
+      "description": "负责直播间虚拟场景、KT板、背景板等全套物料，统一品牌调性并提升直播场景专业度。"
+    },
+    {
+      "title": "大促项目经验",
+      "description": "参与618、双11、双12、年货节等大促视觉设计，熟悉多品类风格与高压场次工作节奏。"
+    },
+    {
+      "title": "团队管理",
+      "description": "带教9名实习生，沉淀多套高频贴片设计规范及模板，提升团队整体产出效率。"
+    },
+    {
+      "title": "AIGC工具应用",
+      "description": "熟练运用ChatGPT、NanoBanana、即梦等工具优化海报及战报设计，提升视觉质感和产出效率。"
+    }
+  ],
+  "education": [
+    {
+      "school": "黑河学院",
+      "qualification": "本",
+      "major": "视觉传达设计",
+      "period": "2022-2024"
+    },
+    {
+      "school": "哈尔滨传媒职业学院",
+      "qualification": "专",
+      "major": "视觉传播设计与制作",
+      "period": "2019-2022"
+    }
+  ],
+  "skills": [
+    {
+      "label": "PS"
+    },
+    {
+      "label": "AI"
+    },
+    {
+      "label": "ChatGPT"
+    },
+    {
+      "label": "Gemini"
+    }
+  ]
+}

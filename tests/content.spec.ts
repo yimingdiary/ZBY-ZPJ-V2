@@ -35,7 +35,7 @@ test("真实保存与重载、发布隔离及新增模块兼容", async ({ reque
     await expect(
       page.getByRole("heading", { name: "[测试修改]", exact: true }),
     ).toBeVisible();
-    await expect(page.locator("footer")).toHaveCount(2);
+    await expect(page.locator("footer")).toHaveCount(3);
     await expect(
       page.getByRole("heading", { name: "PORTFOLIO", exact: true }),
     ).toBeVisible();
