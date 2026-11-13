@@ -115,7 +115,7 @@ test("中文编辑器可加载及修改后实际保存", async ({ page }) => {
     await page.getByText("隐藏", { exact: true }).last().click();
     await expect(
       frame.locator('image[href="/decorations/portfolio-guides.svg"]'),
-    ).toHaveCount(0);
+    ).toHaveCount(1);
     await expect(frame.locator('[class*="_workspace_"]')).toHaveCount(0);
     expect(
       await frame

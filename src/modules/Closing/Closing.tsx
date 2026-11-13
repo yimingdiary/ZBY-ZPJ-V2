@@ -1,5 +1,4 @@
 import { useId } from "react";
-import { useDecorationVisibility } from "../../design/DecorationVisibility";
 import { Navigation, type NavigationProps } from "../Navigation/Navigation";
 import { Footer } from "../Footer/Footer";
 import letters from "./letters.json";
@@ -15,7 +14,6 @@ export type ClosingProps = NavigationProps & {
 };
 const edges = [169, 339, 516, 692, 869, 1045, 1221, 1394, 1575, 1773];
 export function Closing(p: ClosingProps) {
-  const decorated = useDecorationVisibility();
   const uid = useId().replace(/:/g, "");
   const chars = [...p.title];
   // 原稿 THANK / 花形 / YOU 共九格，八个字母仍使用真实 SVG text。
@@ -78,15 +76,13 @@ export function Closing(p: ClosingProps) {
                 height="150"
               />
             )}
-            {decorated && (
-              <image
-                href="/decorations/closing-guides.svg"
-                x="117"
-                y="323"
-                width="1696"
-                height="298"
-              />
-            )}
+            <image
+              href="/decorations/closing-guides.svg"
+              x="117"
+              y="323"
+              width="1696"
+              height="298"
+            />
           </svg>
         </h2>
         <div className={s.captions}>

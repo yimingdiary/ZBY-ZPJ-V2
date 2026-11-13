@@ -106,8 +106,9 @@ JSON Schema 是运行时数据约束的唯一来源；TypeScript 类型与 Puck 
 ## 8. 装饰素材与隐藏行为
 
 - 标题线框原素材位于 `public/decorations/portfolio-guides.svg`；提取脚本保留源 SVG 的 12 条线、20 个圆点及其原始坐标和样式。禁止用近似手绘替换。
-- `src/design/DecorationVisibility.tsx` 是页面装饰显隐的公共上下文，模块不得通过彼此内部 DOM 控制显隐。
-- 隐藏时所有装饰及其布局占位一并消失，正文画布从视口边缘开始。
+- Photoshop 根开关仅由 Chrome 控制外壳和外框占位；标题、目录、结束页线框属于内容，不读取 PS 显隐状态。
+- 隐藏 PS 时移除外壳及其布局占位，正文画布从视口边缘开始，内容线框保留。
+- 原生滚动条由全局 CSS `html:has([data-photoshop-workspace])` 在首屏样式计算时隐藏，避免等待外壳脚本造成闪现；外壳删除后自动恢复。
 - V1 装饰只能在找到具体源文件后复制到 V2 复用，禁止在 V1 中构建或修改。
 
 Photoshop 外壳直接复用 `v1.0/ZBY-ZPJ/ps-yemian.svg` 的原样副本，存于 V2 的 `public/decorations/ps-yemian.svg`。`src/design/photoshop-frame.ts` 沿用 V1 的 viewBox、侧栏及底栏适配规则；公开页与 Puck 预览共享此函数，不再维护近似手绘工具图标。

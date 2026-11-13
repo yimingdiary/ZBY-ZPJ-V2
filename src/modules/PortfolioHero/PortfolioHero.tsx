@@ -1,5 +1,4 @@
 import { useId, type CSSProperties } from "react";
-import { useDecorationVisibility } from "../../design/DecorationVisibility";
 import s from "./PortfolioHero.module.css";
 export type HeroProps = {
   version: 1;
@@ -46,7 +45,6 @@ export function PortfolioHero({
   ink,
   spacing,
 }: HeroProps) {
-  const showDecorations = useDecorationVisibility();
   const uid = useId().replace(/:/g, "");
   const chars = [...title];
   const standard = chars.length === 9;
@@ -108,16 +106,14 @@ export function PortfolioHero({
               );
             })}
           </g>
-          {showDecorations && (
-            <image
-              href="/decorations/portfolio-guides.svg"
-              x="117"
-              y="323"
-              width="1696"
-              height="298"
-              aria-hidden="true"
-            />
-          )}
+          <image
+            href="/decorations/portfolio-guides.svg"
+            x="117"
+            y="323"
+            width="1696"
+            height="298"
+            aria-hidden="true"
+          />
         </svg>
       </h1>
       <div className={s.captions}>

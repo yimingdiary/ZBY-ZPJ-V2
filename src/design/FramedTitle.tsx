@@ -1,12 +1,10 @@
 import { useEffect, useRef } from "react";
-import { useDecorationVisibility } from "./DecorationVisibility";
 import { attachTitleFrame } from "./title-frame";
 export function FramedTitle({ title }: { title: string }) {
-  const decorated = useDecorationVisibility();
   const ref = useRef<SVGSVGElement>(null);
   useEffect(() => {
     if (ref.current) return attachTitleFrame(ref.current);
-  }, [title, decorated]);
+  }, [title]);
   return (
     <h2 aria-label={title}>
       <svg
@@ -27,13 +25,11 @@ export function FramedTitle({ title }: { title: string }) {
         <text x="0" y="0" fontSize="100">
           {title}
         </text>
-        {decorated && (
-          <image
-            href="/decorations/about-guides.svg"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          />
-        )}
+        <image
+          href="/decorations/about-guides.svg"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        />
       </svg>
     </h2>
   );

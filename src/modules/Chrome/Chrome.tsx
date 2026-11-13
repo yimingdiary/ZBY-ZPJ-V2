@@ -1,6 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import s from "./Chrome.module.css";
-import { DecorationVisibility } from "../../design/DecorationVisibility";
 import { attachPhotoshopFrame } from "../../design/photoshop-frame";
 export function Chrome({
   children,
@@ -15,8 +14,12 @@ export function Chrome({
     if (enabled && frame.current) return attachPhotoshopFrame(frame.current);
   }, [enabled]);
   return (
-    <DecorationVisibility.Provider value={enabled}>
-      <div className={enabled ? s.workspace : s.bare}>
+    <>
+      <div
+        data-page-scroll=""
+        data-photoshop-workspace={enabled ? "" : undefined}
+        className={enabled ? s.workspace : s.bare}
+      >
         <div className={enabled ? s.canvas : s.clean}>{children}</div>
         {enabled && (
           <object
@@ -30,6 +33,6 @@ export function Chrome({
           />
         )}
       </div>
-    </DecorationVisibility.Provider>
+    </>
   );
 }

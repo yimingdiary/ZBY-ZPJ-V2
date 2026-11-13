@@ -1,5 +1,4 @@
 import { FramedTitle } from "../../design/FramedTitle";
-import { useDecorationVisibility } from "../../design/DecorationVisibility";
 import s from "./Contents.module.css";
 export type ContentsProps = {
   version: 1;
@@ -18,7 +17,6 @@ const textX = [320.38, 688.06, 1079.1877, 1470.0291];
 const numberX = [405.45, 772.74, 1166.2043, 1561.7175];
 const labelX = [314.4, 699.09, 1088.3621, 1485.4438];
 export function Contents(p: ContentsProps) {
-  const decorated = useDecorationVisibility();
   return (
     <section id="contents" className={s.contents} aria-label="作品目录">
       <header className={s.header}>
@@ -61,15 +59,13 @@ export function Contents(p: ContentsProps) {
                 >
                   {item.label}
                 </text>
-                {decorated && (
-                  <image
-                    href={`/decorations/contents-${slot + 1}-guides.svg`}
-                    x={center - 110}
-                    y="450"
-                    width="220"
-                    height="220"
-                  />
-                )}
+                <image
+                  href={`/decorations/contents-${slot + 1}-guides.svg`}
+                  x={center - 110}
+                  y="450"
+                  width="220"
+                  height="220"
+                />
               </svg>
               <span className={s.english}>{item.english}</span>
             </>

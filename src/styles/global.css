@@ -40,3 +40,27 @@ button:disabled {
     scroll-behavior: auto !important;
   }
 }
+
+/* 在首帧样式计算时决定滚动条，避免等待外壳脚本造成闪现。 */
+html:has([data-photoshop-workspace]) {
+  scrollbar-width: none;
+}
+html:has([data-photoshop-workspace])::-webkit-scrollbar,
+html:has([data-photoshop-workspace]) body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 作品集使用原生轻吸附，长页仍可自由浏览，不强制逐屏翻页。 */
+html:has([data-page-scroll]) {
+  scroll-snap-type: y proximity;
+}
+html:has([data-photoshop-workspace]) {
+  scroll-padding-top: 2.380208333vw;
+}
+[data-page-scroll],
+[data-page-scroll] :is(#about, #contents, #overlay, #closing) {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}

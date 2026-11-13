@@ -84,6 +84,17 @@ test("关闭 PS 外壳恢复原生滚动条，重新显示后只保留一套交�
     .toBe("custom");
   await page.getByText("隐藏", { exact: true }).last().click();
   await expect(frame.locator("object")).toHaveCount(0);
+  for (const name of [
+    "portfolio-guides",
+    "about-guides",
+    "contents-1-guides",
+    "closing-guides",
+  ]) {
+    await expect(
+      frame.locator(`image[href="/decorations/${name}.svg"]`).first(),
+    ).toBeAttached();
+  }
+
   await expect
     .poll(() => frame.locator("html").getAttribute("data-ps-scrollbar"))
     .toBeNull();

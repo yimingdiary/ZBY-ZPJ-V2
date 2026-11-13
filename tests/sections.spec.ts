@@ -34,10 +34,10 @@ test("目录和结束页真实文字、手机布局及装饰显隐", async ({ pa
     data.root.props.chrome = false;
     await writeFile(published, JSON.stringify(data));
     await page.reload();
-    await expect(page.locator("#contents image")).toHaveCount(0);
+    await expect(page.locator("#contents image")).toHaveCount(5);
     await expect(
       page.locator('#closing image[href$="closing-guides.svg"]'),
-    ).toHaveCount(0);
+    ).toHaveCount(1);
     await expect(
       page.locator('#closing image[href$="closing-flower.svg"]'),
     ).toHaveCount(1);
