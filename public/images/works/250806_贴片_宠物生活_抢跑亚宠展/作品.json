@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "sourceName": "250806_贴片_宠物生活_抢跑亚宠展",
+  "name": "动态贴片-亚宠展",
+  "canvas": {
+    "width": 1290,
+    "height": 2791
+  },
+  "cover": "贴片预览.jpg",
+  "directory": "动态预览",
+  "files": [
+    "背景.webp",
+    "倒计时.webp",
+    "底部挂件-背.webp",
+    "底部挂件-文.webp",
+    "顶部挂件-背.webp",
+    "顶部挂件-文-动.webp",
+    "明楷.webp"
+  ],
+  "assets": {
+    "倒计时.webp": {
+      "fileName": "倒计时.webp",
+      "optimized": "分层素材/倒计时-crop.webp",
+      "kind": "positioned",
+      "left": 52,
+      "top": 890,
+      "width": 226,
+      "height": 234,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "底部挂件-文.webp": {
+      "fileName": "底部挂件-文.webp",
+      "optimized": "分层素材/底部挂件-文-crop.webp",
+      "kind": "positioned",
+      "left": 183,
+      "top": 2424,
+      "width": 927,
+      "height": 252,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "底部挂件-背.webp": {
+      "fileName": "底部挂件-背.webp",
+      "optimized": "分层素材/底部挂件-背-crop.webp",
+      "kind": "positioned",
+      "left": 0,
+      "top": 2272,
+      "width": 1292,
+      "height": 519,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "明楷.webp": {
+      "fileName": "明楷.webp",
+      "optimized": "分层素材/明楷-crop.webp",
+      "kind": "positioned",
+      "left": 70,
+      "top": 1683,
+      "width": 222,
+      "height": 115,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "顶部挂件-文-动.webp": {
+      "fileName": "顶部挂件-文-动.webp",
+      "optimized": "分层素材/顶部挂件-文-动-crop.webp",
+      "kind": "positioned",
+      "left": 214,
+      "top": 38,
+      "width": 877,
+      "height": 668,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "顶部挂件-背.webp": {
+      "fileName": "顶部挂件-背.webp",
+      "optimized": "分层素材/顶部挂件-背-crop.webp",
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1292,
+      "height": 369,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    }
+  },
+  "layers": [
+    {
+      "src": "动态预览/背景.webp",
+      "file": "背景.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 2
+    },
+    {
+      "src": "动态预览/底部挂件-背.webp",
+      "file": "底部挂件-背.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 3
+    },
+    {
+      "src": "动态预览/底部挂件-文.webp",
+      "file": "底部挂件-文.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 4
+    },
+    {
+      "src": "动态预览/倒计时.webp",
+      "file": "倒计时.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 5
+    },
+    {
+      "src": "动态预览/明楷.webp",
+      "file": "明楷.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 5
+    },
+    {
+      "src": "动态预览/顶部挂件-背.webp",
+      "file": "顶部挂件-背.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 8
+    },
+    {
+      "src": "动态预览/顶部挂件-文-动.webp",
+      "file": "顶部挂件-文-动.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 9
+    }
+  ],
+  "showHost": true,
+  "showUi": true
+}

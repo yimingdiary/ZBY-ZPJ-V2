@@ -1,0 +1,12 @@
+---
+import markup from '../../modules/OverlayGallery/detail/markup.html?raw';
+import catalog from '../../../public/images/works/catalog.json';
+export function getStaticPaths() { return Object.entries(catalog).map(([id,work])=>({params:{id},props:{name:work.name, canvas: "canvas" in work ? work.canvas : {width:1080,height:1920}}})); }
+const {id}=Astro.params;
+
+---
+<!doctype html>
+<html lang="zh-CN" class="show-layer-bounds" data-work-id={id} data-canvas-width={Astro.props.canvas.width} data-canvas-height={Astro.props.canvas.height}>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>{Astro.props.name} · 分层展示</title><link rel="stylesheet" href="/overlay/detail.css"/></head>
+<body><Fragment set:html={markup}/><script is:inline src="/overlay/detail.js"></script></body>
+</html>

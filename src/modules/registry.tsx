@@ -1,3 +1,5 @@
+import { WorkFolderPicker } from "../editor/WorkFolderPicker";
+import { ImagePicker } from "../editor/ImagePicker";
 import type { Config } from "@puckeditor/core";
 import { Chrome } from "./Chrome/Chrome";
 import { Navigation, type NavigationProps } from "./Navigation/Navigation";
@@ -54,14 +56,65 @@ export const config: Config<Modules> = {
         title: { type: "text", label: "作品板块英文标题" },
         subtitle: { type: "text", label: "作品类型说明" },
         category: { type: "text", label: "作品分类名称" },
+        layout: {
+          type: "object",
+          label: "作品排版（1920 设计稿单位）",
+          objectFields: {
+            safeWidth: {
+              type: "number",
+              label: "安全区域总宽度",
+              min: 0.01,
+              max: 10000,
+            },
+            imageWidth: {
+              type: "number",
+              label: "单图宽度",
+              min: 0.01,
+              max: 10000,
+            },
+            imageHeight: {
+              type: "number",
+              label: "单图高度",
+              min: 0.01,
+              max: 10000,
+            },
+            gap: {
+              type: "number",
+              label: "图间距（0 自动均分）",
+              min: 0,
+              max: 10000,
+            },
+          },
+        },
         items: {
           type: "array",
-          label: "作品预览图",
+          label: "作品图片",
+          max: 12,
+          defaultItemProps: { src: "", alt: "", dynamic: false },
+          getItemSummary: (item, index) =>
+            item.alt || `作品 ${(index ?? 0) + 1}`,
           arrayFields: {
-            src: { type: "text", label: "图片路径（/images/ 下的素材）" },
-            alt: { type: "text", label: "作品名称／图片描述" },
+            alt: { type: "text", label: "作品名称" },
+            src: {
+              type: "custom",
+              label: "选择路径",
+              render: ({ value, onChange, readOnly }) => (
+                <WorkFolderPicker
+                  value={value}
+                  onChange={onChange}
+                  readOnly={readOnly}
+                />
+              ),
+            },
+            dynamic: {
+              type: "radio",
+              label: "是否动态",
+              options: [
+                { label: "否", value: false },
+                { label: "是", value: true },
+              ],
+            },
           },
-          getItemSummary: (item) => item.alt,
         },
       },
       defaultProps: { ...overlayDefaults, version: 1 },
@@ -122,7 +175,17 @@ export const config: Config<Modules> = {
         title: { type: "text", label: "页面标题" },
         name: { type: "text", label: "中文姓名" },
         englishName: { type: "text", label: "英文姓名" },
-        portrait: { type: "text", label: "照片路径（/images/ 下的素材）" },
+        portrait: {
+          type: "custom",
+          label: "照片",
+          render: ({ value, onChange, readOnly }) => (
+            <ImagePicker
+              value={value}
+              onChange={onChange}
+              readOnly={readOnly}
+            />
+          ),
+        },
         portraitAlt: { type: "text", label: "照片描述" },
         company: { type: "text", label: "公司名称" },
         role: { type: "text", label: "职位" },

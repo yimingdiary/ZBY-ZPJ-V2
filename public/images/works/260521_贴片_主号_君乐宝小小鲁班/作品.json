@@ -1,0 +1,379 @@
+{
+  "version": 1,
+  "sourceName": "260521_贴片_主号_君乐宝小小鲁班",
+  "name": "260521_贴片_主号_君乐宝小小鲁班",
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "cover": "贴片预览.jpg",
+  "directory": "分层素材",
+  "files": [
+    "背景.jpg",
+    "kn.png",
+    "主播.png",
+    "底部挂件-背.png",
+    "底部挂件-文.png",
+    "顶部挂件-背.png",
+    "点缀.png",
+    "顶部挂件-文-动.png",
+    "logo.png",
+    "食用方法.png",
+    "侧贴.png",
+    "侧贴2.png",
+    "侧贴4.png",
+    "溯源.png",
+    "侧贴5.png",
+    "侧贴3.png",
+    "骆哥.png",
+    "高高.png"
+  ],
+  "assets": {
+    "背景.jpg": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 1509,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/背景.jpg"
+    },
+    "kn.png": {
+      "kind": "positioned",
+      "left": 250,
+      "top": 512,
+      "width": 580,
+      "height": 588,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/kn.png"
+    },
+    "主播.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 768,
+      "width": 1080,
+      "height": 1152,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/主播.png"
+    },
+    "底部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 1393,
+      "width": 1080,
+      "height": 527,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-背.png"
+    },
+    "底部挂件-文.png": {
+      "kind": "positioned",
+      "left": 187,
+      "top": 1572,
+      "width": 706,
+      "height": 152,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-文.png"
+    },
+    "顶部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 479,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-背.png"
+    },
+    "点缀.png": {
+      "kind": "positioned",
+      "left": 131,
+      "top": 87,
+      "width": 762,
+      "height": 355,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/点缀.png"
+    },
+    "顶部挂件-文-动.png": {
+      "kind": "positioned",
+      "left": 215,
+      "top": 83,
+      "width": 654,
+      "height": 367,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-文-动.png"
+    },
+    "logo.png": {
+      "kind": "positioned",
+      "left": 378,
+      "top": 82,
+      "width": 324,
+      "height": 57,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/logo.png"
+    },
+    "食用方法.png": {
+      "kind": "positioned",
+      "left": 112,
+      "top": 502,
+      "width": 131,
+      "height": 182,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/食用方法.png"
+    },
+    "侧贴.png": {
+      "kind": "positioned",
+      "left": 835,
+      "top": 479,
+      "width": 129,
+      "height": 240,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴.png"
+    },
+    "侧贴2.png": {
+      "kind": "positioned",
+      "left": 836,
+      "top": 719,
+      "width": 129,
+      "height": 168,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴2.png"
+    },
+    "侧贴4.png": {
+      "kind": "positioned",
+      "left": 834,
+      "top": 901,
+      "width": 129,
+      "height": 167,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴4.png"
+    },
+    "溯源.png": {
+      "kind": "positioned",
+      "left": 109,
+      "top": 703,
+      "width": 134,
+      "height": 155,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/溯源.png"
+    },
+    "侧贴5.png": {
+      "kind": "positioned",
+      "left": 113,
+      "top": 878,
+      "width": 203,
+      "height": 61,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴5.png"
+    },
+    "侧贴3.png": {
+      "kind": "positioned",
+      "left": 840,
+      "top": 353,
+      "width": 118,
+      "height": 85,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴3.png"
+    },
+    "骆哥.png": {
+      "kind": "positioned",
+      "left": 177,
+      "top": 1317,
+      "width": 193,
+      "height": 44,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/骆哥.png"
+    },
+    "高高.png": {
+      "kind": "positioned",
+      "left": 712,
+      "top": 1317,
+      "width": 193,
+      "height": 44,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/高高.png"
+    }
+  },
+  "layers": [
+    {
+      "file": "背景.jpg",
+      "src": "分层素材/背景.jpg",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1509,
+      "z": 0
+    },
+    {
+      "file": "kn.png",
+      "src": "分层素材/kn.png",
+      "x": 250,
+      "y": 512,
+      "width": 580,
+      "height": 588,
+      "z": 1
+    },
+    {
+      "file": "主播.png",
+      "src": "分层素材/主播.png",
+      "x": 0,
+      "y": 768,
+      "width": 1080,
+      "height": 1152,
+      "z": 2
+    },
+    {
+      "file": "底部挂件-背.png",
+      "src": "分层素材/底部挂件-背.png",
+      "x": 0,
+      "y": 1393,
+      "width": 1080,
+      "height": 527,
+      "z": 3
+    },
+    {
+      "file": "底部挂件-文.png",
+      "src": "分层素材/底部挂件-文.png",
+      "x": 187,
+      "y": 1572,
+      "width": 706,
+      "height": 152,
+      "z": 4
+    },
+    {
+      "file": "顶部挂件-背.png",
+      "src": "分层素材/顶部挂件-背.png",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 479,
+      "z": 5
+    },
+    {
+      "file": "点缀.png",
+      "src": "分层素材/点缀.png",
+      "x": 131,
+      "y": 87,
+      "width": 762,
+      "height": 355,
+      "z": 6
+    },
+    {
+      "file": "顶部挂件-文-动.png",
+      "src": "分层素材/顶部挂件-文-动.png",
+      "x": 215,
+      "y": 83,
+      "width": 654,
+      "height": 367,
+      "z": 7
+    },
+    {
+      "file": "logo.png",
+      "src": "分层素材/logo.png",
+      "x": 378,
+      "y": 82,
+      "width": 324,
+      "height": 57,
+      "z": 8
+    },
+    {
+      "file": "食用方法.png",
+      "src": "分层素材/食用方法.png",
+      "x": 112,
+      "y": 502,
+      "width": 131,
+      "height": 182,
+      "z": 9
+    },
+    {
+      "file": "侧贴.png",
+      "src": "分层素材/侧贴.png",
+      "x": 835,
+      "y": 479,
+      "width": 129,
+      "height": 240,
+      "z": 10
+    },
+    {
+      "file": "侧贴2.png",
+      "src": "分层素材/侧贴2.png",
+      "x": 836,
+      "y": 719,
+      "width": 129,
+      "height": 168,
+      "z": 11
+    },
+    {
+      "file": "侧贴4.png",
+      "src": "分层素材/侧贴4.png",
+      "x": 834,
+      "y": 901,
+      "width": 129,
+      "height": 167,
+      "z": 12
+    },
+    {
+      "file": "溯源.png",
+      "src": "分层素材/溯源.png",
+      "x": 109,
+      "y": 703,
+      "width": 134,
+      "height": 155,
+      "z": 13
+    },
+    {
+      "file": "侧贴5.png",
+      "src": "分层素材/侧贴5.png",
+      "x": 113,
+      "y": 878,
+      "width": 203,
+      "height": 61,
+      "z": 14
+    },
+    {
+      "file": "侧贴3.png",
+      "src": "分层素材/侧贴3.png",
+      "x": 840,
+      "y": 353,
+      "width": 118,
+      "height": 85,
+      "z": 15
+    },
+    {
+      "file": "骆哥.png",
+      "src": "分层素材/骆哥.png",
+      "x": 177,
+      "y": 1317,
+      "width": 193,
+      "height": 44,
+      "z": 16
+    },
+    {
+      "file": "高高.png",
+      "src": "分层素材/高高.png",
+      "x": 712,
+      "y": 1317,
+      "width": 193,
+      "height": 44,
+      "z": 17
+    }
+  ],
+  "showHost": false,
+  "showUi": false
+}

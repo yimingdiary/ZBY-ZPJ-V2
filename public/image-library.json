@@ -1,0 +1,50 @@
+{
+  "canImport": false,
+  "images": [
+    {
+      "src": "/images/barry-zhu-portrait.png",
+      "label": "barry-zhu-portrait.png",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/works/250806_贴片_宠物生活_抢跑亚宠展/贴片预览.jpg",
+      "label": "动态贴片-亚宠展",
+      "canAnimate": true
+    },
+    {
+      "src": "/images/works/251121_贴片_宠物生活_阿飞和巴弟/贴片预览.jpg",
+      "label": "动态贴片-阿飞和巴弟",
+      "canAnimate": true
+    },
+    {
+      "src": "/images/works/260109_贴片_铲屎官猫砂站_猫王猫砂/贴片预览.jpg",
+      "label": "动态贴片-猫王猫砂",
+      "canAnimate": true
+    },
+    {
+      "src": "/images/works/260117_贴片_宠物生活_毛孩子/贴片预览.jpg",
+      "label": "动态贴片-毛孩子",
+      "canAnimate": true
+    },
+    {
+      "src": "/images/works/260521_贴片_主号_君乐宝小小鲁班/贴片预览.jpg",
+      "label": "260521_贴片_主号_君乐宝小小鲁班",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/works/260522_贴片_主号_奥迪双钻/贴片预览.jpg",
+      "label": "260522_贴片_主号_奥迪双钻",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/works/260531_贴片_主号_crocs/贴片预览.jpg",
+      "label": "260531_贴片_主号_crocs",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/works/260605_贴片_主号_哈根达斯&梦龙/贴片预览.jpg",
+      "label": "260605_贴片_主号_哈根达斯&梦龙",
+      "canAnimate": false
+    }
+  ]
+}

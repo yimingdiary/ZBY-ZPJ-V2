@@ -1,0 +1,74 @@
+<main class="preview-panel" aria-label="贴片详情预览">
+  <div id="previewScroll" class="preview-scroll">
+    <div class="scroll-track">
+      <div class="sticky-viewport">
+        <div class="viewport-chrome">
+          <div class="viewport-grid" aria-hidden="true"></div>
+          <div
+            id="deviceStage"
+            class="device-stage"
+            aria-label="直播间预览画布"
+          >
+            <div
+              id="backplateLayer"
+              class="stage-layer backplate-layer"
+              data-layer="backplate"
+              style="--layer-accent: #9b7cff"
+            ></div>
+
+            <div
+              id="backgroundLayer"
+              class="stage-layer background-layer"
+              data-layer="background"
+              style="--layer-accent: #35d8ff"
+            >
+              <img id="backgroundImage" alt="" />
+              <div class="default-background" aria-hidden="true"></div>
+            </div>
+
+            <div
+              id="hostLayer"
+              class="stage-layer host-layer"
+              data-layer="host"
+              style="--layer-accent: #ffd36a"
+            >
+              <video
+                id="hostImage"
+                class="host-image host-video video-media"
+                autoplay
+                loop
+                muted
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                aria-hidden="true"
+              ></video>
+            </div>
+
+            <div
+              id="stickerBackLayer"
+              class="stage-layer sticker-back-layer"
+              data-layer="sticker-background"
+              style="--layer-accent: #58e18e"
+            ></div>
+
+            <div
+              id="stickerFrontLayer"
+              class="stage-layer sticker-front-layer"
+              data-layer="sticker-text"
+              style="--layer-accent: #ff7ab6"
+            ></div>
+
+            <div id="uiLayer" class="stage-layer ui-layer" hidden><img id="douyinUiImage" class="douyin-ui-image" alt="" /></div>
+          </div>
+          <div id="emptyState" class="empty-state" hidden></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="mobileScrollBar" class="mobile-scrollbar" aria-hidden="true" hidden>
+    <div id="mobileScrollTrack" class="mobile-scrollbar-track">
+      <div id="mobileScrollThumb" class="mobile-scrollbar-thumb"></div>
+    </div>
+  </div>
+</main>

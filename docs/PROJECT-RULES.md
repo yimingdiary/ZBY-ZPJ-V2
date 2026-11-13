@@ -124,3 +124,34 @@ Photoshop 外壳直接复用 `v1.0/ZBY-ZPJ/ps-yemian.svg` 的原样副本，存�
 - `src/design/FramedTitle.tsx` 与 `title-frame.ts` 供个人介绍和目录共用，编辑器 React 与发布页脚本调用同一字形测量函数。
 - 目录分类有实际链接才渲染为链接；未配置保持文字，不建立虚假作品目标。
 - `scripts/extract-section-assets.py` 只读第 03、20 张原稿，生成分类辅助框、结束页辅助线、花形和字母排版参数，不输出整页图片。
+
+## 10. 贴片交互与素材
+
+- `OverlayGallery.items[].workId` 为可选受控枚举，可为空；已有未关联项继续显示普通图片，保留版本 1 配置兼容性。
+- 首页和编辑预览共用 `OverlayGallery/preview.ts` 的悬停生命周期；静态首页由轻量脚本初始化，编辑器组件卸载时清理监听。
+- 分层详情路由只构建固定作品 ID，独立文档加载从 V1 提取并适配的 `public/overlay/detail.js` 与 `detail.css`，不污染首页样式。
+- `public/images/works/catalog.json` 保存来自真实导出 JSON 的图层坐标与素材路径，`scripts/import-overlay-layers.py` 只读素材源、仅写 V2。不能将静态导出文件名里的“动”视作真实动画。
+
+## 11. 素材选择与机器路径
+
+- 作品素材统一放在 `public/images/works/{id}`，catalog 是封面和动画关系的唯一数据源；配置只保存图片站内路径和 `dynamic`，兼容读取原有可选 `workId`。
+- `src/assets/works.ts` 负责封面识别、旧路径别名与 public/dist 路径转换；不可将用户粘贴的绝对路径用于任意磁盘读取。
+- `scripts/image-library.mjs` 扫描公开封面和普通图片，排除动画与分层内部文件；构建输出 `public/image-library.json`，本地开发按请求读取最新图片库。
+- `scripts/local-assets.mjs` 提供本机同源二进制图片导入，按文件内容识别已有文件或写入 `public/images/uploads`；不按用户文件名拼接写入路径，不接受符号链接目录逃逸。
+- 编辑器使用 Puck 公开 CustomField API，作品项使用原生 array 字段，只在路径处通过 `ImagePicker` 更新配置；不改 Puck 源码。动态选择受图片对应作品的动画能力约束，服务端 Schema 同步校验。
+
+## 12. 原生装修结构与原名规则
+
+- 新字段沿用 Puck 原生列表、折叠、拖动排序和删除交互；禁止为图片项再维护一套自定义列表 UI。作品项仅开放路径、名称、是否动态，作品使用纵向的文件夹选择按钮和只读实际路径，个人照片继续使用单图选择器；所有控件以 border-box 和 min-width:0 约束在原生字段容器内。
+- 作品物理目录使用完整源项目名，图层文件保留源文件名，封面使用“贴片预览.jpg”；记录 sourceName、folderName 与稳定内部 ID，避免把展示名称、物理路径和历史 URL 混作同一标识。
+- `scripts/work-directories.py` 负责导入器的命名和目录归属冲突检查；同名不同作品追加稳定后缀，不能覆盖已有目录或默默改为英文别名。
+- 新上传图片保留原文件名，按内容哈希放入独立目录；写入使用排他创建，已有内容不同则拒绝覆盖。旧英文目录路径仅保留在别名中，活动配置及磁盘目录使用源名称。
+- 图片路径 Schema 允许中文、空格与原名中的 &，拒绝路径穿越、控制符和编码穿越。选择器转换浏览器编码路径后再保存站内地址。
+
+## 13. 文件夹选择与导入
+
+- `WorkFolderPicker` 只负责浏览器目录选择、状态和只读路径展示，不直接写源码或构造图层；字段顺序固定为名称、文件夹、实际路径、是否动态。
+- `scripts/work-folders.mjs` 校验目录相对结构，识别已登记作品、规范 `作品.json`、Photoshop `*_layout.json` 或单图目录；禁止以猜测坐标补齐多图作品。
+- 新目录在 V2 的 .cache 暂存并校验，确认后迁入作品根目录；索引和 Schema 同步更新，失败回滚，不覆盖已有同名作品。目录导入接口限制为本机同源。
+- `作品.json` 是由 catalog 生成的可携带作品说明，所有素材引用均相对当前作品目录；catalog 仍是项目统一素材索引。构建和本地导入会同步生成说明文件。
+- 编辑器首次进入才读取草稿；素材索引引起 Fast Refresh 时保留当前数据，不能重新加载旧草稿覆盖尚未保存的输入。

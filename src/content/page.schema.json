@@ -306,7 +306,7 @@
                   "portrait": {
                     "type": "string",
                     "maxLength": 500,
-                    "pattern": "^/images/[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+                    "pattern": "^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$"
                   },
                   "summary": {
                     "type": "string",
@@ -734,15 +734,95 @@
                         "src": {
                           "type": "string",
                           "maxLength": 500,
-                          "pattern": "^/images/[a-zA-Z0-9][a-zA-Z0-9._/-]*$"
+                          "pattern": "^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$"
                         },
                         "alt": {
                           "type": "string",
                           "maxLength": 300
+                        },
+                        "workId": {
+                          "enum": [
+                            "",
+                            "ice-cream",
+                            "crocs",
+                            "junlebao",
+                            "auldey",
+                            "pet-life",
+                            "cat-litter",
+                            "pet-expo",
+                            "alfie-buddy"
+                          ]
+                        },
+                        "dynamic": {
+                          "type": "boolean"
                         }
                       },
-                      "required": ["src", "alt"]
+                      "required": ["src", "alt"],
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "dynamic": {
+                                "const": true
+                              }
+                            },
+                            "required": ["dynamic"]
+                          },
+                          "then": {
+                            "properties": {
+                              "src": {
+                                "enum": [
+                                  "/images/works/260117_贴片_宠物生活_毛孩子/贴片预览.jpg",
+                                  "/images/overlay/pet-life.jpg",
+                                  "/images/works/pet-life/cover.jpg",
+                                  "/images/works/260109_贴片_铲屎官猫砂站_猫王猫砂/贴片预览.jpg",
+                                  "/images/overlay/cat-litter.jpg",
+                                  "/images/works/cat-litter/cover.jpg",
+                                  "/images/works/250806_贴片_宠物生活_抢跑亚宠展/贴片预览.jpg",
+                                  "/images/overlay/pet-expo.jpg",
+                                  "/images/works/pet-expo/cover.jpg",
+                                  "/images/works/251121_贴片_宠物生活_阿飞和巴弟/贴片预览.jpg",
+                                  "/images/overlay/alfie-buddy.jpg",
+                                  "/images/works/alfie-buddy/cover.jpg"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
                     }
+                  },
+                  "layout": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "safeWidth": {
+                        "type": "number",
+                        "minimum": 0.01,
+                        "maximum": 10000
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "minimum": 0.01,
+                        "maximum": 10000
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "minimum": 0.01,
+                        "maximum": 10000
+                      },
+                      "gap": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 10000
+                      }
+                    },
+                    "required": [
+                      "safeWidth",
+                      "imageWidth",
+                      "imageHeight",
+                      "gap"
+                    ]
                   }
                 },
                 "required": [
@@ -774,6 +854,9 @@
                     "type": "boolean"
                   },
                   "items": {
+                    "type": "boolean"
+                  },
+                  "layout": {
                     "type": "boolean"
                   }
                 }

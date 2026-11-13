@@ -24,3 +24,9 @@ await writeFile(
   new URL("../src/content/compiled-validation.mjs", import.meta.url),
   result.outputFiles[0].text,
 );
+
+const {writeImageLibrary}=await import("./image-library.mjs");
+await writeImageLibrary();
+
+const {writeWorkDescriptors}=await import("./work-folders.mjs");
+await writeWorkDescriptors();

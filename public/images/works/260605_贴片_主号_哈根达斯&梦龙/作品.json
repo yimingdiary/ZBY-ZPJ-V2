@@ -1,0 +1,219 @@
+{
+  "version": 1,
+  "sourceName": "260605_贴片_主号_哈根达斯&梦龙",
+  "name": "260605_贴片_主号_哈根达斯&梦龙",
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "cover": "贴片预览.jpg",
+  "directory": "分层素材",
+  "files": [
+    "背景.jpg",
+    "kn.png",
+    "主播.png",
+    "底部挂件-背.png",
+    "底部挂件-文.png",
+    "顶部挂件-背.png",
+    "顶部挂件-文-动.png",
+    "跑马灯.png",
+    "侧贴.png",
+    "升温预警.png"
+  ],
+  "assets": {
+    "背景.jpg": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 1509,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/背景.jpg"
+    },
+    "kn.png": {
+      "kind": "positioned",
+      "left": 250,
+      "top": 512,
+      "width": 580,
+      "height": 588,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/kn.png"
+    },
+    "主播.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 768,
+      "width": 1080,
+      "height": 1152,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/主播.png"
+    },
+    "底部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 1393,
+      "width": 1080,
+      "height": 527,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-背.png"
+    },
+    "底部挂件-文.png": {
+      "kind": "positioned",
+      "left": 201,
+      "top": 1549,
+      "width": 706,
+      "height": 217,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-文.png"
+    },
+    "顶部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 386,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-背.png"
+    },
+    "顶部挂件-文-动.png": {
+      "kind": "positioned",
+      "left": 249,
+      "top": 79,
+      "width": 583,
+      "height": 345,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-文-动.png"
+    },
+    "跑马灯.png": {
+      "kind": "positioned",
+      "left": 2,
+      "top": 421,
+      "width": 1080,
+      "height": 52,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/跑马灯.png"
+    },
+    "侧贴.png": {
+      "kind": "positioned",
+      "left": 121,
+      "top": 501,
+      "width": 101,
+      "height": 228,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴.png"
+    },
+    "升温预警.png": {
+      "kind": "positioned",
+      "left": 825,
+      "top": 500,
+      "width": 147,
+      "height": 140,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/升温预警.png"
+    }
+  },
+  "layers": [
+    {
+      "file": "背景.jpg",
+      "src": "分层素材/背景.jpg",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1509,
+      "z": 0
+    },
+    {
+      "file": "kn.png",
+      "src": "分层素材/kn.png",
+      "x": 250,
+      "y": 512,
+      "width": 580,
+      "height": 588,
+      "z": 1
+    },
+    {
+      "file": "主播.png",
+      "src": "分层素材/主播.png",
+      "x": 0,
+      "y": 768,
+      "width": 1080,
+      "height": 1152,
+      "z": 2
+    },
+    {
+      "file": "底部挂件-背.png",
+      "src": "分层素材/底部挂件-背.png",
+      "x": 0,
+      "y": 1393,
+      "width": 1080,
+      "height": 527,
+      "z": 3
+    },
+    {
+      "file": "底部挂件-文.png",
+      "src": "分层素材/底部挂件-文.png",
+      "x": 201,
+      "y": 1549,
+      "width": 706,
+      "height": 217,
+      "z": 4
+    },
+    {
+      "file": "顶部挂件-背.png",
+      "src": "分层素材/顶部挂件-背.png",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 386,
+      "z": 5
+    },
+    {
+      "file": "顶部挂件-文-动.png",
+      "src": "分层素材/顶部挂件-文-动.png",
+      "x": 249,
+      "y": 79,
+      "width": 583,
+      "height": 345,
+      "z": 6
+    },
+    {
+      "file": "跑马灯.png",
+      "src": "分层素材/跑马灯.png",
+      "x": 2,
+      "y": 421,
+      "width": 1080,
+      "height": 52,
+      "z": 7
+    },
+    {
+      "file": "侧贴.png",
+      "src": "分层素材/侧贴.png",
+      "x": 121,
+      "y": 501,
+      "width": 101,
+      "height": 228,
+      "z": 8
+    },
+    {
+      "file": "升温预警.png",
+      "src": "分层素材/升温预警.png",
+      "x": 825,
+      "y": 500,
+      "width": 147,
+      "height": 140,
+      "z": 9
+    }
+  ],
+  "showHost": false,
+  "showUi": false
+}

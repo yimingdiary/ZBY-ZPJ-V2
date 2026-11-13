@@ -1,5 +1,6 @@
 import { readFile, writeFile, rename } from "node:fs/promises";
 import Ajv from "ajv";
+import { configureLocalAssets } from "./local-assets.mjs";
 const root = new URL("../", import.meta.url);
 
 export function localContent() {
@@ -7,6 +8,7 @@ export function localContent() {
     name: "portfolio-local-content",
     apply: "serve",
     configureServer(server) {
+      configureLocalAssets(server);
       server.middlewares.use("/api/content", async (req, res) => {
         const send = (status, data) => {
           res.statusCode = status;

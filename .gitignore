@@ -10,3 +10,6 @@ dist/
 test-results/
 .DS_Store
 cankao/*.svg.png
+
+__pycache__/
+*.pyc

@@ -3,7 +3,8 @@
   position: relative;
   min-height: 100svh;
   background: var(--color-chrome);
-  padding: 2.380208333% 2.074479167% 0.694791667% 3.219270833%;
+  /* 右侧预留工具栏和滚动轨道，内容止于 SVG x=1865.19。 */
+  padding: 2.380208333% 2.8546875% 0.694791667% 3.219270833%;
 }
 .overlay {
   position: fixed;

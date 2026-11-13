@@ -1,4 +1,5 @@
 .gallery {
+  position: relative;
   padding: 6.6cqw 3.9cqw 4cqw;
   min-height: 55.5cqw;
   color: var(--color-ink);
@@ -35,7 +36,7 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 9/16;
+  aspect-ratio: auto;
 }
 @media (max-width: 600px) {
   .gallery {
@@ -57,5 +58,108 @@
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+  }
+}
+
+.work {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+.work:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+.preview {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 80ms ease;
+  background: var(--color-paper);
+}
+.work[data-preview-active="true"] .preview {
+  opacity: 1;
+}
+
+/* V1 作品为更长的直播画布，保持原比例并控制桌面高度。 */
+.legacy {
+  max-width: 18.5cqw;
+  margin-inline: auto;
+}
+@media (max-width: 600px) {
+  .legacy {
+    max-width: none;
+  }
+}
+
+/* 与 V1 热区共用 1920×1080 基准；图像和链接使用同一矩形。 */
+@media (min-width: 601px) {
+  .gallery:has(.positioned) {
+    min-height: 56.25cqw;
+  }
+  .positioned {
+    position: absolute;
+    inset: 0 0 auto;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1920/1080;
+    pointer-events: none;
+  }
+  .positioned figure {
+    position: absolute;
+    left: var(--overlay-card-left);
+    top: var(--overlay-card-top);
+    width: var(--overlay-card-width);
+    height: var(--overlay-card-height);
+    pointer-events: auto;
+  }
+  .positioned .work {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .positioned figure > a > img,
+  .positioned figure > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* 可配置布局以 1920 设计稿单位缩放，超宽内容在安全区内横向滚动。 */
+@media (min-width: 601px) {
+  .configured {
+    display: flex;
+    width: min(var(--safe-width), 100%);
+    margin: 1.5cqw auto 0;
+    gap: var(--image-gap);
+    overflow-x: auto;
+  }
+  .configured figure {
+    flex: 0 0 var(--image-width);
+    height: var(--image-height);
+  }
+  .configured figure:only-child {
+    margin-inline: auto;
+  }
+  .configured .work {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .configured figure > img,
+  .configured .work > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+@media (max-width: 600px) {
+  .configured {
+    justify-content: normal !important;
   }
 }

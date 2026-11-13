@@ -1,0 +1,319 @@
+{
+  "version": 1,
+  "sourceName": "260531_贴片_主号_crocs",
+  "name": "260531_贴片_主号_crocs",
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "cover": "贴片预览.jpg",
+  "directory": "分层素材",
+  "files": [
+    "背景.jpg",
+    "kn.png",
+    "主播.png",
+    "底部挂件-背.png",
+    "底部挂件-文.png",
+    "顶部挂件-背.png",
+    "顶部挂件-文.png",
+    "logo.png",
+    "跑马灯.png",
+    "滚动logo.png",
+    "侧贴.png",
+    "升温预警.png",
+    "侧贴2.png",
+    "郑策.png",
+    "高高.png"
+  ],
+  "assets": {
+    "背景.jpg": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 1509,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/背景.jpg"
+    },
+    "kn.png": {
+      "kind": "positioned",
+      "left": 250,
+      "top": 512,
+      "width": 580,
+      "height": 588,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/kn.png"
+    },
+    "主播.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 768,
+      "width": 1080,
+      "height": 1152,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/主播.png"
+    },
+    "底部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 1393,
+      "width": 1080,
+      "height": 527,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-背.png"
+    },
+    "底部挂件-文.png": {
+      "kind": "positioned",
+      "left": 207,
+      "top": 1412,
+      "width": 668,
+      "height": 219,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-文.png"
+    },
+    "顶部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 343,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-背.png"
+    },
+    "顶部挂件-文.png": {
+      "kind": "positioned",
+      "left": 157,
+      "top": 59,
+      "width": 767,
+      "height": 391,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-文.png"
+    },
+    "logo.png": {
+      "kind": "positioned",
+      "left": 376,
+      "top": 64,
+      "width": 329,
+      "height": 59,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/logo.png"
+    },
+    "跑马灯.png": {
+      "kind": "positioned",
+      "left": 9,
+      "top": 449,
+      "width": 1065,
+      "height": 48,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/跑马灯.png"
+    },
+    "滚动logo.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 1363,
+      "width": 1080,
+      "height": 49,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/滚动logo.png"
+    },
+    "侧贴.png": {
+      "kind": "positioned",
+      "left": 114,
+      "top": 513,
+      "width": 134,
+      "height": 129,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴.png"
+    },
+    "升温预警.png": {
+      "kind": "positioned",
+      "left": 796,
+      "top": 521,
+      "width": 176,
+      "height": 141,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/升温预警.png"
+    },
+    "侧贴2.png": {
+      "kind": "positioned",
+      "left": 100,
+      "top": 659,
+      "width": 169,
+      "height": 82,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/侧贴2.png"
+    },
+    "郑策.png": {
+      "kind": "positioned",
+      "left": 180,
+      "top": 1256,
+      "width": 207,
+      "height": 74,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/郑策.png"
+    },
+    "高高.png": {
+      "kind": "positioned",
+      "left": 700,
+      "top": 1256,
+      "width": 207,
+      "height": 74,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/高高.png"
+    }
+  },
+  "layers": [
+    {
+      "file": "背景.jpg",
+      "src": "分层素材/背景.jpg",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1509,
+      "z": 0
+    },
+    {
+      "file": "kn.png",
+      "src": "分层素材/kn.png",
+      "x": 250,
+      "y": 512,
+      "width": 580,
+      "height": 588,
+      "z": 1
+    },
+    {
+      "file": "主播.png",
+      "src": "分层素材/主播.png",
+      "x": 0,
+      "y": 768,
+      "width": 1080,
+      "height": 1152,
+      "z": 2
+    },
+    {
+      "file": "底部挂件-背.png",
+      "src": "分层素材/底部挂件-背.png",
+      "x": 0,
+      "y": 1393,
+      "width": 1080,
+      "height": 527,
+      "z": 3
+    },
+    {
+      "file": "底部挂件-文.png",
+      "src": "分层素材/底部挂件-文.png",
+      "x": 207,
+      "y": 1412,
+      "width": 668,
+      "height": 219,
+      "z": 4
+    },
+    {
+      "file": "顶部挂件-背.png",
+      "src": "分层素材/顶部挂件-背.png",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 343,
+      "z": 5
+    },
+    {
+      "file": "顶部挂件-文.png",
+      "src": "分层素材/顶部挂件-文.png",
+      "x": 157,
+      "y": 59,
+      "width": 767,
+      "height": 391,
+      "z": 6
+    },
+    {
+      "file": "logo.png",
+      "src": "分层素材/logo.png",
+      "x": 376,
+      "y": 64,
+      "width": 329,
+      "height": 59,
+      "z": 7
+    },
+    {
+      "file": "跑马灯.png",
+      "src": "分层素材/跑马灯.png",
+      "x": 9,
+      "y": 449,
+      "width": 1065,
+      "height": 48,
+      "z": 8
+    },
+    {
+      "file": "滚动logo.png",
+      "src": "分层素材/滚动logo.png",
+      "x": 0,
+      "y": 1363,
+      "width": 1080,
+      "height": 49,
+      "z": 9
+    },
+    {
+      "file": "侧贴.png",
+      "src": "分层素材/侧贴.png",
+      "x": 114,
+      "y": 513,
+      "width": 134,
+      "height": 129,
+      "z": 10
+    },
+    {
+      "file": "升温预警.png",
+      "src": "分层素材/升温预警.png",
+      "x": 796,
+      "y": 521,
+      "width": 176,
+      "height": 141,
+      "z": 11
+    },
+    {
+      "file": "侧贴2.png",
+      "src": "分层素材/侧贴2.png",
+      "x": 100,
+      "y": 659,
+      "width": 169,
+      "height": 82,
+      "z": 12
+    },
+    {
+      "file": "郑策.png",
+      "src": "分层素材/郑策.png",
+      "x": 180,
+      "y": 1256,
+      "width": 207,
+      "height": 74,
+      "z": 13
+    },
+    {
+      "file": "高高.png",
+      "src": "分层素材/高高.png",
+      "x": 700,
+      "y": 1256,
+      "width": 207,
+      "height": 74,
+      "z": 14
+    }
+  ],
+  "showHost": false,
+  "showUi": false
+}

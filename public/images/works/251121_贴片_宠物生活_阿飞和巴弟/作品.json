@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "sourceName": "251121_贴片_宠物生活_阿飞和巴弟",
+  "name": "动态贴片-阿飞和巴弟",
+  "canvas": {
+    "width": 1290,
+    "height": 2791
+  },
+  "cover": "贴片预览.jpg",
+  "directory": "动态预览",
+  "files": [
+    "背景.webp",
+    "底部挂件-背.webp",
+    "底部挂件-文.webp",
+    "顶部挂件-背.webp",
+    "顶部挂件-文-动.webp",
+    "首发侧贴.webp",
+    "dudu.webp"
+  ],
+  "assets": {
+    "dudu.webp": {
+      "fileName": "dudu.webp",
+      "optimized": "分层素材/dudu-crop.webp",
+      "kind": "positioned",
+      "left": 22,
+      "top": 1760,
+      "width": 341,
+      "height": 164,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "底部挂件-文.webp": {
+      "fileName": "底部挂件-文.webp",
+      "optimized": "分层素材/底部挂件-文-crop.webp",
+      "kind": "positioned",
+      "left": 165,
+      "top": 2261,
+      "width": 1016,
+      "height": 448,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "底部挂件-背.webp": {
+      "fileName": "底部挂件-背.webp",
+      "optimized": "分层素材/底部挂件-背-crop.webp",
+      "kind": "positioned",
+      "left": 0,
+      "top": 2223,
+      "width": 1292,
+      "height": 568,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "顶部挂件-文-动.webp": {
+      "fileName": "顶部挂件-文-动.webp",
+      "optimized": "分层素材/顶部挂件-文-动-crop.webp",
+      "kind": "positioned",
+      "left": 103,
+      "top": 120,
+      "width": 1088,
+      "height": 474,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "顶部挂件-背.webp": {
+      "fileName": "顶部挂件-背.webp",
+      "optimized": "分层素材/顶部挂件-背-crop.webp",
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1292,
+      "height": 625,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    },
+    "首发侧贴.webp": {
+      "fileName": "首发侧贴.webp",
+      "optimized": "分层素材/首发侧贴-crop.webp",
+      "kind": "positioned",
+      "left": 848,
+      "top": 678,
+      "width": 384,
+      "height": 156,
+      "sourceWidth": 1292,
+      "sourceHeight": 2791
+    }
+  },
+  "layers": [
+    {
+      "src": "动态预览/背景.webp",
+      "file": "背景.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 2
+    },
+    {
+      "src": "动态预览/底部挂件-背.webp",
+      "file": "底部挂件-背.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 3
+    },
+    {
+      "src": "动态预览/底部挂件-文.webp",
+      "file": "底部挂件-文.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 4
+    },
+    {
+      "src": "动态预览/首发侧贴.webp",
+      "file": "首发侧贴.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 5
+    },
+    {
+      "src": "动态预览/dudu.webp",
+      "file": "dudu.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 5
+    },
+    {
+      "src": "动态预览/顶部挂件-背.webp",
+      "file": "顶部挂件-背.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 8
+    },
+    {
+      "src": "动态预览/顶部挂件-文-动.webp",
+      "file": "顶部挂件-文-动.webp",
+      "x": 0,
+      "y": 0,
+      "width": 1290,
+      "height": 2791,
+      "z": 9
+    }
+  ],
+  "showHost": true,
+  "showUi": true
+}

@@ -8,6 +8,7 @@ import s from "./Editor.module.css";
 export default function Editor() {
   const [data, setData] = useState<Data<Modules>>();
   const current = useRef<Data<Modules> | undefined>(undefined);
+  const initialized = useRef(false);
   const [message, setMessage] = useState("正在读取草稿…");
   const [busy, setBusy] = useState(false);
   const [dirty, setDirty] = useState(false);
@@ -35,7 +36,10 @@ export default function Editor() {
     }
   }
   useEffect(() => {
-    load();
+    // 素材目录导入触发 Fast Refresh 时保留正在编辑的数据，真实重新进入页面才读取草稿。
+    if (initialized.current) return;
+    initialized.current = true;
+    void load();
   }, []);
   useEffect(() => {
     const fn = (e: BeforeUnloadEvent) => {

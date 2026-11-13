@@ -1,0 +1,100 @@
+.picker {
+  display: grid;
+  gap: 6px;
+  font: inherit;
+  min-width: 0;
+}
+.row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.row input {
+  min-width: 0;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--puck-color-grey-08, #dcdcdc);
+  border-radius: 4px;
+  background: white;
+  color: inherit;
+  font: inherit;
+}
+.row button {
+  flex-shrink: 0;
+  padding: 10px;
+  border: 1px solid var(--puck-color-grey-08, #dcdcdc);
+  border-radius: 4px;
+  background: white;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.row button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.picker small {
+  color: #b42318;
+  overflow-wrap: anywhere;
+}
+/* 控件始终约束在原生数组字段内，长路径只换行、不撑宽面板。 */
+.picker,
+.row,
+.folderPicker {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.row input,
+.row button {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.folderPicker {
+  display: grid;
+  gap: 8px;
+}
+.label {
+  display: grid;
+  gap: 8px;
+  color: var(--puck-color-grey-04, #666);
+  font: inherit;
+}
+.folderButton,
+.actualPath {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid var(--puck-color-grey-08, #dcdcdc);
+  border-radius: 4px;
+  padding: 10px;
+  font: inherit;
+}
+.folderButton {
+  background: white;
+  color: inherit;
+  cursor: pointer;
+}
+.folderButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.actualPath {
+  background: var(--puck-color-grey-12, #f7f7f7);
+  color: var(--puck-color-grey-04, #666);
+  resize: vertical;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+.folderPicker small {
+  color: #b42318;
+  overflow-wrap: anywhere;
+}

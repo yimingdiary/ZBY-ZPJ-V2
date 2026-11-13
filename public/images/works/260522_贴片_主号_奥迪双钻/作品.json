@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "sourceName": "260522_贴片_主号_奥迪双钻",
+  "name": "260522_贴片_主号_奥迪双钻",
+  "canvas": {
+    "width": 1080,
+    "height": 1920
+  },
+  "cover": "贴片预览.jpg",
+  "directory": "分层素材",
+  "files": [
+    "背景.jpg",
+    "kn.png",
+    "主播.png",
+    "底部挂件-背.png",
+    "顶部挂件-背.png",
+    "顶部挂件-文.png",
+    "logo.png",
+    "跑马灯.png",
+    "倒计时.png"
+  ],
+  "assets": {
+    "背景.jpg": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 1509,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/背景.jpg"
+    },
+    "kn.png": {
+      "kind": "positioned",
+      "left": 250,
+      "top": 512,
+      "width": 580,
+      "height": 588,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/kn.png"
+    },
+    "主播.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 768,
+      "width": 1080,
+      "height": 1152,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/主播.png"
+    },
+    "底部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 1393,
+      "width": 1080,
+      "height": 527,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/底部挂件-背.png"
+    },
+    "顶部挂件-背.png": {
+      "kind": "positioned",
+      "left": 0,
+      "top": 0,
+      "width": 1080,
+      "height": 347,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-背.png"
+    },
+    "顶部挂件-文.png": {
+      "kind": "positioned",
+      "left": 160,
+      "top": 83,
+      "width": 761,
+      "height": 273,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/顶部挂件-文.png"
+    },
+    "logo.png": {
+      "kind": "positioned",
+      "left": 452,
+      "top": 89,
+      "width": 174,
+      "height": 58,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/logo.png"
+    },
+    "跑马灯.png": {
+      "kind": "positioned",
+      "left": -34,
+      "top": 388,
+      "width": 1148,
+      "height": 54,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/跑马灯.png"
+    },
+    "倒计时.png": {
+      "kind": "positioned",
+      "left": 124,
+      "top": 530,
+      "width": 128,
+      "height": 158,
+      "sourceWidth": 1080,
+      "sourceHeight": 1920,
+      "optimized": "分层素材/倒计时.png"
+    }
+  },
+  "layers": [
+    {
+      "file": "背景.jpg",
+      "src": "分层素材/背景.jpg",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1509,
+      "z": 0
+    },
+    {
+      "file": "kn.png",
+      "src": "分层素材/kn.png",
+      "x": 250,
+      "y": 512,
+      "width": 580,
+      "height": 588,
+      "z": 1
+    },
+    {
+      "file": "主播.png",
+      "src": "分层素材/主播.png",
+      "x": 0,
+      "y": 768,
+      "width": 1080,
+      "height": 1152,
+      "z": 2
+    },
+    {
+      "file": "底部挂件-背.png",
+      "src": "分层素材/底部挂件-背.png",
+      "x": 0,
+      "y": 1393,
+      "width": 1080,
+      "height": 527,
+      "z": 3
+    },
+    {
+      "file": "顶部挂件-背.png",
+      "src": "分层素材/顶部挂件-背.png",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 347,
+      "z": 4
+    },
+    {
+      "file": "顶部挂件-文.png",
+      "src": "分层素材/顶部挂件-文.png",
+      "x": 160,
+      "y": 83,
+      "width": 761,
+      "height": 273,
+      "z": 5
+    },
+    {
+      "file": "logo.png",
+      "src": "分层素材/logo.png",
+      "x": 452,
+      "y": 89,
+      "width": 174,
+      "height": 58,
+      "z": 6
+    },
+    {
+      "file": "跑马灯.png",
+      "src": "分层素材/跑马灯.png",
+      "x": -34,
+      "y": 388,
+      "width": 1148,
+      "height": 54,
+      "z": 7
+    },
+    {
+      "file": "倒计时.png",
+      "src": "分层素材/倒计时.png",
+      "x": 124,
+      "y": 530,
+      "width": 128,
+      "height": 158,
+      "z": 8
+    }
+  ],
+  "showHost": false,
+  "showUi": false
+}

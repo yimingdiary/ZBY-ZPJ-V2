@@ -5,20 +5,30 @@
   "category": "贴片设计",
   "items": [
     {
-      "src": "/images/overlay/ice-cream.jpg",
-      "alt": "哈根达斯与梦龙直播贴片设计"
+      "src": "/images/works/260117_贴片_宠物生活_毛孩子/贴片预览.jpg",
+      "alt": "动态贴片-毛孩子",
+      "dynamic": true
     },
     {
-      "src": "/images/overlay/crocs.jpg",
-      "alt": "crocs 直播贴片设计"
+      "src": "/images/works/260109_贴片_铲屎官猫砂站_猫王猫砂/贴片预览.jpg",
+      "alt": "动态贴片-猫王猫砂",
+      "dynamic": true
     },
     {
-      "src": "/images/overlay/junlebao.jpg",
-      "alt": "君乐宝小小鲁班直播贴片设计"
+      "src": "/images/works/250806_贴片_宠物生活_抢跑亚宠展/贴片预览.jpg",
+      "alt": "动态贴片-亚宠展",
+      "dynamic": true
     },
     {
-      "src": "/images/overlay/auldey.jpg",
-      "alt": "奥迪双钻直播贴片设计"
+      "src": "/images/works/251121_贴片_宠物生活_阿飞和巴弟/贴片预览.jpg",
+      "alt": "动态贴片-阿飞和巴弟",
+      "dynamic": true
     }
-  ]
+  ],
+  "layout": {
+    "safeWidth": 1479.8885,
+    "imageWidth": 335.5798,
+    "imageHeight": 724.9252,
+    "gap": 0
+  }
 }
