@@ -2,6 +2,21 @@
   "canImport": false,
   "images": [
     {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/uploads/527811aae0a5e329d00123b1275b4177a91adac2c055d50dcc376dc2d61d96fb/02-跑马灯-2.png",
+      "label": "02-跑马灯-2.png",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/uploads/748ceeb886e949ec89ad2465782fe7812fdce18aa124f7c952b7905f8e3ab7d6/09-配件专区.jpg",
+      "label": "09-配件专区.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/uploads/a0e87c91f2fa6db98d62aa40a77a7a9c86029b863b42998dd0de75f6a04d44ad/01-KV-v2.0.jpg",
+      "label": "01-KV-v2.0.jpg",
+      "canAnimate": false
+    },
+    {
       "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-100.png",
       "label": "素材-100.png",
       "canAnimate": false
@@ -704,6 +719,61 @@
     {
       "src": "/images/douyin-shop/Crocs-Kids_2026_11-01_11-11/09-配件专区-v2.jpg",
       "label": "09-配件专区-v2.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/01-KV-v2.0.jpg",
+      "label": "01-KV-v2.0.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/02-跑马灯-2.png",
+      "label": "02-跑马灯-2.png",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/02-跑马灯-宝可梦.png",
+      "label": "02-跑马灯-宝可梦.png",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/03-秋冬焕新-轮播1.jpg",
+      "label": "03-秋冬焕新-轮播1.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/03-秋冬焕新-轮播2.jpg",
+      "label": "03-秋冬焕新-轮播2.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/04-榜单.jpg",
+      "label": "04-榜单.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/05-萌趣穿搭-bg.jpg",
+      "label": "05-萌趣穿搭-bg.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/06-IP专区-bg.jpg",
+      "label": "06-IP专区-bg.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/08-经典克骆格-bg.jpg",
+      "label": "08-经典克骆格-bg.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/09-配件专区.jpg",
+      "label": "09-配件专区.jpg",
+      "canAnimate": false
+    },
+    {
+      "src": "/images/douyin-shop/Crocs-Kids_2026_11-15_11-30/切换点击中心.png",
+      "label": "切换点击中心.png",
       "canAnimate": false
     },
     {

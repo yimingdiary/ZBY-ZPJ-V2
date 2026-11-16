@@ -5,5 +5,5 @@ export default defineConfig({
   devToolbar: { enabled: false },
   integrations: [react()],
   vite: { plugins: [localContent()] },
-  server: { host: "127.0.0.1", port: 4321 },
+  server: { host: "127.0.0.1", port: 4323 },
 });

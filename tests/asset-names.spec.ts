@@ -38,7 +38,7 @@ test("同名不同图片保留原文件名且分别存储，不覆盖；重复�
   const name = "260605_贴片_主号_哈根达斯&梦龙.png";
   const imports: { src: string; imported: boolean }[] = [];
   const headers = {
-    Origin: "http://127.0.0.1:4321",
+    Origin: "http://127.0.0.1:4323",
     "Content-Type": "application/octet-stream",
     "X-File-Name": encodeURIComponent(name),
   };

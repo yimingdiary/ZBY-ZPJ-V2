@@ -153,7 +153,7 @@ test("文件夹缺少规范封面或坐标时明确拒绝，目录穿越及跨�
     { field: "file0", path: "作品/../越界.jpg" },
   ]);
   const r = await request.post("/api/work-folders", {
-    headers: { Origin: "http://127.0.0.1:4321" },
+    headers: { Origin: "http://127.0.0.1:4323" },
     multipart: {
       entries,
       file0: {

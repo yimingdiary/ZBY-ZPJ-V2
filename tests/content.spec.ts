@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { readFile, writeFile } from "node:fs/promises";
 const draft = new URL("../content/draft/home.json", import.meta.url);
 const published = new URL("../content/published/home.json", import.meta.url);
-const headers = { Origin: "http://127.0.0.1:4321" };
+const headers = { Origin: "http://127.0.0.1:4323" };
 test("真实保存与重载、发布隔离及新增模块兼容", async ({ request, page }) => {
   const originalDraft = await readFile(draft, "utf8"),
     originalPublished = await readFile(published, "utf8");

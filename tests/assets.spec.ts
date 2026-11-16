@@ -3,7 +3,7 @@ import { readFile, writeFile, unlink, rmdir } from "node:fs/promises";
 const root = new URL("../", import.meta.url);
 const draft = new URL("content/draft/home.json", root);
 const headers = {
-  Origin: "http://127.0.0.1:4321",
+  Origin: "http://127.0.0.1:4323",
   "Content-Type": "application/octet-stream",
 };
 test("本地选图识别已有文件，未知图片真实导入；拒绝跨源和非图片", async ({

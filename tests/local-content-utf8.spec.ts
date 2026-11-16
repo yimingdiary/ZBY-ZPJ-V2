@@ -12,11 +12,11 @@ test("保存请求分片截断中文图片名称时，UTF8仍完整保存", asyn
     const split = chinese + 1;
     const status = await new Promise<number | undefined>((resolve, reject) => {
       const req = http.request(
-        "http://127.0.0.1:4321/api/content",
+        "http://127.0.0.1:4323/api/content",
         {
           method: "PUT",
           headers: {
-            Origin: "http://127.0.0.1:4321",
+            Origin: "http://127.0.0.1:4323",
             "Content-Type": "application/json",
           },
         },

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { readFile, writeFile } from "node:fs/promises";
 const draft = new URL("../content/draft/home.json", import.meta.url),
   published = new URL("../content/published/home.json", import.meta.url);
-const origin = { Origin: "http://127.0.0.1:4321" };
+const origin = { Origin: "http://127.0.0.1:4323" };
 test("KV入口打开完整店铺，真实素材、桌面手机布局与动画均正常", async ({
   page,
 }) => {

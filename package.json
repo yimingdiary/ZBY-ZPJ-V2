@@ -1,14 +1,19 @@
 {
-  "name": "zby-portfolio-v2",
+  "name": "zby-portfolio-v3",
   "version": "1.0.0",
-  "description": "将现有图片式作品集重构为代码驱动的现代化网站，实现可视化编辑、模块化管理、GitHub 存储及 CDN 加速。",
+  "description": "独立 V3 作品集，Cloudflare R2 内容与素材存储",
   "scripts": {
     "dev": "astro dev",
     "build": "node scripts/compile-schema.mjs && astro check && astro build && node scripts/build-worker.mjs",
     "preview": "astro preview --host 127.0.0.1",
     "test": "playwright test",
     "check": "astro check",
-    "schema:build": "node scripts/compile-schema.mjs"
+    "schema:build": "node scripts/compile-schema.mjs",
+    "r2:plan": "node scripts/upload-r2.mjs",
+    "r2:upload": "node scripts/upload-r2.mjs --upload",
+    "cf:dev": "wrangler pages dev dist --port 8789",
+    "cf:deploy": "wrangler pages deploy dist",
+    "test:r2-runtime": "node scripts/verify-r2-runtime.mjs"
   },
   "keywords": [],
   "author": "",
@@ -23,12 +28,15 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@aws-sdk/client-s3": "^3.1169.0",
     "@playwright/test": "^1.64.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "esbuild": "^0.28.2",
+    "miniflare": "^5.20261113.0-beta",
     "prettier": "^3.9.10",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.162.0"
   },
   "private": true,
   "type": "module"

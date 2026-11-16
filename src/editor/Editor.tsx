@@ -107,7 +107,7 @@ export default function Editor() {
     if (
       publish &&
       !confirm(
-        "确认发布当前页面？本地模式更新发布 JSON；线上模式会提交正式分支并触发构建。",
+        "确认发布当前页面？本地模式更新发布 JSON；线上模式直接更新 R2 中的公开内容。",
       )
     )
       return;

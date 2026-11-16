@@ -48,7 +48,7 @@ test("目录和结束页真实文字、手机布局及装饰显隐", async ({ pa
     expect(
       (
         await request.put("/api/content", {
-          headers: { Origin: "http://127.0.0.1:4321" },
+          headers: { Origin: "http://127.0.0.1:4323" },
           data: invalid,
         })
       ).status(),

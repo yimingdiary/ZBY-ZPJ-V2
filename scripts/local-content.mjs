@@ -11,6 +11,35 @@ export function localContent() {
     apply: "serve",
     configureServer(server) {
       configureLocalAssets(server);
+      server.middlewares.use(async (req, res, next) => {
+        if (
+          req.url?.split("?")[0] === "/api/published" &&
+          req.method === "GET"
+        ) {
+          try {
+            res.setHeader("Content-Type", "application/json");
+            res.setHeader("Cache-Control", "no-store");
+            res.end(
+              JSON.stringify({
+                data: JSON.parse(
+                  await readFile(
+                    new URL("content/published/home.json", root),
+                    "utf8",
+                  ),
+                ),
+                mode: "local",
+              }),
+            );
+          } catch {
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: "本地发布内容读取失败" }));
+          }
+          return;
+        }
+        if (/^\/shop\/[^/?]+\/?(?:\?.*)?$/.test(req.url || ""))
+          req.url = "/shop";
+        next();
+      });
       server.middlewares.use("/api/content", async (req, res) => {
         const send = (status, data) => {
           res.statusCode = status;

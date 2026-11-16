@@ -1,6 +1,12 @@
 import { test, expect } from "@playwright/test";
 
 test("发布页与装修预览内容右边界不侵入外壳滚动条", async ({ page }) => {
+  await page.route("**/api/content", async (route) => {
+    const response = await route.fetch();
+    const body = await response.json();
+    body.data.root.props.chrome = true;
+    await route.fulfill({ response, json: body });
+  });
   for (const route of ["/", "/admin"]) {
     for (const width of [1920, 1280, 390]) {
       await page.setViewportSize({ width, height: 1080 });

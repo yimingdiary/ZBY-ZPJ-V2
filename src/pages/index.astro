@@ -1,28 +1,5 @@
 ---
-import { readFile } from 'node:fs/promises';
 import '../styles/global.css';
-import { Page } from '../modules/Page';
-// 开发请求直接读取发布文件，避免刚发布时读取 Vite 缓存中的旧 JSON。
-// 正式构建只在构建期执行，输出仍然是纯静态 HTML。
-const data = JSON.parse(await readFile('content/published/home.json', 'utf8'));
+import { PublicContent } from '../modules/PublicContent';
 ---
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="朱宝玉的设计作品集，2023—2026。" />
-    <title>朱宝玉 · 设计作品集</title>
-  </head>
-  <body><Page data={data} /></body>
-</html>
-<script>
-  import {attachGalleryRatios} from "../design/gallery-image";
-  attachGalleryRatios(document);
-  import {attachOverlayPreview} from '../modules/OverlayGallery/preview';
-  document.querySelectorAll<HTMLAnchorElement>('[data-overlay-work]').forEach(attachOverlayPreview);
-  import {attachTitleFrame} from '../design/title-frame';
-  document.querySelectorAll<SVGSVGElement>('svg[data-framed-title]').forEach(attachTitleFrame);
-  import {attachPhotoshopFrame} from '../design/photoshop-frame';
-  document.querySelectorAll<HTMLObjectElement>('object[data-photoshop-frame]').forEach(attachPhotoshopFrame);
-</script>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="description" content="朱宝玉的设计作品集，2023—2026。"/><title>朱宝玉 · 设计作品集</title></head><body><PublicContent client:only="react"><p slot="fallback">正在读取作品集…</p></PublicContent><noscript>请启用 JavaScript 以读取最新发布内容。</noscript></body></html>

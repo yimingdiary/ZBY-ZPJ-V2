@@ -1,0 +1,7 @@
+{
+ "$schema": "node_modules/wrangler/config-schema.json",
+ "name": "zby-portfolio-v3",
+ "pages_build_output_dir": "./dist",
+ "compatibility_date": "2026-11-16",
+ "r2_buckets": [{"binding": "PORTFOLIO", "bucket_name": "portfolio"}]
+}

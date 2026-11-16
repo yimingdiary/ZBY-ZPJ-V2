@@ -78,6 +78,7 @@ test("关闭 PS 外壳恢复原生滚动条，重新显示后只保留一套交�
 }) => {
   await page.goto("/admin");
   const frame = page.frameLocator("iframe");
+  await page.getByText("显示", { exact: true }).last().click();
   await expect(frame.locator("object[data-photoshop-frame]")).toHaveCount(1);
   await expect
     .poll(() => frame.locator("html").getAttribute("data-ps-scrollbar"))
@@ -117,7 +118,7 @@ test("手机触摸外壳可滚动，拖动滑块不会被原生手势取消", as
   });
   try {
     const page = await context.newPage();
-    await page.goto("http://127.0.0.1:4321/");
+    await page.goto("http://127.0.0.1:4323/");
     await page.evaluate(() => document.fonts.ready);
     await page.waitForFunction(() =>
       document
