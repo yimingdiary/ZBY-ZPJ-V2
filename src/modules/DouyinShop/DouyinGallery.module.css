@@ -1,0 +1,129 @@
+.gallery {
+  position: relative;
+  padding: 6.6cqw 3.9cqw 4cqw;
+  min-height: 55.5cqw;
+  color: var(--color-ink);
+  scroll-snap-align: start;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 2cqw;
+  align-items: flex-start;
+  margin-bottom: 2cqw;
+}
+.header h2 {
+  margin: 0;
+  font: 400 3.55cqw/1.05 var(--font-display);
+}
+.header p {
+  margin: 0.5cqw 0 0;
+  font: 300 2.3cqw/1.2 var(--font-body);
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2cqw;
+  max-width: 80cqw;
+  margin: 2cqw auto;
+}
+.grid figure {
+  margin: 0;
+  min-width: 0;
+  flex: 0 0 calc((100% - 6cqw) / 4);
+}
+.grid a {
+  display: block;
+  overflow: hidden;
+  border-radius: 1.2cqw;
+}
+.grid a:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+.grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+@media (min-width: 601px) {
+  .grid {
+    flex-wrap: nowrap;
+    width: min(var(--safe-width, 80cqw), 100%);
+    max-width: none;
+    gap: var(--image-gap, 2cqw);
+    overflow-x: auto;
+  }
+  .grid figure {
+    flex: 0 0 var(--image-width, 18.5cqw);
+    height: min(
+      var(--image-height, var(--size-work-preview-max-height)),
+      var(--size-work-preview-max-height)
+    );
+  }
+  .grid figure:only-child {
+    margin-inline: auto;
+  }
+  .grid a {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: auto;
+  }
+}
+@media (max-width: 600px) {
+  .gallery {
+    padding: 48px 20px;
+  }
+  .header {
+    margin-bottom: 24px;
+  }
+  .header h2 {
+    font-size: 34px;
+  }
+  .header p {
+    font-size: 20px;
+    margin-top: 14px;
+  }
+  .grid {
+    display: grid;
+    justify-content: normal !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: none;
+  }
+  .grid a {
+    border-radius: 12px;
+  }
+}
+
+@media (min-width: 601px) {
+  .grid[data-auto-width="true"] figure {
+    flex: 0 0 auto;
+    width: calc(
+      min(var(--image-height), var(--size-work-preview-max-height)) *
+        var(--image-aspect)
+    );
+  }
+  .grid[data-auto-width="true"] figure > a {
+    width: auto;
+    max-width: none;
+    height: 100%;
+  }
+  .grid[data-auto-width="true"] figure > a > img,
+  .grid[data-auto-width="true"] figure > img {
+    width: auto;
+    height: 100%;
+    max-width: none;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+}

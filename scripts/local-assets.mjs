@@ -1,3 +1,4 @@
+import { waitForAsset } from "./asset-ready.mjs";
 import { importWorkFolder } from "./work-folders.mjs";
 import { imageLibrary, importImage } from "./image-library.mjs";
 export function configureLocalAssets(server) {
@@ -7,14 +8,19 @@ export function configureLocalAssets(server) {
     res.setHeader("Cache-Control", "no-store");
     res.end(JSON.stringify(data));
   };
-  server.middlewares.use("/image-library.json", async (req, res) => {
-    if (req.method !== "GET") return send(res, 405, { error: "方法不支持" });
-    try {
-      send(res, 200, await imageLibrary(true));
-    } catch {
-      send(res, 500, { error: "图片列表读取失败" });
-    }
-  });
+  for (const namespace of ["portfolio", "shop"])
+    server.middlewares.use(
+      namespace === "shop" ? "/shop-image-library.json" : "/image-library.json",
+      async (req, res) => {
+        if (req.method !== "GET")
+          return send(res, 405, { error: "方法不支持" });
+        try {
+          send(res, 200, await imageLibrary(true, namespace));
+        } catch {
+          send(res, 500, { error: "图片列表读取失败" });
+        }
+      },
+    );
   server.middlewares.use("/api/work-folders", async (req, res) => {
     const host = req.headers.host;
     if (
@@ -47,40 +53,45 @@ export function configureLocalAssets(server) {
       send(res, 400, { error: error.message });
     }
   });
-  server.middlewares.use("/api/assets", async (req, res) => {
-    const host = req.headers.host;
-    if (
-      !host ||
-      !["127.0.0.1", "localhost", "[::1]"].some(
-        (h) => host === h || host.startsWith(h + ":"),
-      ) ||
-      req.headers.origin !== `http://${host}`
-    )
-      return send(res, 403, { error: "仅允许本机同源导入" });
-    if (req.method !== "POST") return send(res, 405, { error: "方法不支持" });
-    if (req.headers["content-type"] !== "application/octet-stream")
-      return send(res, 400, { error: "图片格式无效" });
-    try {
-      const chunks = [];
-      let size = 0;
-      for await (const chunk of req) {
-        size += chunk.length;
-        if (size > 20 * 1024 * 1024)
-          return send(res, 413, { error: "图片不能超过 20 MB" });
-        chunks.push(chunk);
-      }
-      send(
-        res,
-        200,
-        await importImage(
-          Buffer.concat(chunks),
-          req.headers["x-file-name"]
-            ? decodeURIComponent(req.headers["x-file-name"])
-            : undefined,
-        ),
-      );
-    } catch (error) {
-      send(res, 400, { error: error.message });
-    }
-  });
+  for (const namespace of ["portfolio", "shop"])
+    server.middlewares.use(
+      namespace === "shop" ? "/api/shop-assets" : "/api/assets",
+      async (req, res) => {
+        const host = req.headers.host;
+        if (
+          !host ||
+          !["127.0.0.1", "localhost", "[::1]"].some(
+            (h) => host === h || host.startsWith(h + ":"),
+          ) ||
+          req.headers.origin !== `http://${host}`
+        )
+          return send(res, 403, { error: "仅允许本机同源导入" });
+        if (req.method !== "POST")
+          return send(res, 405, { error: "方法不支持" });
+        if (req.headers["content-type"] !== "application/octet-stream")
+          return send(res, 400, { error: "图片格式无效" });
+        try {
+          const chunks = [];
+          let size = 0;
+          for await (const chunk of req) {
+            size += chunk.length;
+            if (size > 20 * 1024 * 1024)
+              return send(res, 413, { error: "图片不能超过 20 MB" });
+            chunks.push(chunk);
+          }
+          const result = await importImage(
+            Buffer.concat(chunks),
+            req.headers["x-file-name"]
+              ? decodeURIComponent(req.headers["x-file-name"])
+              : undefined,
+            namespace,
+            req.headers["x-shop-project"] || "",
+          );
+          await waitForAsset(host, result.src);
+          send(res, 200, result);
+        } catch (error) {
+          send(res, 400, { error: error.message });
+        }
+      },
+    );
 }

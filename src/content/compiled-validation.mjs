@@ -36,12 +36,23 @@ var require_ucs2length = __commonJS({
 // <stdin>
 var validate = validate10;
 var stdin_default = validate10;
-var schema11 = { "type": "object", "additionalProperties": false, "properties": { "root": { "type": "object", "additionalProperties": false, "properties": { "props": { "type": "object", "additionalProperties": false, "properties": { "chrome": { "type": "boolean" } }, "required": ["chrome"] }, "readOnly": { "type": "object", "properties": { "chrome": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["props"] }, "content": { "type": "array", "minItems": 1, "maxItems": 30, "items": { "oneOf": [{ "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Navigation" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "brand": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 8, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 300 }, "href": { "type": "string", "maxLength": 500, "pattern": "^(#|/[^/]|https://|$)" } }, "required": ["label", "href"] } }, "motto": { "type": "string", "maxLength": 300 } }, "required": ["id", "version", "brand", "items", "motto"] }, "readOnly": { "type": "object", "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "brand": { "type": "boolean" }, "items": { "type": "boolean" }, "motto": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "PortfolioHero" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "minLength": 1, "maxLength": 12 }, "subtitle": { "type": "string", "maxLength": 300 }, "welcome": { "type": "string", "maxLength": 300 }, "motto": { "type": "string", "maxLength": 300 }, "font": { "enum": ["display", "body"] }, "ink": { "type": "string", "pattern": "^(inherit|#[0-9a-fA-F]{6})$" }, "spacing": { "type": "number", "minimum": 4, "maximum": 30 } }, "required": ["id", "version", "title", "subtitle", "welcome", "motto", "font", "ink", "spacing"] }, "readOnly": { "type": "object", "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "welcome": { "type": "boolean" }, "motto": { "type": "boolean" }, "font": { "type": "boolean" }, "ink": { "type": "boolean" }, "spacing": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Footer" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "years": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 } }, "required": ["id", "version", "years", "category"] }, "readOnly": { "type": "object", "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "years": { "type": "boolean" }, "category": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "AboutMe" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "name": { "type": "string", "maxLength": 300 }, "englishName": { "type": "string", "maxLength": 300 }, "portraitAlt": { "type": "string", "maxLength": 300 }, "company": { "type": "string", "maxLength": 300 }, "role": { "type": "string", "maxLength": 300 }, "period": { "type": "string", "maxLength": 300 }, "portrait": { "type": "string", "maxLength": 500, "pattern": "^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$" }, "summary": { "type": "string", "maxLength": 3e3 }, "facts": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 1e3 }, "value": { "type": "string", "maxLength": 1e3 } }, "required": ["label", "value"] } }, "achievements": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "properties": { "title": { "type": "string", "maxLength": 1e3 }, "description": { "type": "string", "maxLength": 1e3 } }, "required": ["title", "description"] } }, "education": { "type": "array", "maxItems": 8, "items": { "type": "object", "additionalProperties": false, "properties": { "school": { "type": "string", "maxLength": 1e3 }, "qualification": { "type": "string", "maxLength": 1e3 }, "major": { "type": "string", "maxLength": 1e3 }, "period": { "type": "string", "maxLength": 1e3 } }, "required": ["school", "qualification", "major", "period"] } }, "skills": { "type": "array", "maxItems": 20, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 1e3 } }, "required": ["label"] } } }, "required": ["id", "version", "title", "name", "englishName", "portraitAlt", "company", "role", "period", "portrait", "summary", "facts", "achievements", "education", "skills"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "name": { "type": "boolean" }, "englishName": { "type": "boolean" }, "portraitAlt": { "type": "boolean" }, "company": { "type": "boolean" }, "role": { "type": "boolean" }, "period": { "type": "boolean" }, "portrait": { "type": "boolean" }, "summary": { "type": "boolean" }, "facts": { "type": "boolean" }, "achievements": { "type": "boolean" }, "education": { "type": "boolean" }, "skills": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Contents" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "subtitle": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 4, "items": { "type": "object", "additionalProperties": false, "properties": { "letter": { "type": "string", "maxLength": 1 }, "number": { "type": "string", "maxLength": 2 }, "label": { "type": "string", "maxLength": 300 }, "english": { "type": "string", "maxLength": 300 }, "href": { "type": "string", "maxLength": 500, "pattern": "^(#|/[^/]|https://|$)" } }, "required": ["letter", "number", "label", "english", "href"] } } }, "required": ["id", "version", "title", "subtitle", "items"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "items": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Closing" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "brand": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 8, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 300 }, "href": { "type": "string", "maxLength": 500, "pattern": "^(#|/[^/]|https://|$)" } }, "required": ["label", "href"] } }, "motto": { "type": "string", "maxLength": 300 }, "title": { "type": "string", "maxLength": 12 }, "subtitle": { "type": "string", "maxLength": 300 }, "wish": { "type": "string", "maxLength": 300 }, "welcome": { "type": "string", "maxLength": 300 }, "learning": { "type": "string", "maxLength": 300 }, "years": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 } }, "required": ["id", "version", "brand", "items", "motto", "title", "subtitle", "wish", "welcome", "learning", "years", "category"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "brand": { "type": "boolean" }, "items": { "type": "boolean" }, "motto": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "wish": { "type": "boolean" }, "welcome": { "type": "boolean" }, "learning": { "type": "boolean" }, "years": { "type": "boolean" }, "category": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "OverlayGallery" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "subtitle": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "properties": { "src": { "type": "string", "maxLength": 500, "pattern": "^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$" }, "alt": { "type": "string", "maxLength": 300 }, "workId": { "enum": ["", "ice-cream", "crocs", "junlebao", "auldey", "pet-life", "cat-litter", "pet-expo", "alfie-buddy"] }, "dynamic": { "type": "boolean" } }, "required": ["src", "alt"], "allOf": [{ "if": { "properties": { "dynamic": { "const": true } }, "required": ["dynamic"] }, "then": { "properties": { "src": { "enum": ["/images/works/260117_\u8D34\u7247_\u5BA0\u7269\u751F\u6D3B_\u6BDB\u5B69\u5B50/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/pet-life.jpg", "/images/works/pet-life/cover.jpg", "/images/works/260109_\u8D34\u7247_\u94F2\u5C4E\u5B98\u732B\u7802\u7AD9_\u732B\u738B\u732B\u7802/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/cat-litter.jpg", "/images/works/cat-litter/cover.jpg", "/images/works/250806_\u8D34\u7247_\u5BA0\u7269\u751F\u6D3B_\u62A2\u8DD1\u4E9A\u5BA0\u5C55/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/pet-expo.jpg", "/images/works/pet-expo/cover.jpg", "/images/works/251121_\u8D34\u7247_\u5BA0\u7269\u751F\u6D3B_\u963F\u98DE\u548C\u5DF4\u5F1F/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/alfie-buddy.jpg", "/images/works/alfie-buddy/cover.jpg"] } } } }] } }, "layout": { "type": "object", "additionalProperties": false, "properties": { "safeWidth": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "imageWidth": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "imageHeight": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "gap": { "type": "number", "minimum": 0, "maximum": 1e4 } }, "required": ["safeWidth", "imageWidth", "imageHeight", "gap"] } }, "required": ["id", "version", "title", "subtitle", "category", "items"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "category": { "type": "boolean" }, "items": { "type": "boolean" }, "layout": { "type": "boolean" } } } }, "required": ["type", "props"] }] } }, "zones": { "type": "object", "maxProperties": 0, "additionalProperties": false } }, "required": ["root", "content"] };
+var schema11 = { "type": "object", "additionalProperties": false, "properties": { "root": { "type": "object", "additionalProperties": false, "properties": { "props": { "type": "object", "additionalProperties": false, "properties": { "chrome": { "type": "boolean" } }, "required": ["chrome"] }, "readOnly": { "type": "object", "properties": { "chrome": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["props"] }, "content": { "type": "array", "minItems": 1, "maxItems": 30, "items": { "oneOf": [{ "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Navigation" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "brand": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 8, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 300 }, "href": { "type": "string", "maxLength": 500, "pattern": "^(#|/[^/]|https://|$)" } }, "required": ["label", "href"] } }, "motto": { "type": "string", "maxLength": 300 } }, "required": ["id", "version", "brand", "items", "motto"] }, "readOnly": { "type": "object", "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "brand": { "type": "boolean" }, "items": { "type": "boolean" }, "motto": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "PortfolioHero" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "minLength": 1, "maxLength": 12 }, "subtitle": { "type": "string", "maxLength": 300 }, "welcome": { "type": "string", "maxLength": 300 }, "motto": { "type": "string", "maxLength": 300 }, "font": { "enum": ["display", "body"] }, "ink": { "type": "string", "pattern": "^(inherit|#[0-9a-fA-F]{6})$" }, "spacing": { "type": "number", "minimum": 4, "maximum": 30 } }, "required": ["id", "version", "title", "subtitle", "welcome", "motto", "font", "ink", "spacing"] }, "readOnly": { "type": "object", "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "welcome": { "type": "boolean" }, "motto": { "type": "boolean" }, "font": { "type": "boolean" }, "ink": { "type": "boolean" }, "spacing": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Footer" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "years": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 } }, "required": ["id", "version", "years", "category"] }, "readOnly": { "type": "object", "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "years": { "type": "boolean" }, "category": { "type": "boolean" } }, "additionalProperties": false } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "AboutMe" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "name": { "type": "string", "maxLength": 300 }, "englishName": { "type": "string", "maxLength": 300 }, "portraitAlt": { "type": "string", "maxLength": 300 }, "company": { "type": "string", "maxLength": 300 }, "role": { "type": "string", "maxLength": 300 }, "period": { "type": "string", "maxLength": 300 }, "portrait": { "type": "string", "maxLength": 500, "pattern": "^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$" }, "summary": { "type": "string", "maxLength": 3e3 }, "facts": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 1e3 }, "value": { "type": "string", "maxLength": 1e3 } }, "required": ["label", "value"] } }, "achievements": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "properties": { "title": { "type": "string", "maxLength": 1e3 }, "description": { "type": "string", "maxLength": 1e3 } }, "required": ["title", "description"] } }, "education": { "type": "array", "maxItems": 8, "items": { "type": "object", "additionalProperties": false, "properties": { "school": { "type": "string", "maxLength": 1e3 }, "qualification": { "type": "string", "maxLength": 1e3 }, "major": { "type": "string", "maxLength": 1e3 }, "period": { "type": "string", "maxLength": 1e3 } }, "required": ["school", "qualification", "major", "period"] } }, "skills": { "type": "array", "maxItems": 20, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 1e3 } }, "required": ["label"] } } }, "required": ["id", "version", "title", "name", "englishName", "portraitAlt", "company", "role", "period", "portrait", "summary", "facts", "achievements", "education", "skills"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "name": { "type": "boolean" }, "englishName": { "type": "boolean" }, "portraitAlt": { "type": "boolean" }, "company": { "type": "boolean" }, "role": { "type": "boolean" }, "period": { "type": "boolean" }, "portrait": { "type": "boolean" }, "summary": { "type": "boolean" }, "facts": { "type": "boolean" }, "achievements": { "type": "boolean" }, "education": { "type": "boolean" }, "skills": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Contents" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "subtitle": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 4, "items": { "type": "object", "additionalProperties": false, "properties": { "letter": { "type": "string", "maxLength": 1 }, "number": { "type": "string", "maxLength": 2 }, "label": { "type": "string", "maxLength": 300 }, "english": { "type": "string", "maxLength": 300 }, "href": { "type": "string", "maxLength": 500, "pattern": "^(#|/[^/]|https://|$)" } }, "required": ["letter", "number", "label", "english", "href"] } } }, "required": ["id", "version", "title", "subtitle", "items"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "items": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "Closing" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "brand": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 8, "items": { "type": "object", "additionalProperties": false, "properties": { "label": { "type": "string", "maxLength": 300 }, "href": { "type": "string", "maxLength": 500, "pattern": "^(#|/[^/]|https://|$)" } }, "required": ["label", "href"] } }, "motto": { "type": "string", "maxLength": 300 }, "title": { "type": "string", "maxLength": 12 }, "subtitle": { "type": "string", "maxLength": 300 }, "wish": { "type": "string", "maxLength": 300 }, "welcome": { "type": "string", "maxLength": 300 }, "learning": { "type": "string", "maxLength": 300 }, "years": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 } }, "required": ["id", "version", "brand", "items", "motto", "title", "subtitle", "wish", "welcome", "learning", "years", "category"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "brand": { "type": "boolean" }, "items": { "type": "boolean" }, "motto": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "wish": { "type": "boolean" }, "welcome": { "type": "boolean" }, "learning": { "type": "boolean" }, "years": { "type": "boolean" }, "category": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "OverlayGallery" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "minLength": 1, "maxLength": 100 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "subtitle": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "maxItems": 12, "items": { "type": "object", "additionalProperties": false, "properties": { "src": { "type": "string", "maxLength": 500, "pattern": "^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$" }, "alt": { "type": "string", "maxLength": 300 }, "workId": { "enum": ["", "ice-cream", "crocs", "junlebao", "auldey", "pet-life", "cat-litter", "pet-expo", "alfie-buddy"] }, "dynamic": { "type": "boolean" } }, "required": ["src", "alt"], "allOf": [{ "if": { "properties": { "dynamic": { "const": true } }, "required": ["dynamic"] }, "then": { "properties": { "src": { "enum": ["/images/works/260117_\u8D34\u7247_\u5BA0\u7269\u751F\u6D3B_\u6BDB\u5B69\u5B50/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/pet-life.jpg", "/images/works/pet-life/cover.jpg", "/images/works/260109_\u8D34\u7247_\u94F2\u5C4E\u5B98\u732B\u7802\u7AD9_\u732B\u738B\u732B\u7802/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/cat-litter.jpg", "/images/works/cat-litter/cover.jpg", "/images/works/250806_\u8D34\u7247_\u5BA0\u7269\u751F\u6D3B_\u62A2\u8DD1\u4E9A\u5BA0\u5C55/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/pet-expo.jpg", "/images/works/pet-expo/cover.jpg", "/images/works/251121_\u8D34\u7247_\u5BA0\u7269\u751F\u6D3B_\u963F\u98DE\u548C\u5DF4\u5F1F/\u8D34\u7247\u9884\u89C8.jpg", "/images/overlay/alfie-buddy.jpg", "/images/works/alfie-buddy/cover.jpg"] } } } }] } }, "layout": { "type": "object", "additionalProperties": false, "properties": { "safeWidth": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "imageWidth": { "type": "number", "minimum": 0, "maximum": 1e4 }, "imageHeight": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "gap": { "type": "number", "minimum": 0, "maximum": 1e4 } }, "required": ["safeWidth", "imageWidth", "imageHeight", "gap"] } }, "required": ["id", "version", "title", "subtitle", "category", "items"] }, "readOnly": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "boolean" }, "version": { "type": "boolean" }, "title": { "type": "boolean" }, "subtitle": { "type": "boolean" }, "category": { "type": "boolean" }, "items": { "type": "boolean" }, "layout": { "type": "boolean" } } } }, "required": ["type", "props"] }, { "type": "object", "additionalProperties": false, "properties": { "type": { "const": "DouyinGallery" }, "props": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "maxLength": 100, "minLength": 1 }, "version": { "const": 1 }, "title": { "type": "string", "maxLength": 300 }, "subtitle": { "type": "string", "maxLength": 300 }, "category": { "type": "string", "maxLength": 300 }, "items": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "slug": { "type": "string", "maxLength": 100, "minLength": 1, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }, "name": { "type": "string", "maxLength": 300 }, "cover": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "page": { "type": "object", "additionalProperties": false, "properties": { "componentRadius": { "type": "number", "minimum": 0, "maximum": 100 }, "header": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "components": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "id": { "type": "string", "maxLength": 100, "minLength": 1 }, "type": { "enum": ["poster", "carousel", "tabCarousel", "flipGrid"] }, "radius": { "type": "number", "minimum": 0, "maximum": 100 }, "hotspots": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "number", "minimum": 0, "maximum": 100 }, "y": { "type": "number", "minimum": 0, "maximum": 100 }, "width": { "type": "number", "minimum": 0, "maximum": 100 }, "height": { "type": "number", "minimum": 0, "maximum": 100 }, "action": { "enum": ["url", "project", "switch"] }, "target": { "type": "string", "maxLength": 1e3, "pattern": "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$" } }, "required": ["x", "y", "width", "height", "action", "target"] }, "maxItems": 50 }, "link": { "type": "string", "maxLength": 1e3, "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$" }, "image": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "images": { "type": "array", "items": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "maxItems": 30 }, "interval": { "type": "number", "minimum": 800, "maximum": 36e5 }, "posterAspect": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?/\\d+(?:\\.\\d+)?$" }, "carouselAspects": { "type": "array", "items": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "maxItems": 30 }, "background": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "backgroundColor": { "type": "string", "maxLength": 7, "pattern": "^$|^#[\\da-fA-F]{6}$" }, "moduleHeight": { "type": "number", "minimum": 1, "maximum": 1e5 }, "thumbnailLayout": { "enum": ["horizontal", "vertical"] }, "thumbnailBox": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "thumbnailSize": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "contentBox": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "transition": { "enum": ["horizontal", "vertical", "fade"] }, "animationTime": { "type": "number", "minimum": 0, "maximum": 60 }, "autoPlay": { "type": "boolean" }, "autoInterval": { "type": "number", "minimum": 0.1, "maximum": 3600 }, "initialIndex": { "type": "number", "minimum": 0, "maximum": 29 }, "tabs": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "title": { "type": "string", "maxLength": 300 }, "image": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "images": { "type": "array", "items": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "maxItems": 30 }, "selectedImage": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "unselectedImage": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "hotspots": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "x": { "type": "number", "minimum": 0, "maximum": 100 }, "y": { "type": "number", "minimum": 0, "maximum": 100 }, "width": { "type": "number", "minimum": 0, "maximum": 100 }, "height": { "type": "number", "minimum": 0, "maximum": 100 }, "action": { "enum": ["url", "project", "switch"] }, "target": { "type": "string", "maxLength": 1e3, "pattern": "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$" } }, "required": ["x", "y", "width", "height", "action", "target"] }, "maxItems": 50 } } }, "maxItems": 30 }, "items": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "empty": { "type": "boolean" }, "images": { "type": "array", "items": { "type": "object", "additionalProperties": false, "properties": { "src": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "link": { "type": "string", "maxLength": 1e3, "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$" } }, "required": ["src", "link"] }, "maxItems": 30 } }, "required": ["empty", "images"] }, "maxItems": 100 }, "flipDirection": { "enum": ["horizontal", "vertical", "none"] }, "autoSwitch": { "type": "boolean" }, "carouselSettings": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "listSettings": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "imageSize": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "gridSize": { "type": "string", "maxLength": 10, "pattern": "^(?:[1-9]|10)\\|(?:[1-9]|10)$" }, "buttonPosition": { "type": "string", "maxLength": 100, "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, "buttonImage": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, "buttonAnimation": { "enum": ["none", "scale"] }, "centerImage": { "type": "string", "maxLength": 1e3, "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" } }, "required": ["id", "type"] }, "maxItems": 100 }, "assetFolder": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,120}$" } }, "required": ["componentRadius", "components"] } }, "required": ["slug", "name", "cover", "page"] }, "maxItems": 12 }, "layout": { "type": "object", "additionalProperties": false, "properties": { "safeWidth": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "imageWidth": { "type": "number", "minimum": 0, "maximum": 1e4 }, "imageHeight": { "type": "number", "minimum": 0.01, "maximum": 1e4 }, "gap": { "type": "number", "minimum": 0, "maximum": 1e4 } }, "required": ["safeWidth", "imageWidth", "imageHeight", "gap"] } }, "required": ["id", "version", "title", "subtitle", "category", "items"] }, "readOnly": { "type": "object", "additionalProperties": { "type": "boolean" } } }, "required": ["type", "props"] }] } }, "zones": { "type": "object", "maxProperties": 0, "additionalProperties": false } }, "required": ["root", "content"] };
 var func2 = require_ucs2length().default;
 var func8 = Object.prototype.hasOwnProperty;
 var pattern0 = new RegExp("^(#|/[^/]|https://|$)", "u");
 var pattern1 = new RegExp("^(inherit|#[0-9a-fA-F]{6})$", "u");
 var pattern2 = new RegExp("^/images/(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))[^\\u0000-\\u001f%?#\\\\]+$", "u");
+var pattern6 = new RegExp("^[a-z0-9]+(?:-[a-z0-9]+)*$", "u");
+var pattern7 = new RegExp("^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$", "u");
+var pattern9 = new RegExp("^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$", "u");
+var pattern10 = new RegExp("^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$", "u");
+var pattern13 = new RegExp("^\\d+(?:\\.\\d+)?/\\d+(?:\\.\\d+)?$", "u");
+var pattern14 = new RegExp("^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$", "u");
+var pattern16 = new RegExp("^$|^#[\\da-fA-F]{6}$", "u");
+var pattern17 = new RegExp("^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$", "u");
+var pattern18 = new RegExp("^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$", "u");
+var pattern30 = new RegExp("^(?:[1-9]|10)\\|(?:[1-9]|10)$", "u");
+var pattern34 = new RegExp("^[A-Za-z0-9_-]{1,120}$", "u");
 function validate10(data, { instancePath = "", parentData, parentDataProperty, rootData = data } = {}) {
   let vErrors = null;
   let errors = 0;
@@ -4239,8 +4250,8 @@ function validate10(data, { instancePath = "", parentData, parentDataProperty, r
                                     }
                                     errors++;
                                   }
-                                  if (data167 < 0.01 || isNaN(data167)) {
-                                    const err389 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageWidth", schemaPath: "#/properties/content/items/oneOf/6/properties/props/properties/layout/properties/imageWidth/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0.01 }, message: "must be >= 0.01" };
+                                  if (data167 < 0 || isNaN(data167)) {
+                                    const err389 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageWidth", schemaPath: "#/properties/content/items/oneOf/6/properties/props/properties/layout/properties/imageWidth/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
                                     if (vErrors === null) {
                                       vErrors = [err389];
                                     } else {
@@ -4459,6 +4470,2655 @@ function validate10(data, { instancePath = "", parentData, parentDataProperty, r
                         valid6 = true;
                         passing0 = 6;
                       }
+                      const _errs391 = errors;
+                      if (data6 && typeof data6 == "object" && !Array.isArray(data6)) {
+                        if (data6.type === void 0) {
+                          const err409 = { instancePath: instancePath + "/content/" + i0, schemaPath: "#/properties/content/items/oneOf/7/required", keyword: "required", params: { missingProperty: "type" }, message: "must have required property 'type'" };
+                          if (vErrors === null) {
+                            vErrors = [err409];
+                          } else {
+                            vErrors.push(err409);
+                          }
+                          errors++;
+                        }
+                        if (data6.props === void 0) {
+                          const err410 = { instancePath: instancePath + "/content/" + i0, schemaPath: "#/properties/content/items/oneOf/7/required", keyword: "required", params: { missingProperty: "props" }, message: "must have required property 'props'" };
+                          if (vErrors === null) {
+                            vErrors = [err410];
+                          } else {
+                            vErrors.push(err410);
+                          }
+                          errors++;
+                        }
+                        for (const key34 in data6) {
+                          if (!(key34 === "type" || key34 === "props" || key34 === "readOnly")) {
+                            const err411 = { instancePath: instancePath + "/content/" + i0, schemaPath: "#/properties/content/items/oneOf/7/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key34 }, message: "must NOT have additional properties" };
+                            if (vErrors === null) {
+                              vErrors = [err411];
+                            } else {
+                              vErrors.push(err411);
+                            }
+                            errors++;
+                          }
+                        }
+                        if (data6.type !== void 0) {
+                          if ("DouyinGallery" !== data6.type) {
+                            const err412 = { instancePath: instancePath + "/content/" + i0 + "/type", schemaPath: "#/properties/content/items/oneOf/7/properties/type/const", keyword: "const", params: { allowedValue: "DouyinGallery" }, message: "must be equal to constant" };
+                            if (vErrors === null) {
+                              vErrors = [err412];
+                            } else {
+                              vErrors.push(err412);
+                            }
+                            errors++;
+                          }
+                        }
+                        if (data6.props !== void 0) {
+                          let data179 = data6.props;
+                          if (data179 && typeof data179 == "object" && !Array.isArray(data179)) {
+                            if (data179.id === void 0) {
+                              const err413 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/required", keyword: "required", params: { missingProperty: "id" }, message: "must have required property 'id'" };
+                              if (vErrors === null) {
+                                vErrors = [err413];
+                              } else {
+                                vErrors.push(err413);
+                              }
+                              errors++;
+                            }
+                            if (data179.version === void 0) {
+                              const err414 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/required", keyword: "required", params: { missingProperty: "version" }, message: "must have required property 'version'" };
+                              if (vErrors === null) {
+                                vErrors = [err414];
+                              } else {
+                                vErrors.push(err414);
+                              }
+                              errors++;
+                            }
+                            if (data179.title === void 0) {
+                              const err415 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/required", keyword: "required", params: { missingProperty: "title" }, message: "must have required property 'title'" };
+                              if (vErrors === null) {
+                                vErrors = [err415];
+                              } else {
+                                vErrors.push(err415);
+                              }
+                              errors++;
+                            }
+                            if (data179.subtitle === void 0) {
+                              const err416 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/required", keyword: "required", params: { missingProperty: "subtitle" }, message: "must have required property 'subtitle'" };
+                              if (vErrors === null) {
+                                vErrors = [err416];
+                              } else {
+                                vErrors.push(err416);
+                              }
+                              errors++;
+                            }
+                            if (data179.category === void 0) {
+                              const err417 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/required", keyword: "required", params: { missingProperty: "category" }, message: "must have required property 'category'" };
+                              if (vErrors === null) {
+                                vErrors = [err417];
+                              } else {
+                                vErrors.push(err417);
+                              }
+                              errors++;
+                            }
+                            if (data179.items === void 0) {
+                              const err418 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/required", keyword: "required", params: { missingProperty: "items" }, message: "must have required property 'items'" };
+                              if (vErrors === null) {
+                                vErrors = [err418];
+                              } else {
+                                vErrors.push(err418);
+                              }
+                              errors++;
+                            }
+                            for (const key35 in data179) {
+                              if (!(key35 === "id" || key35 === "version" || key35 === "title" || key35 === "subtitle" || key35 === "category" || key35 === "items" || key35 === "layout")) {
+                                const err419 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key35 }, message: "must NOT have additional properties" };
+                                if (vErrors === null) {
+                                  vErrors = [err419];
+                                } else {
+                                  vErrors.push(err419);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.id !== void 0) {
+                              let data180 = data179.id;
+                              if (typeof data180 === "string") {
+                                if (func2(data180) > 100) {
+                                  const err420 = { instancePath: instancePath + "/content/" + i0 + "/props/id", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/id/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                  if (vErrors === null) {
+                                    vErrors = [err420];
+                                  } else {
+                                    vErrors.push(err420);
+                                  }
+                                  errors++;
+                                }
+                                if (func2(data180) < 1) {
+                                  const err421 = { instancePath: instancePath + "/content/" + i0 + "/props/id", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/id/minLength", keyword: "minLength", params: { limit: 1 }, message: "must NOT have fewer than 1 characters" };
+                                  if (vErrors === null) {
+                                    vErrors = [err421];
+                                  } else {
+                                    vErrors.push(err421);
+                                  }
+                                  errors++;
+                                }
+                              } else {
+                                const err422 = { instancePath: instancePath + "/content/" + i0 + "/props/id", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/id/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                if (vErrors === null) {
+                                  vErrors = [err422];
+                                } else {
+                                  vErrors.push(err422);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.version !== void 0) {
+                              if (1 !== data179.version) {
+                                const err423 = { instancePath: instancePath + "/content/" + i0 + "/props/version", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/version/const", keyword: "const", params: { allowedValue: 1 }, message: "must be equal to constant" };
+                                if (vErrors === null) {
+                                  vErrors = [err423];
+                                } else {
+                                  vErrors.push(err423);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.title !== void 0) {
+                              let data182 = data179.title;
+                              if (typeof data182 === "string") {
+                                if (func2(data182) > 300) {
+                                  const err424 = { instancePath: instancePath + "/content/" + i0 + "/props/title", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/title/maxLength", keyword: "maxLength", params: { limit: 300 }, message: "must NOT have more than 300 characters" };
+                                  if (vErrors === null) {
+                                    vErrors = [err424];
+                                  } else {
+                                    vErrors.push(err424);
+                                  }
+                                  errors++;
+                                }
+                              } else {
+                                const err425 = { instancePath: instancePath + "/content/" + i0 + "/props/title", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/title/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                if (vErrors === null) {
+                                  vErrors = [err425];
+                                } else {
+                                  vErrors.push(err425);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.subtitle !== void 0) {
+                              let data183 = data179.subtitle;
+                              if (typeof data183 === "string") {
+                                if (func2(data183) > 300) {
+                                  const err426 = { instancePath: instancePath + "/content/" + i0 + "/props/subtitle", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/subtitle/maxLength", keyword: "maxLength", params: { limit: 300 }, message: "must NOT have more than 300 characters" };
+                                  if (vErrors === null) {
+                                    vErrors = [err426];
+                                  } else {
+                                    vErrors.push(err426);
+                                  }
+                                  errors++;
+                                }
+                              } else {
+                                const err427 = { instancePath: instancePath + "/content/" + i0 + "/props/subtitle", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/subtitle/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                if (vErrors === null) {
+                                  vErrors = [err427];
+                                } else {
+                                  vErrors.push(err427);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.category !== void 0) {
+                              let data184 = data179.category;
+                              if (typeof data184 === "string") {
+                                if (func2(data184) > 300) {
+                                  const err428 = { instancePath: instancePath + "/content/" + i0 + "/props/category", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/category/maxLength", keyword: "maxLength", params: { limit: 300 }, message: "must NOT have more than 300 characters" };
+                                  if (vErrors === null) {
+                                    vErrors = [err428];
+                                  } else {
+                                    vErrors.push(err428);
+                                  }
+                                  errors++;
+                                }
+                              } else {
+                                const err429 = { instancePath: instancePath + "/content/" + i0 + "/props/category", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/category/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                if (vErrors === null) {
+                                  vErrors = [err429];
+                                } else {
+                                  vErrors.push(err429);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.items !== void 0) {
+                              let data185 = data179.items;
+                              if (Array.isArray(data185)) {
+                                if (data185.length > 12) {
+                                  const err430 = { instancePath: instancePath + "/content/" + i0 + "/props/items", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/maxItems", keyword: "maxItems", params: { limit: 12 }, message: "must NOT have more than 12 items" };
+                                  if (vErrors === null) {
+                                    vErrors = [err430];
+                                  } else {
+                                    vErrors.push(err430);
+                                  }
+                                  errors++;
+                                }
+                                const len9 = data185.length;
+                                for (let i9 = 0; i9 < len9; i9++) {
+                                  let data186 = data185[i9];
+                                  if (data186 && typeof data186 == "object" && !Array.isArray(data186)) {
+                                    if (data186.slug === void 0) {
+                                      const err431 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/required", keyword: "required", params: { missingProperty: "slug" }, message: "must have required property 'slug'" };
+                                      if (vErrors === null) {
+                                        vErrors = [err431];
+                                      } else {
+                                        vErrors.push(err431);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data186.name === void 0) {
+                                      const err432 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/required", keyword: "required", params: { missingProperty: "name" }, message: "must have required property 'name'" };
+                                      if (vErrors === null) {
+                                        vErrors = [err432];
+                                      } else {
+                                        vErrors.push(err432);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data186.cover === void 0) {
+                                      const err433 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/required", keyword: "required", params: { missingProperty: "cover" }, message: "must have required property 'cover'" };
+                                      if (vErrors === null) {
+                                        vErrors = [err433];
+                                      } else {
+                                        vErrors.push(err433);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data186.page === void 0) {
+                                      const err434 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/required", keyword: "required", params: { missingProperty: "page" }, message: "must have required property 'page'" };
+                                      if (vErrors === null) {
+                                        vErrors = [err434];
+                                      } else {
+                                        vErrors.push(err434);
+                                      }
+                                      errors++;
+                                    }
+                                    for (const key36 in data186) {
+                                      if (!(key36 === "slug" || key36 === "name" || key36 === "cover" || key36 === "page")) {
+                                        const err435 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key36 }, message: "must NOT have additional properties" };
+                                        if (vErrors === null) {
+                                          vErrors = [err435];
+                                        } else {
+                                          vErrors.push(err435);
+                                        }
+                                        errors++;
+                                      }
+                                    }
+                                    if (data186.slug !== void 0) {
+                                      let data187 = data186.slug;
+                                      if (typeof data187 === "string") {
+                                        if (func2(data187) > 100) {
+                                          const err436 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/slug", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/slug/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                          if (vErrors === null) {
+                                            vErrors = [err436];
+                                          } else {
+                                            vErrors.push(err436);
+                                          }
+                                          errors++;
+                                        }
+                                        if (func2(data187) < 1) {
+                                          const err437 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/slug", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/slug/minLength", keyword: "minLength", params: { limit: 1 }, message: "must NOT have fewer than 1 characters" };
+                                          if (vErrors === null) {
+                                            vErrors = [err437];
+                                          } else {
+                                            vErrors.push(err437);
+                                          }
+                                          errors++;
+                                        }
+                                        if (!pattern6.test(data187)) {
+                                          const err438 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/slug", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/slug/pattern", keyword: "pattern", params: { pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$" }, message: 'must match pattern "^[a-z0-9]+(?:-[a-z0-9]+)*$"' };
+                                          if (vErrors === null) {
+                                            vErrors = [err438];
+                                          } else {
+                                            vErrors.push(err438);
+                                          }
+                                          errors++;
+                                        }
+                                      } else {
+                                        const err439 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/slug", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/slug/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                        if (vErrors === null) {
+                                          vErrors = [err439];
+                                        } else {
+                                          vErrors.push(err439);
+                                        }
+                                        errors++;
+                                      }
+                                    }
+                                    if (data186.name !== void 0) {
+                                      let data188 = data186.name;
+                                      if (typeof data188 === "string") {
+                                        if (func2(data188) > 300) {
+                                          const err440 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/name", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/name/maxLength", keyword: "maxLength", params: { limit: 300 }, message: "must NOT have more than 300 characters" };
+                                          if (vErrors === null) {
+                                            vErrors = [err440];
+                                          } else {
+                                            vErrors.push(err440);
+                                          }
+                                          errors++;
+                                        }
+                                      } else {
+                                        const err441 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/name", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/name/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                        if (vErrors === null) {
+                                          vErrors = [err441];
+                                        } else {
+                                          vErrors.push(err441);
+                                        }
+                                        errors++;
+                                      }
+                                    }
+                                    if (data186.cover !== void 0) {
+                                      let data189 = data186.cover;
+                                      if (typeof data189 === "string") {
+                                        if (func2(data189) > 1e3) {
+                                          const err442 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/cover", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/cover/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                          if (vErrors === null) {
+                                            vErrors = [err442];
+                                          } else {
+                                            vErrors.push(err442);
+                                          }
+                                          errors++;
+                                        }
+                                        if (!pattern7.test(data189)) {
+                                          const err443 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/cover", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/cover/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                          if (vErrors === null) {
+                                            vErrors = [err443];
+                                          } else {
+                                            vErrors.push(err443);
+                                          }
+                                          errors++;
+                                        }
+                                      } else {
+                                        const err444 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/cover", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/cover/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                        if (vErrors === null) {
+                                          vErrors = [err444];
+                                        } else {
+                                          vErrors.push(err444);
+                                        }
+                                        errors++;
+                                      }
+                                    }
+                                    if (data186.page !== void 0) {
+                                      let data190 = data186.page;
+                                      if (data190 && typeof data190 == "object" && !Array.isArray(data190)) {
+                                        if (data190.componentRadius === void 0) {
+                                          const err445 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/required", keyword: "required", params: { missingProperty: "componentRadius" }, message: "must have required property 'componentRadius'" };
+                                          if (vErrors === null) {
+                                            vErrors = [err445];
+                                          } else {
+                                            vErrors.push(err445);
+                                          }
+                                          errors++;
+                                        }
+                                        if (data190.components === void 0) {
+                                          const err446 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/required", keyword: "required", params: { missingProperty: "components" }, message: "must have required property 'components'" };
+                                          if (vErrors === null) {
+                                            vErrors = [err446];
+                                          } else {
+                                            vErrors.push(err446);
+                                          }
+                                          errors++;
+                                        }
+                                        for (const key37 in data190) {
+                                          if (!(key37 === "componentRadius" || key37 === "header" || key37 === "components" || key37 === "assetFolder")) {
+                                            const err447 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key37 }, message: "must NOT have additional properties" };
+                                            if (vErrors === null) {
+                                              vErrors = [err447];
+                                            } else {
+                                              vErrors.push(err447);
+                                            }
+                                            errors++;
+                                          }
+                                        }
+                                        if (data190.componentRadius !== void 0) {
+                                          let data191 = data190.componentRadius;
+                                          if (typeof data191 == "number" && isFinite(data191)) {
+                                            if (data191 > 100 || isNaN(data191)) {
+                                              const err448 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/componentRadius", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/componentRadius/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                              if (vErrors === null) {
+                                                vErrors = [err448];
+                                              } else {
+                                                vErrors.push(err448);
+                                              }
+                                              errors++;
+                                            }
+                                            if (data191 < 0 || isNaN(data191)) {
+                                              const err449 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/componentRadius", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/componentRadius/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                              if (vErrors === null) {
+                                                vErrors = [err449];
+                                              } else {
+                                                vErrors.push(err449);
+                                              }
+                                              errors++;
+                                            }
+                                          } else {
+                                            const err450 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/componentRadius", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/componentRadius/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                            if (vErrors === null) {
+                                              vErrors = [err450];
+                                            } else {
+                                              vErrors.push(err450);
+                                            }
+                                            errors++;
+                                          }
+                                        }
+                                        if (data190.header !== void 0) {
+                                          let data192 = data190.header;
+                                          if (typeof data192 === "string") {
+                                            if (func2(data192) > 1e3) {
+                                              const err451 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/header", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/header/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                              if (vErrors === null) {
+                                                vErrors = [err451];
+                                              } else {
+                                                vErrors.push(err451);
+                                              }
+                                              errors++;
+                                            }
+                                            if (!pattern7.test(data192)) {
+                                              const err452 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/header", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/header/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                              if (vErrors === null) {
+                                                vErrors = [err452];
+                                              } else {
+                                                vErrors.push(err452);
+                                              }
+                                              errors++;
+                                            }
+                                          } else {
+                                            const err453 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/header", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/header/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                            if (vErrors === null) {
+                                              vErrors = [err453];
+                                            } else {
+                                              vErrors.push(err453);
+                                            }
+                                            errors++;
+                                          }
+                                        }
+                                        if (data190.components !== void 0) {
+                                          let data193 = data190.components;
+                                          if (Array.isArray(data193)) {
+                                            if (data193.length > 100) {
+                                              const err454 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/maxItems", keyword: "maxItems", params: { limit: 100 }, message: "must NOT have more than 100 items" };
+                                              if (vErrors === null) {
+                                                vErrors = [err454];
+                                              } else {
+                                                vErrors.push(err454);
+                                              }
+                                              errors++;
+                                            }
+                                            const len10 = data193.length;
+                                            for (let i10 = 0; i10 < len10; i10++) {
+                                              let data194 = data193[i10];
+                                              if (data194 && typeof data194 == "object" && !Array.isArray(data194)) {
+                                                if (data194.id === void 0) {
+                                                  const err455 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/required", keyword: "required", params: { missingProperty: "id" }, message: "must have required property 'id'" };
+                                                  if (vErrors === null) {
+                                                    vErrors = [err455];
+                                                  } else {
+                                                    vErrors.push(err455);
+                                                  }
+                                                  errors++;
+                                                }
+                                                if (data194.type === void 0) {
+                                                  const err456 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/required", keyword: "required", params: { missingProperty: "type" }, message: "must have required property 'type'" };
+                                                  if (vErrors === null) {
+                                                    vErrors = [err456];
+                                                  } else {
+                                                    vErrors.push(err456);
+                                                  }
+                                                  errors++;
+                                                }
+                                                for (const key38 in data194) {
+                                                  if (!func8.call(schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties, key38)) {
+                                                    const err457 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key38 }, message: "must NOT have additional properties" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err457];
+                                                    } else {
+                                                      vErrors.push(err457);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.id !== void 0) {
+                                                  let data195 = data194.id;
+                                                  if (typeof data195 === "string") {
+                                                    if (func2(data195) > 100) {
+                                                      const err458 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/id", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/id/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err458];
+                                                      } else {
+                                                        vErrors.push(err458);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (func2(data195) < 1) {
+                                                      const err459 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/id", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/id/minLength", keyword: "minLength", params: { limit: 1 }, message: "must NOT have fewer than 1 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err459];
+                                                      } else {
+                                                        vErrors.push(err459);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err460 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/id", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/id/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err460];
+                                                    } else {
+                                                      vErrors.push(err460);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.type !== void 0) {
+                                                  let data196 = data194.type;
+                                                  if (!(data196 === "poster" || data196 === "carousel" || data196 === "tabCarousel" || data196 === "flipGrid")) {
+                                                    const err461 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/type", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/type/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.type.enum }, message: "must be equal to one of the allowed values" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err461];
+                                                    } else {
+                                                      vErrors.push(err461);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.radius !== void 0) {
+                                                  let data197 = data194.radius;
+                                                  if (typeof data197 == "number" && isFinite(data197)) {
+                                                    if (data197 > 100 || isNaN(data197)) {
+                                                      const err462 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/radius", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/radius/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err462];
+                                                      } else {
+                                                        vErrors.push(err462);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (data197 < 0 || isNaN(data197)) {
+                                                      const err463 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/radius", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/radius/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err463];
+                                                      } else {
+                                                        vErrors.push(err463);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err464 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/radius", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/radius/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err464];
+                                                    } else {
+                                                      vErrors.push(err464);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.hotspots !== void 0) {
+                                                  let data198 = data194.hotspots;
+                                                  if (Array.isArray(data198)) {
+                                                    if (data198.length > 50) {
+                                                      const err465 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/maxItems", keyword: "maxItems", params: { limit: 50 }, message: "must NOT have more than 50 items" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err465];
+                                                      } else {
+                                                        vErrors.push(err465);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    const len11 = data198.length;
+                                                    for (let i11 = 0; i11 < len11; i11++) {
+                                                      let data199 = data198[i11];
+                                                      if (data199 && typeof data199 == "object" && !Array.isArray(data199)) {
+                                                        if (data199.x === void 0) {
+                                                          const err466 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "x" }, message: "must have required property 'x'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err466];
+                                                          } else {
+                                                            vErrors.push(err466);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (data199.y === void 0) {
+                                                          const err467 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "y" }, message: "must have required property 'y'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err467];
+                                                          } else {
+                                                            vErrors.push(err467);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (data199.width === void 0) {
+                                                          const err468 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "width" }, message: "must have required property 'width'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err468];
+                                                          } else {
+                                                            vErrors.push(err468);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (data199.height === void 0) {
+                                                          const err469 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "height" }, message: "must have required property 'height'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err469];
+                                                          } else {
+                                                            vErrors.push(err469);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (data199.action === void 0) {
+                                                          const err470 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "action" }, message: "must have required property 'action'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err470];
+                                                          } else {
+                                                            vErrors.push(err470);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (data199.target === void 0) {
+                                                          const err471 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "target" }, message: "must have required property 'target'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err471];
+                                                          } else {
+                                                            vErrors.push(err471);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        for (const key39 in data199) {
+                                                          if (!(key39 === "x" || key39 === "y" || key39 === "width" || key39 === "height" || key39 === "action" || key39 === "target")) {
+                                                            const err472 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key39 }, message: "must NOT have additional properties" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err472];
+                                                            } else {
+                                                              vErrors.push(err472);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data199.x !== void 0) {
+                                                          let data200 = data199.x;
+                                                          if (typeof data200 == "number" && isFinite(data200)) {
+                                                            if (data200 > 100 || isNaN(data200)) {
+                                                              const err473 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/x", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/x/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err473];
+                                                              } else {
+                                                                vErrors.push(err473);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (data200 < 0 || isNaN(data200)) {
+                                                              const err474 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/x", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/x/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err474];
+                                                              } else {
+                                                                vErrors.push(err474);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err475 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/x", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/x/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err475];
+                                                            } else {
+                                                              vErrors.push(err475);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data199.y !== void 0) {
+                                                          let data201 = data199.y;
+                                                          if (typeof data201 == "number" && isFinite(data201)) {
+                                                            if (data201 > 100 || isNaN(data201)) {
+                                                              const err476 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/y", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/y/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err476];
+                                                              } else {
+                                                                vErrors.push(err476);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (data201 < 0 || isNaN(data201)) {
+                                                              const err477 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/y", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/y/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err477];
+                                                              } else {
+                                                                vErrors.push(err477);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err478 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/y", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/y/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err478];
+                                                            } else {
+                                                              vErrors.push(err478);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data199.width !== void 0) {
+                                                          let data202 = data199.width;
+                                                          if (typeof data202 == "number" && isFinite(data202)) {
+                                                            if (data202 > 100 || isNaN(data202)) {
+                                                              const err479 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/width", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/width/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err479];
+                                                              } else {
+                                                                vErrors.push(err479);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (data202 < 0 || isNaN(data202)) {
+                                                              const err480 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/width", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/width/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err480];
+                                                              } else {
+                                                                vErrors.push(err480);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err481 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/width", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/width/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err481];
+                                                            } else {
+                                                              vErrors.push(err481);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data199.height !== void 0) {
+                                                          let data203 = data199.height;
+                                                          if (typeof data203 == "number" && isFinite(data203)) {
+                                                            if (data203 > 100 || isNaN(data203)) {
+                                                              const err482 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/height", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/height/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err482];
+                                                              } else {
+                                                                vErrors.push(err482);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (data203 < 0 || isNaN(data203)) {
+                                                              const err483 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/height", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/height/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err483];
+                                                              } else {
+                                                                vErrors.push(err483);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err484 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/height", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/height/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err484];
+                                                            } else {
+                                                              vErrors.push(err484);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data199.action !== void 0) {
+                                                          let data204 = data199.action;
+                                                          if (!(data204 === "url" || data204 === "project" || data204 === "switch")) {
+                                                            const err485 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/action", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/action/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.hotspots.items.properties.action.enum }, message: "must be equal to one of the allowed values" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err485];
+                                                            } else {
+                                                              vErrors.push(err485);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data199.target !== void 0) {
+                                                          let data205 = data199.target;
+                                                          if (typeof data205 === "string") {
+                                                            if (func2(data205) > 1e3) {
+                                                              const err486 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/target", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/target/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err486];
+                                                              } else {
+                                                                vErrors.push(err486);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (!pattern9.test(data205)) {
+                                                              const err487 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/target", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/target/pattern", keyword: "pattern", params: { pattern: "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$" }, message: 'must match pattern "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$"' };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err487];
+                                                              } else {
+                                                                vErrors.push(err487);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err488 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11 + "/target", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/properties/target/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err488];
+                                                            } else {
+                                                              vErrors.push(err488);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                      } else {
+                                                        const err489 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots/" + i11, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                                        if (vErrors === null) {
+                                                          vErrors = [err489];
+                                                        } else {
+                                                          vErrors.push(err489);
+                                                        }
+                                                        errors++;
+                                                      }
+                                                    }
+                                                  } else {
+                                                    const err490 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/hotspots", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/hotspots/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err490];
+                                                    } else {
+                                                      vErrors.push(err490);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.link !== void 0) {
+                                                  let data206 = data194.link;
+                                                  if (typeof data206 === "string") {
+                                                    if (func2(data206) > 1e3) {
+                                                      const err491 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/link", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/link/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err491];
+                                                      } else {
+                                                        vErrors.push(err491);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern10.test(data206)) {
+                                                      const err492 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/link", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/link/pattern", keyword: "pattern", params: { pattern: "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$" }, message: 'must match pattern "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err492];
+                                                      } else {
+                                                        vErrors.push(err492);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err493 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/link", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/link/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err493];
+                                                    } else {
+                                                      vErrors.push(err493);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.image !== void 0) {
+                                                  let data207 = data194.image;
+                                                  if (typeof data207 === "string") {
+                                                    if (func2(data207) > 1e3) {
+                                                      const err494 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/image", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/image/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err494];
+                                                      } else {
+                                                        vErrors.push(err494);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern7.test(data207)) {
+                                                      const err495 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/image", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/image/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err495];
+                                                      } else {
+                                                        vErrors.push(err495);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err496 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/image", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/image/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err496];
+                                                    } else {
+                                                      vErrors.push(err496);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.images !== void 0) {
+                                                  let data208 = data194.images;
+                                                  if (Array.isArray(data208)) {
+                                                    if (data208.length > 30) {
+                                                      const err497 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/images", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/images/maxItems", keyword: "maxItems", params: { limit: 30 }, message: "must NOT have more than 30 items" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err497];
+                                                      } else {
+                                                        vErrors.push(err497);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    const len12 = data208.length;
+                                                    for (let i12 = 0; i12 < len12; i12++) {
+                                                      let data209 = data208[i12];
+                                                      if (typeof data209 === "string") {
+                                                        if (func2(data209) > 1e3) {
+                                                          const err498 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/images/" + i12, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/images/items/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err498];
+                                                          } else {
+                                                            vErrors.push(err498);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (!pattern7.test(data209)) {
+                                                          const err499 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/images/" + i12, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/images/items/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err499];
+                                                          } else {
+                                                            vErrors.push(err499);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                      } else {
+                                                        const err500 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/images/" + i12, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/images/items/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                        if (vErrors === null) {
+                                                          vErrors = [err500];
+                                                        } else {
+                                                          vErrors.push(err500);
+                                                        }
+                                                        errors++;
+                                                      }
+                                                    }
+                                                  } else {
+                                                    const err501 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/images", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/images/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err501];
+                                                    } else {
+                                                      vErrors.push(err501);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.interval !== void 0) {
+                                                  let data210 = data194.interval;
+                                                  if (typeof data210 == "number" && isFinite(data210)) {
+                                                    if (data210 > 36e5 || isNaN(data210)) {
+                                                      const err502 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/interval", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/interval/maximum", keyword: "maximum", params: { comparison: "<=", limit: 36e5 }, message: "must be <= 3600000" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err502];
+                                                      } else {
+                                                        vErrors.push(err502);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (data210 < 800 || isNaN(data210)) {
+                                                      const err503 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/interval", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/interval/minimum", keyword: "minimum", params: { comparison: ">=", limit: 800 }, message: "must be >= 800" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err503];
+                                                      } else {
+                                                        vErrors.push(err503);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err504 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/interval", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/interval/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err504];
+                                                    } else {
+                                                      vErrors.push(err504);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.posterAspect !== void 0) {
+                                                  let data211 = data194.posterAspect;
+                                                  if (typeof data211 === "string") {
+                                                    if (func2(data211) > 100) {
+                                                      const err505 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/posterAspect", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/posterAspect/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err505];
+                                                      } else {
+                                                        vErrors.push(err505);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern13.test(data211)) {
+                                                      const err506 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/posterAspect", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/posterAspect/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?/\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?/\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err506];
+                                                      } else {
+                                                        vErrors.push(err506);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err507 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/posterAspect", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/posterAspect/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err507];
+                                                    } else {
+                                                      vErrors.push(err507);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.carouselAspects !== void 0) {
+                                                  let data212 = data194.carouselAspects;
+                                                  if (Array.isArray(data212)) {
+                                                    if (data212.length > 30) {
+                                                      const err508 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselAspects", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselAspects/maxItems", keyword: "maxItems", params: { limit: 30 }, message: "must NOT have more than 30 items" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err508];
+                                                      } else {
+                                                        vErrors.push(err508);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    const len13 = data212.length;
+                                                    for (let i13 = 0; i13 < len13; i13++) {
+                                                      let data213 = data212[i13];
+                                                      if (typeof data213 === "string") {
+                                                        if (func2(data213) > 100) {
+                                                          const err509 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselAspects/" + i13, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselAspects/items/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err509];
+                                                          } else {
+                                                            vErrors.push(err509);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (!pattern14.test(data213)) {
+                                                          const err510 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselAspects/" + i13, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselAspects/items/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err510];
+                                                          } else {
+                                                            vErrors.push(err510);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                      } else {
+                                                        const err511 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselAspects/" + i13, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselAspects/items/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                        if (vErrors === null) {
+                                                          vErrors = [err511];
+                                                        } else {
+                                                          vErrors.push(err511);
+                                                        }
+                                                        errors++;
+                                                      }
+                                                    }
+                                                  } else {
+                                                    const err512 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselAspects", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselAspects/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err512];
+                                                    } else {
+                                                      vErrors.push(err512);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.background !== void 0) {
+                                                  let data214 = data194.background;
+                                                  if (typeof data214 === "string") {
+                                                    if (func2(data214) > 1e3) {
+                                                      const err513 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/background", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/background/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err513];
+                                                      } else {
+                                                        vErrors.push(err513);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern7.test(data214)) {
+                                                      const err514 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/background", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/background/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err514];
+                                                      } else {
+                                                        vErrors.push(err514);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err515 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/background", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/background/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err515];
+                                                    } else {
+                                                      vErrors.push(err515);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.backgroundColor !== void 0) {
+                                                  let data215 = data194.backgroundColor;
+                                                  if (typeof data215 === "string") {
+                                                    if (func2(data215) > 7) {
+                                                      const err516 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/backgroundColor", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/backgroundColor/maxLength", keyword: "maxLength", params: { limit: 7 }, message: "must NOT have more than 7 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err516];
+                                                      } else {
+                                                        vErrors.push(err516);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern16.test(data215)) {
+                                                      const err517 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/backgroundColor", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/backgroundColor/pattern", keyword: "pattern", params: { pattern: "^$|^#[\\da-fA-F]{6}$" }, message: 'must match pattern "^$|^#[\\da-fA-F]{6}$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err517];
+                                                      } else {
+                                                        vErrors.push(err517);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err518 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/backgroundColor", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/backgroundColor/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err518];
+                                                    } else {
+                                                      vErrors.push(err518);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.moduleHeight !== void 0) {
+                                                  let data216 = data194.moduleHeight;
+                                                  if (typeof data216 == "number" && isFinite(data216)) {
+                                                    if (data216 > 1e5 || isNaN(data216)) {
+                                                      const err519 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/moduleHeight", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/moduleHeight/maximum", keyword: "maximum", params: { comparison: "<=", limit: 1e5 }, message: "must be <= 100000" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err519];
+                                                      } else {
+                                                        vErrors.push(err519);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (data216 < 1 || isNaN(data216)) {
+                                                      const err520 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/moduleHeight", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/moduleHeight/minimum", keyword: "minimum", params: { comparison: ">=", limit: 1 }, message: "must be >= 1" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err520];
+                                                      } else {
+                                                        vErrors.push(err520);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err521 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/moduleHeight", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/moduleHeight/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err521];
+                                                    } else {
+                                                      vErrors.push(err521);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.thumbnailLayout !== void 0) {
+                                                  let data217 = data194.thumbnailLayout;
+                                                  if (!(data217 === "horizontal" || data217 === "vertical")) {
+                                                    const err522 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailLayout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailLayout/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.thumbnailLayout.enum }, message: "must be equal to one of the allowed values" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err522];
+                                                    } else {
+                                                      vErrors.push(err522);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.thumbnailBox !== void 0) {
+                                                  let data218 = data194.thumbnailBox;
+                                                  if (typeof data218 === "string") {
+                                                    if (func2(data218) > 100) {
+                                                      const err523 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailBox", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailBox/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err523];
+                                                      } else {
+                                                        vErrors.push(err523);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern17.test(data218)) {
+                                                      const err524 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailBox", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailBox/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err524];
+                                                      } else {
+                                                        vErrors.push(err524);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err525 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailBox", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailBox/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err525];
+                                                    } else {
+                                                      vErrors.push(err525);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.thumbnailSize !== void 0) {
+                                                  let data219 = data194.thumbnailSize;
+                                                  if (typeof data219 === "string") {
+                                                    if (func2(data219) > 100) {
+                                                      const err526 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailSize/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err526];
+                                                      } else {
+                                                        vErrors.push(err526);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern18.test(data219)) {
+                                                      const err527 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailSize/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err527];
+                                                      } else {
+                                                        vErrors.push(err527);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err528 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/thumbnailSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/thumbnailSize/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err528];
+                                                    } else {
+                                                      vErrors.push(err528);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.contentBox !== void 0) {
+                                                  let data220 = data194.contentBox;
+                                                  if (typeof data220 === "string") {
+                                                    if (func2(data220) > 100) {
+                                                      const err529 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/contentBox", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/contentBox/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err529];
+                                                      } else {
+                                                        vErrors.push(err529);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern17.test(data220)) {
+                                                      const err530 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/contentBox", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/contentBox/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err530];
+                                                      } else {
+                                                        vErrors.push(err530);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err531 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/contentBox", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/contentBox/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err531];
+                                                    } else {
+                                                      vErrors.push(err531);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.transition !== void 0) {
+                                                  let data221 = data194.transition;
+                                                  if (!(data221 === "horizontal" || data221 === "vertical" || data221 === "fade")) {
+                                                    const err532 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/transition", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/transition/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.transition.enum }, message: "must be equal to one of the allowed values" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err532];
+                                                    } else {
+                                                      vErrors.push(err532);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.animationTime !== void 0) {
+                                                  let data222 = data194.animationTime;
+                                                  if (typeof data222 == "number" && isFinite(data222)) {
+                                                    if (data222 > 60 || isNaN(data222)) {
+                                                      const err533 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/animationTime", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/animationTime/maximum", keyword: "maximum", params: { comparison: "<=", limit: 60 }, message: "must be <= 60" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err533];
+                                                      } else {
+                                                        vErrors.push(err533);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (data222 < 0 || isNaN(data222)) {
+                                                      const err534 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/animationTime", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/animationTime/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err534];
+                                                      } else {
+                                                        vErrors.push(err534);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err535 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/animationTime", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/animationTime/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err535];
+                                                    } else {
+                                                      vErrors.push(err535);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.autoPlay !== void 0) {
+                                                  if (typeof data194.autoPlay !== "boolean") {
+                                                    const err536 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/autoPlay", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/autoPlay/type", keyword: "type", params: { type: "boolean" }, message: "must be boolean" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err536];
+                                                    } else {
+                                                      vErrors.push(err536);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.autoInterval !== void 0) {
+                                                  let data224 = data194.autoInterval;
+                                                  if (typeof data224 == "number" && isFinite(data224)) {
+                                                    if (data224 > 3600 || isNaN(data224)) {
+                                                      const err537 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/autoInterval", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/autoInterval/maximum", keyword: "maximum", params: { comparison: "<=", limit: 3600 }, message: "must be <= 3600" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err537];
+                                                      } else {
+                                                        vErrors.push(err537);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (data224 < 0.1 || isNaN(data224)) {
+                                                      const err538 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/autoInterval", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/autoInterval/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0.1 }, message: "must be >= 0.1" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err538];
+                                                      } else {
+                                                        vErrors.push(err538);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err539 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/autoInterval", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/autoInterval/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err539];
+                                                    } else {
+                                                      vErrors.push(err539);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.initialIndex !== void 0) {
+                                                  let data225 = data194.initialIndex;
+                                                  if (typeof data225 == "number" && isFinite(data225)) {
+                                                    if (data225 > 29 || isNaN(data225)) {
+                                                      const err540 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/initialIndex", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/initialIndex/maximum", keyword: "maximum", params: { comparison: "<=", limit: 29 }, message: "must be <= 29" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err540];
+                                                      } else {
+                                                        vErrors.push(err540);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (data225 < 0 || isNaN(data225)) {
+                                                      const err541 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/initialIndex", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/initialIndex/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err541];
+                                                      } else {
+                                                        vErrors.push(err541);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err542 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/initialIndex", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/initialIndex/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err542];
+                                                    } else {
+                                                      vErrors.push(err542);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.tabs !== void 0) {
+                                                  let data226 = data194.tabs;
+                                                  if (Array.isArray(data226)) {
+                                                    if (data226.length > 30) {
+                                                      const err543 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/maxItems", keyword: "maxItems", params: { limit: 30 }, message: "must NOT have more than 30 items" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err543];
+                                                      } else {
+                                                        vErrors.push(err543);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    const len14 = data226.length;
+                                                    for (let i14 = 0; i14 < len14; i14++) {
+                                                      let data227 = data226[i14];
+                                                      if (data227 && typeof data227 == "object" && !Array.isArray(data227)) {
+                                                        for (const key40 in data227) {
+                                                          if (!(key40 === "title" || key40 === "image" || key40 === "images" || key40 === "selectedImage" || key40 === "unselectedImage" || key40 === "hotspots")) {
+                                                            const err544 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key40 }, message: "must NOT have additional properties" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err544];
+                                                            } else {
+                                                              vErrors.push(err544);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data227.title !== void 0) {
+                                                          let data228 = data227.title;
+                                                          if (typeof data228 === "string") {
+                                                            if (func2(data228) > 300) {
+                                                              const err545 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/title", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/title/maxLength", keyword: "maxLength", params: { limit: 300 }, message: "must NOT have more than 300 characters" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err545];
+                                                              } else {
+                                                                vErrors.push(err545);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err546 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/title", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/title/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err546];
+                                                            } else {
+                                                              vErrors.push(err546);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data227.image !== void 0) {
+                                                          let data229 = data227.image;
+                                                          if (typeof data229 === "string") {
+                                                            if (func2(data229) > 1e3) {
+                                                              const err547 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/image", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/image/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err547];
+                                                              } else {
+                                                                vErrors.push(err547);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (!pattern7.test(data229)) {
+                                                              const err548 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/image", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/image/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err548];
+                                                              } else {
+                                                                vErrors.push(err548);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err549 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/image", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/image/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err549];
+                                                            } else {
+                                                              vErrors.push(err549);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data227.images !== void 0) {
+                                                          let data230 = data227.images;
+                                                          if (Array.isArray(data230)) {
+                                                            if (data230.length > 30) {
+                                                              const err550 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/images", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/images/maxItems", keyword: "maxItems", params: { limit: 30 }, message: "must NOT have more than 30 items" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err550];
+                                                              } else {
+                                                                vErrors.push(err550);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            const len15 = data230.length;
+                                                            for (let i15 = 0; i15 < len15; i15++) {
+                                                              let data231 = data230[i15];
+                                                              if (typeof data231 === "string") {
+                                                                if (func2(data231) > 1e3) {
+                                                                  const err551 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/images/" + i15, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/images/items/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err551];
+                                                                  } else {
+                                                                    vErrors.push(err551);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (!pattern7.test(data231)) {
+                                                                  const err552 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/images/" + i15, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/images/items/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err552];
+                                                                  } else {
+                                                                    vErrors.push(err552);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                              } else {
+                                                                const err553 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/images/" + i15, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/images/items/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                                if (vErrors === null) {
+                                                                  vErrors = [err553];
+                                                                } else {
+                                                                  vErrors.push(err553);
+                                                                }
+                                                                errors++;
+                                                              }
+                                                            }
+                                                          } else {
+                                                            const err554 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/images", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/images/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err554];
+                                                            } else {
+                                                              vErrors.push(err554);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data227.selectedImage !== void 0) {
+                                                          let data232 = data227.selectedImage;
+                                                          if (typeof data232 === "string") {
+                                                            if (func2(data232) > 1e3) {
+                                                              const err555 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/selectedImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/selectedImage/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err555];
+                                                              } else {
+                                                                vErrors.push(err555);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (!pattern7.test(data232)) {
+                                                              const err556 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/selectedImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/selectedImage/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err556];
+                                                              } else {
+                                                                vErrors.push(err556);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err557 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/selectedImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/selectedImage/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err557];
+                                                            } else {
+                                                              vErrors.push(err557);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data227.unselectedImage !== void 0) {
+                                                          let data233 = data227.unselectedImage;
+                                                          if (typeof data233 === "string") {
+                                                            if (func2(data233) > 1e3) {
+                                                              const err558 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/unselectedImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/unselectedImage/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err558];
+                                                              } else {
+                                                                vErrors.push(err558);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            if (!pattern7.test(data233)) {
+                                                              const err559 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/unselectedImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/unselectedImage/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err559];
+                                                              } else {
+                                                                vErrors.push(err559);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                          } else {
+                                                            const err560 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/unselectedImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/unselectedImage/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err560];
+                                                            } else {
+                                                              vErrors.push(err560);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data227.hotspots !== void 0) {
+                                                          let data234 = data227.hotspots;
+                                                          if (Array.isArray(data234)) {
+                                                            if (data234.length > 50) {
+                                                              const err561 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/maxItems", keyword: "maxItems", params: { limit: 50 }, message: "must NOT have more than 50 items" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err561];
+                                                              } else {
+                                                                vErrors.push(err561);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            const len16 = data234.length;
+                                                            for (let i16 = 0; i16 < len16; i16++) {
+                                                              let data235 = data234[i16];
+                                                              if (data235 && typeof data235 == "object" && !Array.isArray(data235)) {
+                                                                if (data235.x === void 0) {
+                                                                  const err562 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "x" }, message: "must have required property 'x'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err562];
+                                                                  } else {
+                                                                    vErrors.push(err562);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (data235.y === void 0) {
+                                                                  const err563 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "y" }, message: "must have required property 'y'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err563];
+                                                                  } else {
+                                                                    vErrors.push(err563);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (data235.width === void 0) {
+                                                                  const err564 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "width" }, message: "must have required property 'width'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err564];
+                                                                  } else {
+                                                                    vErrors.push(err564);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (data235.height === void 0) {
+                                                                  const err565 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "height" }, message: "must have required property 'height'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err565];
+                                                                  } else {
+                                                                    vErrors.push(err565);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (data235.action === void 0) {
+                                                                  const err566 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "action" }, message: "must have required property 'action'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err566];
+                                                                  } else {
+                                                                    vErrors.push(err566);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (data235.target === void 0) {
+                                                                  const err567 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/required", keyword: "required", params: { missingProperty: "target" }, message: "must have required property 'target'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err567];
+                                                                  } else {
+                                                                    vErrors.push(err567);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                for (const key41 in data235) {
+                                                                  if (!(key41 === "x" || key41 === "y" || key41 === "width" || key41 === "height" || key41 === "action" || key41 === "target")) {
+                                                                    const err568 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key41 }, message: "must NOT have additional properties" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err568];
+                                                                    } else {
+                                                                      vErrors.push(err568);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data235.x !== void 0) {
+                                                                  let data236 = data235.x;
+                                                                  if (typeof data236 == "number" && isFinite(data236)) {
+                                                                    if (data236 > 100 || isNaN(data236)) {
+                                                                      const err569 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/x", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/x/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err569];
+                                                                      } else {
+                                                                        vErrors.push(err569);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (data236 < 0 || isNaN(data236)) {
+                                                                      const err570 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/x", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/x/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err570];
+                                                                      } else {
+                                                                        vErrors.push(err570);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err571 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/x", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/x/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err571];
+                                                                    } else {
+                                                                      vErrors.push(err571);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data235.y !== void 0) {
+                                                                  let data237 = data235.y;
+                                                                  if (typeof data237 == "number" && isFinite(data237)) {
+                                                                    if (data237 > 100 || isNaN(data237)) {
+                                                                      const err572 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/y", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/y/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err572];
+                                                                      } else {
+                                                                        vErrors.push(err572);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (data237 < 0 || isNaN(data237)) {
+                                                                      const err573 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/y", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/y/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err573];
+                                                                      } else {
+                                                                        vErrors.push(err573);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err574 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/y", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/y/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err574];
+                                                                    } else {
+                                                                      vErrors.push(err574);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data235.width !== void 0) {
+                                                                  let data238 = data235.width;
+                                                                  if (typeof data238 == "number" && isFinite(data238)) {
+                                                                    if (data238 > 100 || isNaN(data238)) {
+                                                                      const err575 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/width", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/width/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err575];
+                                                                      } else {
+                                                                        vErrors.push(err575);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (data238 < 0 || isNaN(data238)) {
+                                                                      const err576 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/width", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/width/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err576];
+                                                                      } else {
+                                                                        vErrors.push(err576);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err577 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/width", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/width/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err577];
+                                                                    } else {
+                                                                      vErrors.push(err577);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data235.height !== void 0) {
+                                                                  let data239 = data235.height;
+                                                                  if (typeof data239 == "number" && isFinite(data239)) {
+                                                                    if (data239 > 100 || isNaN(data239)) {
+                                                                      const err578 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/height", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/height/maximum", keyword: "maximum", params: { comparison: "<=", limit: 100 }, message: "must be <= 100" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err578];
+                                                                      } else {
+                                                                        vErrors.push(err578);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (data239 < 0 || isNaN(data239)) {
+                                                                      const err579 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/height", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/height/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err579];
+                                                                      } else {
+                                                                        vErrors.push(err579);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err580 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/height", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/height/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err580];
+                                                                    } else {
+                                                                      vErrors.push(err580);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data235.action !== void 0) {
+                                                                  let data240 = data235.action;
+                                                                  if (!(data240 === "url" || data240 === "project" || data240 === "switch")) {
+                                                                    const err581 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/action", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/action/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.tabs.items.properties.hotspots.items.properties.action.enum }, message: "must be equal to one of the allowed values" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err581];
+                                                                    } else {
+                                                                      vErrors.push(err581);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data235.target !== void 0) {
+                                                                  let data241 = data235.target;
+                                                                  if (typeof data241 === "string") {
+                                                                    if (func2(data241) > 1e3) {
+                                                                      const err582 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/target", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/target/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err582];
+                                                                      } else {
+                                                                        vErrors.push(err582);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (!pattern9.test(data241)) {
+                                                                      const err583 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/target", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/target/pattern", keyword: "pattern", params: { pattern: "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$" }, message: 'must match pattern "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$"' };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err583];
+                                                                      } else {
+                                                                        vErrors.push(err583);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err584 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16 + "/target", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/properties/target/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err584];
+                                                                    } else {
+                                                                      vErrors.push(err584);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                              } else {
+                                                                const err585 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots/" + i16, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                                                if (vErrors === null) {
+                                                                  vErrors = [err585];
+                                                                } else {
+                                                                  vErrors.push(err585);
+                                                                }
+                                                                errors++;
+                                                              }
+                                                            }
+                                                          } else {
+                                                            const err586 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14 + "/hotspots", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/properties/hotspots/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err586];
+                                                            } else {
+                                                              vErrors.push(err586);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                      } else {
+                                                        const err587 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs/" + i14, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                                        if (vErrors === null) {
+                                                          vErrors = [err587];
+                                                        } else {
+                                                          vErrors.push(err587);
+                                                        }
+                                                        errors++;
+                                                      }
+                                                    }
+                                                  } else {
+                                                    const err588 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/tabs", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/tabs/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err588];
+                                                    } else {
+                                                      vErrors.push(err588);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.items !== void 0) {
+                                                  let data242 = data194.items;
+                                                  if (Array.isArray(data242)) {
+                                                    if (data242.length > 100) {
+                                                      const err589 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/maxItems", keyword: "maxItems", params: { limit: 100 }, message: "must NOT have more than 100 items" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err589];
+                                                      } else {
+                                                        vErrors.push(err589);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    const len17 = data242.length;
+                                                    for (let i17 = 0; i17 < len17; i17++) {
+                                                      let data243 = data242[i17];
+                                                      if (data243 && typeof data243 == "object" && !Array.isArray(data243)) {
+                                                        if (data243.empty === void 0) {
+                                                          const err590 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/required", keyword: "required", params: { missingProperty: "empty" }, message: "must have required property 'empty'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err590];
+                                                          } else {
+                                                            vErrors.push(err590);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        if (data243.images === void 0) {
+                                                          const err591 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/required", keyword: "required", params: { missingProperty: "images" }, message: "must have required property 'images'" };
+                                                          if (vErrors === null) {
+                                                            vErrors = [err591];
+                                                          } else {
+                                                            vErrors.push(err591);
+                                                          }
+                                                          errors++;
+                                                        }
+                                                        for (const key42 in data243) {
+                                                          if (!(key42 === "empty" || key42 === "images")) {
+                                                            const err592 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key42 }, message: "must NOT have additional properties" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err592];
+                                                            } else {
+                                                              vErrors.push(err592);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data243.empty !== void 0) {
+                                                          if (typeof data243.empty !== "boolean") {
+                                                            const err593 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/empty", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/empty/type", keyword: "type", params: { type: "boolean" }, message: "must be boolean" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err593];
+                                                            } else {
+                                                              vErrors.push(err593);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                        if (data243.images !== void 0) {
+                                                          let data245 = data243.images;
+                                                          if (Array.isArray(data245)) {
+                                                            if (data245.length > 30) {
+                                                              const err594 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/maxItems", keyword: "maxItems", params: { limit: 30 }, message: "must NOT have more than 30 items" };
+                                                              if (vErrors === null) {
+                                                                vErrors = [err594];
+                                                              } else {
+                                                                vErrors.push(err594);
+                                                              }
+                                                              errors++;
+                                                            }
+                                                            const len18 = data245.length;
+                                                            for (let i18 = 0; i18 < len18; i18++) {
+                                                              let data246 = data245[i18];
+                                                              if (data246 && typeof data246 == "object" && !Array.isArray(data246)) {
+                                                                if (data246.src === void 0) {
+                                                                  const err595 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/required", keyword: "required", params: { missingProperty: "src" }, message: "must have required property 'src'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err595];
+                                                                  } else {
+                                                                    vErrors.push(err595);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                if (data246.link === void 0) {
+                                                                  const err596 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/required", keyword: "required", params: { missingProperty: "link" }, message: "must have required property 'link'" };
+                                                                  if (vErrors === null) {
+                                                                    vErrors = [err596];
+                                                                  } else {
+                                                                    vErrors.push(err596);
+                                                                  }
+                                                                  errors++;
+                                                                }
+                                                                for (const key43 in data246) {
+                                                                  if (!(key43 === "src" || key43 === "link")) {
+                                                                    const err597 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key43 }, message: "must NOT have additional properties" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err597];
+                                                                    } else {
+                                                                      vErrors.push(err597);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data246.src !== void 0) {
+                                                                  let data247 = data246.src;
+                                                                  if (typeof data247 === "string") {
+                                                                    if (func2(data247) > 1e3) {
+                                                                      const err598 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18 + "/src", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/properties/src/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err598];
+                                                                      } else {
+                                                                        vErrors.push(err598);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (!pattern7.test(data247)) {
+                                                                      const err599 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18 + "/src", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/properties/src/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err599];
+                                                                      } else {
+                                                                        vErrors.push(err599);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err600 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18 + "/src", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/properties/src/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err600];
+                                                                    } else {
+                                                                      vErrors.push(err600);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                                if (data246.link !== void 0) {
+                                                                  let data248 = data246.link;
+                                                                  if (typeof data248 === "string") {
+                                                                    if (func2(data248) > 1e3) {
+                                                                      const err601 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18 + "/link", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/properties/link/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err601];
+                                                                      } else {
+                                                                        vErrors.push(err601);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                    if (!pattern10.test(data248)) {
+                                                                      const err602 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18 + "/link", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/properties/link/pattern", keyword: "pattern", params: { pattern: "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$" }, message: 'must match pattern "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"' };
+                                                                      if (vErrors === null) {
+                                                                        vErrors = [err602];
+                                                                      } else {
+                                                                        vErrors.push(err602);
+                                                                      }
+                                                                      errors++;
+                                                                    }
+                                                                  } else {
+                                                                    const err603 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18 + "/link", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/properties/link/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                                    if (vErrors === null) {
+                                                                      vErrors = [err603];
+                                                                    } else {
+                                                                      vErrors.push(err603);
+                                                                    }
+                                                                    errors++;
+                                                                  }
+                                                                }
+                                                              } else {
+                                                                const err604 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images/" + i18, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                                                if (vErrors === null) {
+                                                                  vErrors = [err604];
+                                                                } else {
+                                                                  vErrors.push(err604);
+                                                                }
+                                                                errors++;
+                                                              }
+                                                            }
+                                                          } else {
+                                                            const err605 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17 + "/images", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/properties/images/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                            if (vErrors === null) {
+                                                              vErrors = [err605];
+                                                            } else {
+                                                              vErrors.push(err605);
+                                                            }
+                                                            errors++;
+                                                          }
+                                                        }
+                                                      } else {
+                                                        const err606 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items/" + i17, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                                        if (vErrors === null) {
+                                                          vErrors = [err606];
+                                                        } else {
+                                                          vErrors.push(err606);
+                                                        }
+                                                        errors++;
+                                                      }
+                                                    }
+                                                  } else {
+                                                    const err607 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/items", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/items/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err607];
+                                                    } else {
+                                                      vErrors.push(err607);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.flipDirection !== void 0) {
+                                                  let data249 = data194.flipDirection;
+                                                  if (!(data249 === "horizontal" || data249 === "vertical" || data249 === "none")) {
+                                                    const err608 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/flipDirection", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/flipDirection/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.flipDirection.enum }, message: "must be equal to one of the allowed values" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err608];
+                                                    } else {
+                                                      vErrors.push(err608);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.autoSwitch !== void 0) {
+                                                  if (typeof data194.autoSwitch !== "boolean") {
+                                                    const err609 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/autoSwitch", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/autoSwitch/type", keyword: "type", params: { type: "boolean" }, message: "must be boolean" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err609];
+                                                    } else {
+                                                      vErrors.push(err609);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.carouselSettings !== void 0) {
+                                                  let data251 = data194.carouselSettings;
+                                                  if (typeof data251 === "string") {
+                                                    if (func2(data251) > 100) {
+                                                      const err610 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselSettings", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselSettings/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err610];
+                                                      } else {
+                                                        vErrors.push(err610);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern18.test(data251)) {
+                                                      const err611 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselSettings", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselSettings/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err611];
+                                                      } else {
+                                                        vErrors.push(err611);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err612 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/carouselSettings", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/carouselSettings/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err612];
+                                                    } else {
+                                                      vErrors.push(err612);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.listSettings !== void 0) {
+                                                  let data252 = data194.listSettings;
+                                                  if (typeof data252 === "string") {
+                                                    if (func2(data252) > 100) {
+                                                      const err613 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/listSettings", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/listSettings/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err613];
+                                                      } else {
+                                                        vErrors.push(err613);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern17.test(data252)) {
+                                                      const err614 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/listSettings", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/listSettings/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err614];
+                                                      } else {
+                                                        vErrors.push(err614);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err615 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/listSettings", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/listSettings/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err615];
+                                                    } else {
+                                                      vErrors.push(err615);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.imageSize !== void 0) {
+                                                  let data253 = data194.imageSize;
+                                                  if (typeof data253 === "string") {
+                                                    if (func2(data253) > 100) {
+                                                      const err616 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/imageSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/imageSize/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err616];
+                                                      } else {
+                                                        vErrors.push(err616);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern14.test(data253)) {
+                                                      const err617 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/imageSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/imageSize/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err617];
+                                                      } else {
+                                                        vErrors.push(err617);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err618 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/imageSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/imageSize/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err618];
+                                                    } else {
+                                                      vErrors.push(err618);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.gridSize !== void 0) {
+                                                  let data254 = data194.gridSize;
+                                                  if (typeof data254 === "string") {
+                                                    if (func2(data254) > 10) {
+                                                      const err619 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/gridSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/gridSize/maxLength", keyword: "maxLength", params: { limit: 10 }, message: "must NOT have more than 10 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err619];
+                                                      } else {
+                                                        vErrors.push(err619);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern30.test(data254)) {
+                                                      const err620 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/gridSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/gridSize/pattern", keyword: "pattern", params: { pattern: "^(?:[1-9]|10)\\|(?:[1-9]|10)$" }, message: 'must match pattern "^(?:[1-9]|10)\\|(?:[1-9]|10)$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err620];
+                                                      } else {
+                                                        vErrors.push(err620);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err621 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/gridSize", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/gridSize/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err621];
+                                                    } else {
+                                                      vErrors.push(err621);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.buttonPosition !== void 0) {
+                                                  let data255 = data194.buttonPosition;
+                                                  if (typeof data255 === "string") {
+                                                    if (func2(data255) > 100) {
+                                                      const err622 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonPosition", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonPosition/maxLength", keyword: "maxLength", params: { limit: 100 }, message: "must NOT have more than 100 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err622];
+                                                      } else {
+                                                        vErrors.push(err622);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern14.test(data255)) {
+                                                      const err623 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonPosition", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonPosition/pattern", keyword: "pattern", params: { pattern: "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$" }, message: 'must match pattern "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err623];
+                                                      } else {
+                                                        vErrors.push(err623);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err624 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonPosition", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonPosition/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err624];
+                                                    } else {
+                                                      vErrors.push(err624);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.buttonImage !== void 0) {
+                                                  let data256 = data194.buttonImage;
+                                                  if (typeof data256 === "string") {
+                                                    if (func2(data256) > 1e3) {
+                                                      const err625 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonImage/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err625];
+                                                      } else {
+                                                        vErrors.push(err625);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern7.test(data256)) {
+                                                      const err626 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonImage/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err626];
+                                                      } else {
+                                                        vErrors.push(err626);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err627 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonImage/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err627];
+                                                    } else {
+                                                      vErrors.push(err627);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.buttonAnimation !== void 0) {
+                                                  let data257 = data194.buttonAnimation;
+                                                  if (!(data257 === "none" || data257 === "scale")) {
+                                                    const err628 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/buttonAnimation", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/buttonAnimation/enum", keyword: "enum", params: { allowedValues: schema11.properties.content.items.oneOf[7].properties.props.properties.items.items.properties.page.properties.components.items.properties.buttonAnimation.enum }, message: "must be equal to one of the allowed values" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err628];
+                                                    } else {
+                                                      vErrors.push(err628);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                                if (data194.centerImage !== void 0) {
+                                                  let data258 = data194.centerImage;
+                                                  if (typeof data258 === "string") {
+                                                    if (func2(data258) > 1e3) {
+                                                      const err629 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/centerImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/centerImage/maxLength", keyword: "maxLength", params: { limit: 1e3 }, message: "must NOT have more than 1000 characters" };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err629];
+                                                      } else {
+                                                        vErrors.push(err629);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                    if (!pattern7.test(data258)) {
+                                                      const err630 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/centerImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/centerImage/pattern", keyword: "pattern", params: { pattern: "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$" }, message: 'must match pattern "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"' };
+                                                      if (vErrors === null) {
+                                                        vErrors = [err630];
+                                                      } else {
+                                                        vErrors.push(err630);
+                                                      }
+                                                      errors++;
+                                                    }
+                                                  } else {
+                                                    const err631 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10 + "/centerImage", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/properties/centerImage/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                                    if (vErrors === null) {
+                                                      vErrors = [err631];
+                                                    } else {
+                                                      vErrors.push(err631);
+                                                    }
+                                                    errors++;
+                                                  }
+                                                }
+                                              } else {
+                                                const err632 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components/" + i10, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                                if (vErrors === null) {
+                                                  vErrors = [err632];
+                                                } else {
+                                                  vErrors.push(err632);
+                                                }
+                                                errors++;
+                                              }
+                                            }
+                                          } else {
+                                            const err633 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/components", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/components/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                            if (vErrors === null) {
+                                              vErrors = [err633];
+                                            } else {
+                                              vErrors.push(err633);
+                                            }
+                                            errors++;
+                                          }
+                                        }
+                                        if (data190.assetFolder !== void 0) {
+                                          let data259 = data190.assetFolder;
+                                          if (typeof data259 === "string") {
+                                            if (!pattern34.test(data259)) {
+                                              const err634 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/assetFolder", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/assetFolder/pattern", keyword: "pattern", params: { pattern: "^[A-Za-z0-9_-]{1,120}$" }, message: 'must match pattern "^[A-Za-z0-9_-]{1,120}$"' };
+                                              if (vErrors === null) {
+                                                vErrors = [err634];
+                                              } else {
+                                                vErrors.push(err634);
+                                              }
+                                              errors++;
+                                            }
+                                          } else {
+                                            const err635 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page/assetFolder", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/properties/assetFolder/type", keyword: "type", params: { type: "string" }, message: "must be string" };
+                                            if (vErrors === null) {
+                                              vErrors = [err635];
+                                            } else {
+                                              vErrors.push(err635);
+                                            }
+                                            errors++;
+                                          }
+                                        }
+                                      } else {
+                                        const err636 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9 + "/page", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/properties/page/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                        if (vErrors === null) {
+                                          vErrors = [err636];
+                                        } else {
+                                          vErrors.push(err636);
+                                        }
+                                        errors++;
+                                      }
+                                    }
+                                  } else {
+                                    const err637 = { instancePath: instancePath + "/content/" + i0 + "/props/items/" + i9, schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/items/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                    if (vErrors === null) {
+                                      vErrors = [err637];
+                                    } else {
+                                      vErrors.push(err637);
+                                    }
+                                    errors++;
+                                  }
+                                }
+                              } else {
+                                const err638 = { instancePath: instancePath + "/content/" + i0 + "/props/items", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/items/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+                                if (vErrors === null) {
+                                  vErrors = [err638];
+                                } else {
+                                  vErrors.push(err638);
+                                }
+                                errors++;
+                              }
+                            }
+                            if (data179.layout !== void 0) {
+                              let data260 = data179.layout;
+                              if (data260 && typeof data260 == "object" && !Array.isArray(data260)) {
+                                if (data260.safeWidth === void 0) {
+                                  const err639 = { instancePath: instancePath + "/content/" + i0 + "/props/layout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/required", keyword: "required", params: { missingProperty: "safeWidth" }, message: "must have required property 'safeWidth'" };
+                                  if (vErrors === null) {
+                                    vErrors = [err639];
+                                  } else {
+                                    vErrors.push(err639);
+                                  }
+                                  errors++;
+                                }
+                                if (data260.imageWidth === void 0) {
+                                  const err640 = { instancePath: instancePath + "/content/" + i0 + "/props/layout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/required", keyword: "required", params: { missingProperty: "imageWidth" }, message: "must have required property 'imageWidth'" };
+                                  if (vErrors === null) {
+                                    vErrors = [err640];
+                                  } else {
+                                    vErrors.push(err640);
+                                  }
+                                  errors++;
+                                }
+                                if (data260.imageHeight === void 0) {
+                                  const err641 = { instancePath: instancePath + "/content/" + i0 + "/props/layout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/required", keyword: "required", params: { missingProperty: "imageHeight" }, message: "must have required property 'imageHeight'" };
+                                  if (vErrors === null) {
+                                    vErrors = [err641];
+                                  } else {
+                                    vErrors.push(err641);
+                                  }
+                                  errors++;
+                                }
+                                if (data260.gap === void 0) {
+                                  const err642 = { instancePath: instancePath + "/content/" + i0 + "/props/layout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/required", keyword: "required", params: { missingProperty: "gap" }, message: "must have required property 'gap'" };
+                                  if (vErrors === null) {
+                                    vErrors = [err642];
+                                  } else {
+                                    vErrors.push(err642);
+                                  }
+                                  errors++;
+                                }
+                                for (const key44 in data260) {
+                                  if (!(key44 === "safeWidth" || key44 === "imageWidth" || key44 === "imageHeight" || key44 === "gap")) {
+                                    const err643 = { instancePath: instancePath + "/content/" + i0 + "/props/layout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key44 }, message: "must NOT have additional properties" };
+                                    if (vErrors === null) {
+                                      vErrors = [err643];
+                                    } else {
+                                      vErrors.push(err643);
+                                    }
+                                    errors++;
+                                  }
+                                }
+                                if (data260.safeWidth !== void 0) {
+                                  let data261 = data260.safeWidth;
+                                  if (typeof data261 == "number" && isFinite(data261)) {
+                                    if (data261 > 1e4 || isNaN(data261)) {
+                                      const err644 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/safeWidth", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/safeWidth/maximum", keyword: "maximum", params: { comparison: "<=", limit: 1e4 }, message: "must be <= 10000" };
+                                      if (vErrors === null) {
+                                        vErrors = [err644];
+                                      } else {
+                                        vErrors.push(err644);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data261 < 0.01 || isNaN(data261)) {
+                                      const err645 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/safeWidth", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/safeWidth/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0.01 }, message: "must be >= 0.01" };
+                                      if (vErrors === null) {
+                                        vErrors = [err645];
+                                      } else {
+                                        vErrors.push(err645);
+                                      }
+                                      errors++;
+                                    }
+                                  } else {
+                                    const err646 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/safeWidth", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/safeWidth/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                    if (vErrors === null) {
+                                      vErrors = [err646];
+                                    } else {
+                                      vErrors.push(err646);
+                                    }
+                                    errors++;
+                                  }
+                                }
+                                if (data260.imageWidth !== void 0) {
+                                  let data262 = data260.imageWidth;
+                                  if (typeof data262 == "number" && isFinite(data262)) {
+                                    if (data262 > 1e4 || isNaN(data262)) {
+                                      const err647 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageWidth", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/imageWidth/maximum", keyword: "maximum", params: { comparison: "<=", limit: 1e4 }, message: "must be <= 10000" };
+                                      if (vErrors === null) {
+                                        vErrors = [err647];
+                                      } else {
+                                        vErrors.push(err647);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data262 < 0 || isNaN(data262)) {
+                                      const err648 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageWidth", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/imageWidth/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                      if (vErrors === null) {
+                                        vErrors = [err648];
+                                      } else {
+                                        vErrors.push(err648);
+                                      }
+                                      errors++;
+                                    }
+                                  } else {
+                                    const err649 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageWidth", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/imageWidth/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                    if (vErrors === null) {
+                                      vErrors = [err649];
+                                    } else {
+                                      vErrors.push(err649);
+                                    }
+                                    errors++;
+                                  }
+                                }
+                                if (data260.imageHeight !== void 0) {
+                                  let data263 = data260.imageHeight;
+                                  if (typeof data263 == "number" && isFinite(data263)) {
+                                    if (data263 > 1e4 || isNaN(data263)) {
+                                      const err650 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageHeight", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/imageHeight/maximum", keyword: "maximum", params: { comparison: "<=", limit: 1e4 }, message: "must be <= 10000" };
+                                      if (vErrors === null) {
+                                        vErrors = [err650];
+                                      } else {
+                                        vErrors.push(err650);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data263 < 0.01 || isNaN(data263)) {
+                                      const err651 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageHeight", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/imageHeight/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0.01 }, message: "must be >= 0.01" };
+                                      if (vErrors === null) {
+                                        vErrors = [err651];
+                                      } else {
+                                        vErrors.push(err651);
+                                      }
+                                      errors++;
+                                    }
+                                  } else {
+                                    const err652 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/imageHeight", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/imageHeight/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                    if (vErrors === null) {
+                                      vErrors = [err652];
+                                    } else {
+                                      vErrors.push(err652);
+                                    }
+                                    errors++;
+                                  }
+                                }
+                                if (data260.gap !== void 0) {
+                                  let data264 = data260.gap;
+                                  if (typeof data264 == "number" && isFinite(data264)) {
+                                    if (data264 > 1e4 || isNaN(data264)) {
+                                      const err653 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/gap", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/gap/maximum", keyword: "maximum", params: { comparison: "<=", limit: 1e4 }, message: "must be <= 10000" };
+                                      if (vErrors === null) {
+                                        vErrors = [err653];
+                                      } else {
+                                        vErrors.push(err653);
+                                      }
+                                      errors++;
+                                    }
+                                    if (data264 < 0 || isNaN(data264)) {
+                                      const err654 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/gap", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/gap/minimum", keyword: "minimum", params: { comparison: ">=", limit: 0 }, message: "must be >= 0" };
+                                      if (vErrors === null) {
+                                        vErrors = [err654];
+                                      } else {
+                                        vErrors.push(err654);
+                                      }
+                                      errors++;
+                                    }
+                                  } else {
+                                    const err655 = { instancePath: instancePath + "/content/" + i0 + "/props/layout/gap", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/properties/gap/type", keyword: "type", params: { type: "number" }, message: "must be number" };
+                                    if (vErrors === null) {
+                                      vErrors = [err655];
+                                    } else {
+                                      vErrors.push(err655);
+                                    }
+                                    errors++;
+                                  }
+                                }
+                              } else {
+                                const err656 = { instancePath: instancePath + "/content/" + i0 + "/props/layout", schemaPath: "#/properties/content/items/oneOf/7/properties/props/properties/layout/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                                if (vErrors === null) {
+                                  vErrors = [err656];
+                                } else {
+                                  vErrors.push(err656);
+                                }
+                                errors++;
+                              }
+                            }
+                          } else {
+                            const err657 = { instancePath: instancePath + "/content/" + i0 + "/props", schemaPath: "#/properties/content/items/oneOf/7/properties/props/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                            if (vErrors === null) {
+                              vErrors = [err657];
+                            } else {
+                              vErrors.push(err657);
+                            }
+                            errors++;
+                          }
+                        }
+                        if (data6.readOnly !== void 0) {
+                          let data265 = data6.readOnly;
+                          if (data265 && typeof data265 == "object" && !Array.isArray(data265)) {
+                            for (const key45 in data265) {
+                              if (typeof data265[key45] !== "boolean") {
+                                const err658 = { instancePath: instancePath + "/content/" + i0 + "/readOnly/" + key45.replace(/~/g, "~0").replace(/\//g, "~1"), schemaPath: "#/properties/content/items/oneOf/7/properties/readOnly/additionalProperties/type", keyword: "type", params: { type: "boolean" }, message: "must be boolean" };
+                                if (vErrors === null) {
+                                  vErrors = [err658];
+                                } else {
+                                  vErrors.push(err658);
+                                }
+                                errors++;
+                              }
+                            }
+                          } else {
+                            const err659 = { instancePath: instancePath + "/content/" + i0 + "/readOnly", schemaPath: "#/properties/content/items/oneOf/7/properties/readOnly/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                            if (vErrors === null) {
+                              vErrors = [err659];
+                            } else {
+                              vErrors.push(err659);
+                            }
+                            errors++;
+                          }
+                        }
+                      } else {
+                        const err660 = { instancePath: instancePath + "/content/" + i0, schemaPath: "#/properties/content/items/oneOf/7/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+                        if (vErrors === null) {
+                          vErrors = [err660];
+                        } else {
+                          vErrors.push(err660);
+                        }
+                        errors++;
+                      }
+                      var _valid0 = _errs391 === errors;
+                      if (_valid0 && valid6) {
+                        valid6 = false;
+                        passing0 = [passing0, 7];
+                      } else {
+                        if (_valid0) {
+                          valid6 = true;
+                          passing0 = 7;
+                        }
+                      }
                     }
                   }
                 }
@@ -4466,11 +7126,11 @@ function validate10(data, { instancePath = "", parentData, parentDataProperty, r
             }
           }
           if (!valid6) {
-            const err409 = { instancePath: instancePath + "/content/" + i0, schemaPath: "#/properties/content/items/oneOf", keyword: "oneOf", params: { passingSchemas: passing0 }, message: "must match exactly one schema in oneOf" };
+            const err661 = { instancePath: instancePath + "/content/" + i0, schemaPath: "#/properties/content/items/oneOf", keyword: "oneOf", params: { passingSchemas: passing0 }, message: "must match exactly one schema in oneOf" };
             if (vErrors === null) {
-              vErrors = [err409];
+              vErrors = [err661];
             } else {
-              vErrors.push(err409);
+              vErrors.push(err661);
             }
             errors++;
           } else {
@@ -4485,52 +7145,52 @@ function validate10(data, { instancePath = "", parentData, parentDataProperty, r
           }
         }
       } else {
-        const err410 = { instancePath: instancePath + "/content", schemaPath: "#/properties/content/type", keyword: "type", params: { type: "array" }, message: "must be array" };
+        const err662 = { instancePath: instancePath + "/content", schemaPath: "#/properties/content/type", keyword: "type", params: { type: "array" }, message: "must be array" };
         if (vErrors === null) {
-          vErrors = [err410];
+          vErrors = [err662];
         } else {
-          vErrors.push(err410);
+          vErrors.push(err662);
         }
         errors++;
       }
     }
     if (data.zones !== void 0) {
-      let data178 = data.zones;
-      if (data178 && typeof data178 == "object" && !Array.isArray(data178)) {
-        if (Object.keys(data178).length > 0) {
-          const err411 = { instancePath: instancePath + "/zones", schemaPath: "#/properties/zones/maxProperties", keyword: "maxProperties", params: { limit: 0 }, message: "must NOT have more than 0 properties" };
+      let data267 = data.zones;
+      if (data267 && typeof data267 == "object" && !Array.isArray(data267)) {
+        if (Object.keys(data267).length > 0) {
+          const err663 = { instancePath: instancePath + "/zones", schemaPath: "#/properties/zones/maxProperties", keyword: "maxProperties", params: { limit: 0 }, message: "must NOT have more than 0 properties" };
           if (vErrors === null) {
-            vErrors = [err411];
+            vErrors = [err663];
           } else {
-            vErrors.push(err411);
+            vErrors.push(err663);
           }
           errors++;
         }
-        for (const key34 in data178) {
-          const err412 = { instancePath: instancePath + "/zones", schemaPath: "#/properties/zones/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key34 }, message: "must NOT have additional properties" };
+        for (const key46 in data267) {
+          const err664 = { instancePath: instancePath + "/zones", schemaPath: "#/properties/zones/additionalProperties", keyword: "additionalProperties", params: { additionalProperty: key46 }, message: "must NOT have additional properties" };
           if (vErrors === null) {
-            vErrors = [err412];
+            vErrors = [err664];
           } else {
-            vErrors.push(err412);
+            vErrors.push(err664);
           }
           errors++;
         }
       } else {
-        const err413 = { instancePath: instancePath + "/zones", schemaPath: "#/properties/zones/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+        const err665 = { instancePath: instancePath + "/zones", schemaPath: "#/properties/zones/type", keyword: "type", params: { type: "object" }, message: "must be object" };
         if (vErrors === null) {
-          vErrors = [err413];
+          vErrors = [err665];
         } else {
-          vErrors.push(err413);
+          vErrors.push(err665);
         }
         errors++;
       }
     }
   } else {
-    const err414 = { instancePath, schemaPath: "#/type", keyword: "type", params: { type: "object" }, message: "must be object" };
+    const err666 = { instancePath, schemaPath: "#/type", keyword: "type", params: { type: "object" }, message: "must be object" };
     if (vErrors === null) {
-      vErrors = [err414];
+      vErrors = [err666];
     } else {
-      vErrors.push(err414);
+      vErrors.push(err666);
     }
     errors++;
   }

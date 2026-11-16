@@ -1,11 +1,12 @@
 .bar {
-  height: 48px;
+  min-width: 0;
+  flex-wrap: wrap;
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 0 16px;
+  padding: 0;
   background: #fff;
-  border-bottom: 1px solid #ddd;
+
   font: 13px system-ui;
 }
 .bar span {
@@ -47,4 +48,9 @@
     flex-basis: 65%;
     font-size: 11px;
   }
+}
+
+.bar span {
+  font-size: 11px;
+  max-width: 230px;
 }

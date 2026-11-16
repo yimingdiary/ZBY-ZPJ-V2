@@ -140,7 +140,7 @@
   }
   .configured figure {
     flex: 0 0 var(--image-width);
-    height: var(--image-height);
+    height: min(var(--image-height), var(--size-work-preview-max-height));
   }
   .configured figure:only-child {
     margin-inline: auto;
@@ -161,5 +161,28 @@
 @media (max-width: 600px) {
   .configured {
     justify-content: normal !important;
+  }
+}
+
+@media (min-width: 601px) {
+  .configured[data-auto-width="true"] figure {
+    flex: 0 0 auto;
+    width: calc(
+      min(var(--image-height), var(--size-work-preview-max-height)) *
+        var(--image-aspect)
+    );
+  }
+  .configured[data-auto-width="true"] figure > a {
+    width: auto;
+    max-width: none;
+    height: 100%;
+  }
+  .configured[data-auto-width="true"] figure > a > img,
+  .configured[data-auto-width="true"] figure > img {
+    width: auto;
+    height: 100%;
+    max-width: none;
+    aspect-ratio: auto;
+    object-fit: contain;
   }
 }

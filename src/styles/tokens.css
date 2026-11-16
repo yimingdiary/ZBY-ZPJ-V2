@@ -38,5 +38,6 @@
   --size-year: 2.7cqw;
   --size-footer-caption: 1.8cqw;
   --line-guide: 1px;
+  --size-work-preview-max-height: 37.7565208333cqw; /* 1920 基准的 724.9252 高度 */
   --duration-fast: 180ms;
 }

@@ -10,7 +10,7 @@ import path from "node:path";
 import { createHash } from "node:crypto";
 const root = fileURLToPath(new URL("../public/", import.meta.url));
 const extensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
-export async function imageLibrary(canImport = false) {
+export async function imageLibrary(canImport = false, namespace = "portfolio") {
   const catalog = JSON.parse(
     await readFile(
       new URL("../public/images/works/catalog.json", import.meta.url),
@@ -31,6 +31,7 @@ export async function imageLibrary(canImport = false) {
             "分层素材",
             "动态预览",
             "共用素材",
+            ...(namespace === "portfolio" ? ["douyin-shop"] : []),
           ].includes(entry.name)
         )
           await scan(file);
@@ -45,7 +46,9 @@ export async function imageLibrary(canImport = false) {
       }
     }
   }
-  await scan(path.join(root, "images"));
+  await scan(
+    path.join(root, namespace === "shop" ? "images/douyin-shop" : "images"),
+  );
   return { canImport, images };
 }
 function imageExtension(buffer) {
@@ -69,10 +72,22 @@ function imageExtension(buffer) {
     return ".avif";
   throw new Error("支持 JPG、PNG、WebP、GIF、AVIF 图片");
 }
-export async function importImage(buffer, originalName) {
+export async function importImage(
+  buffer,
+  originalName,
+  namespace = "portfolio",
+  project = "",
+) {
+  if (namespace === "shop" && !/^[A-Za-z0-9_-]{1,120}$/.test(project))
+    throw Error("请选择有效的店铺项目后再上传图片");
   const ext = imageExtension(buffer);
   const hash = createHash("sha256").update(buffer).digest("hex");
-  for (const image of (await imageLibrary(true)).images) {
+  for (const image of (await imageLibrary(true, namespace)).images) {
+    if (
+      namespace === "shop" &&
+      !image.src.startsWith(`/images/douyin-shop/${project}/`)
+    )
+      continue;
     const file = path.join(root, image.src.slice(1));
     if (
       createHash("sha256")
@@ -93,7 +108,13 @@ export async function importImage(buffer, originalName) {
   if (!(declared === ext || (ext === ".jpg" && declared === ".jpeg")))
     throw new Error("图片扩展名与实际格式不一致");
   // 内容决定独立目录，原始文件名保留；同名不同内容不会覆盖。
-  const directory = path.join(root, "images/uploads", hash);
+  const directory = path.join(
+    root,
+    namespace === "shop"
+      ? `images/douyin-shop/${project}/uploads`
+      : "images/uploads",
+    hash,
+  );
   await mkdir(directory, { recursive: true });
   const actual = await realpath(directory);
   if (!actual.startsWith((await realpath(root)) + path.sep))
@@ -105,10 +126,20 @@ export async function importImage(buffer, originalName) {
     if (error.code !== "EEXIST" || !(await readFile(target)).equals(buffer))
       throw error;
   }
-  const src = "/images/uploads/" + hash + "/" + filename;
+  const src =
+    (namespace === "shop"
+      ? `/images/douyin-shop/${project}/uploads/`
+      : "/images/uploads/") +
+    hash +
+    "/" +
+    filename;
   return { src, label: filename, canAnimate: false, imported: true };
 }
 export async function writeImageLibrary() {
+  await writeFile(
+    path.join(root, "shop-image-library.json"),
+    JSON.stringify(await imageLibrary(false, "shop"), null, 2) + "\n",
+  );
   await writeFile(
     path.join(root, "image-library.json"),
     JSON.stringify(await imageLibrary(false), null, 2) + "\n",

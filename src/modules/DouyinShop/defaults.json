@@ -1,0 +1,567 @@
+{
+  "version": 1,
+  "title": "Douyin Shop",
+  "subtitle": "店铺首页设计",
+  "category": "抖音店铺",
+  "items": [
+    {
+      "slug": "crocs-9-28-10-07",
+      "name": "CROCS童鞋-9.28—10.07-童趣出游-活动主题",
+      "cover": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-81.jpg",
+      "page": {
+        "components": [
+          {
+            "id": "6d96908f-fded-4d81-b110-670bd44bcd5d",
+            "type": "poster",
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-81.jpg",
+            "posterAspect": "750/1000"
+          },
+          {
+            "id": "dbdd8991-1564-4ee1-9c60-98ceea8eb53c",
+            "type": "poster",
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-83.jpg",
+            "posterAspect": "750/488"
+          },
+          {
+            "id": "439358d3-e49f-4e66-9920-0231fa2dd342",
+            "type": "tabCarousel",
+            "hotspots": [],
+            "tabs": [
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-85.png",
+                "selectedImage": "",
+                "unselectedImage": "",
+                "hotspots": []
+              },
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-86.png",
+                "selectedImage": "",
+                "unselectedImage": "",
+                "hotspots": []
+              }
+            ],
+            "background": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-84.jpg",
+            "backgroundColor": "",
+            "moduleHeight": 1204,
+            "thumbnailLayout": "horizontal",
+            "thumbnailBox": "718|226|113|20",
+            "thumbnailSize": "226|55|0",
+            "transition": "horizontal",
+            "contentBox": "718|1204|0|0",
+            "animationTime": 0,
+            "autoPlay": true,
+            "autoInterval": 3
+          },
+          {
+            "id": "a2a03483-3e6c-4285-9e55-52885bc2bb75",
+            "type": "poster",
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-87.jpg",
+            "posterAspect": "750/1054"
+          },
+          {
+            "id": "cd78a8a9-b1e5-4e5d-b943-dc323a3a80e2",
+            "type": "tabCarousel",
+            "hotspots": [],
+            "tabs": [
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-89.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-92.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-93.png",
+                "hotspots": []
+              },
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-90.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-94.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-95.png",
+                "hotspots": []
+              },
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-91.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-96.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-97.png",
+                "hotspots": []
+              }
+            ],
+            "background": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-88.jpg",
+            "backgroundColor": "",
+            "moduleHeight": 774,
+            "thumbnailLayout": "horizontal",
+            "thumbnailBox": "718|75|99|20",
+            "thumbnailSize": "226|75|0",
+            "transition": "horizontal",
+            "contentBox": "718|774|0|0",
+            "animationTime": 0,
+            "autoPlay": true,
+            "autoInterval": 3
+          },
+          {
+            "id": "8f341d49-ba1a-4469-9e7f-a251ad59615a",
+            "type": "flipGrid",
+            "hotspots": [],
+            "items": [
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-99.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-100.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-101.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-102.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-103.png",
+                    "link": ""
+                  }
+                ],
+                "empty": true
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-104.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-105.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-106.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-107.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              }
+            ],
+            "background": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-98.jpg",
+            "backgroundColor": "#ffffff",
+            "moduleHeight": 917,
+            "flipDirection": "horizontal",
+            "autoSwitch": false,
+            "carouselSettings": "2000|500|50",
+            "listSettings": "10|160|698|724",
+            "imageSize": "219|228",
+            "gridSize": "3|3",
+            "buttonPosition": "270|435",
+            "buttonImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-108.png",
+            "buttonAnimation": "scale"
+          },
+          {
+            "id": "fac032a0-b861-4309-8e7b-93c0e11aee37",
+            "type": "tabCarousel",
+            "hotspots": [],
+            "tabs": [
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-110.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-113.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-114.png",
+                "hotspots": []
+              },
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-111.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-115.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-116.png",
+                "hotspots": []
+              },
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-112.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-117.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-118.png",
+                "hotspots": []
+              }
+            ],
+            "background": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-109.jpg",
+            "backgroundColor": "",
+            "moduleHeight": 917,
+            "thumbnailLayout": "horizontal",
+            "thumbnailBox": "718|75|99|20",
+            "thumbnailSize": "226|75|0",
+            "transition": "horizontal",
+            "contentBox": "718|917|0|0",
+            "animationTime": 0,
+            "autoPlay": false,
+            "autoInterval": 0.1
+          },
+          {
+            "id": "e519a912-0458-4c83-8c2e-005776891014",
+            "type": "tabCarousel",
+            "hotspots": [],
+            "tabs": [
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-120.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-122.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-123.png",
+                "hotspots": []
+              },
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-121.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-124.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-125.png",
+                "hotspots": []
+              }
+            ],
+            "background": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-119.jpg",
+            "backgroundColor": "",
+            "moduleHeight": 725,
+            "thumbnailLayout": "horizontal",
+            "thumbnailBox": "718|75|98.5|20",
+            "thumbnailSize": "339|75|0",
+            "transition": "horizontal",
+            "contentBox": "718|725|0|0",
+            "animationTime": 0,
+            "autoPlay": true,
+            "autoInterval": 3
+          },
+          {
+            "id": "8c84beab-9d90-4052-a246-cb92fab5d32e",
+            "type": "poster",
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_09-28_10-07/素材-82.jpg",
+            "posterAspect": "750/963"
+          }
+        ],
+        "componentRadius": 10,
+        "header": "/images/douyin-shop/店铺页头.webp",
+        "assetFolder": "Crocs-Kids_2026_09-28_10-07"
+      }
+    },
+    {
+      "slug": "crocs-10-09-10-14",
+      "name": "CROCS童鞋-10.09—10.14-童享狂欢-活动主题",
+      "cover": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-3.jpg",
+      "page": {
+        "components": [
+          {
+            "id": "074039e7-3156-46c8-9989-03f58f836a08",
+            "type": "poster",
+            "radius": 10,
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-3.jpg",
+            "posterAspect": "750/1000"
+          },
+          {
+            "id": "65110b98-888a-4a50-a137-56f16ebcd73c",
+            "type": "poster",
+            "radius": 10,
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-4.jpg",
+            "posterAspect": "750/556"
+          },
+          {
+            "id": "93743bbb-ca78-4f36-bc04-035a5b89f851",
+            "type": "carousel",
+            "radius": 10,
+            "hotspots": [],
+            "images": [
+              "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-57.jpg",
+              "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-58.jpg"
+            ],
+            "interval": 3000,
+            "carouselAspects": [
+              "718|1242",
+              "718|1242"
+            ]
+          },
+          {
+            "id": "070041de-d048-49a2-a827-2cb2f86199a8",
+            "type": "poster",
+            "radius": 10,
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-59.jpg",
+            "posterAspect": "750/1182"
+          },
+          {
+            "id": "cd74184a-baef-428a-9550-21d9c76fb2e3",
+            "type": "tabCarousel",
+            "hotspots": [],
+            "tabs": [
+              {
+                "title": "分类 1",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-63.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-61.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-62.png",
+                "hotspots": []
+              },
+              {
+                "title": "分类 2",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-64.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-67.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-68.png",
+                "hotspots": []
+              },
+              {
+                "title": "分类 3",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-65.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-69.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-70.png",
+                "hotspots": []
+              },
+              {
+                "title": "分类 4",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-66.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-71.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-72.png",
+                "hotspots": []
+              }
+            ],
+            "initialIndex": 2,
+            "background": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-60.jpg",
+            "backgroundColor": "#ffffff",
+            "moduleHeight": 744,
+            "thumbnailLayout": "horizontal",
+            "thumbnailBox": "718|226|113|20",
+            "thumbnailSize": "170|55|0",
+            "transition": "horizontal",
+            "contentBox": "718|744|0|0",
+            "animationTime": 0.5,
+            "autoPlay": true,
+            "autoInterval": 3
+          },
+          {
+            "id": "3b16be46-b40f-4a06-b9cb-ed9e4a319f0b",
+            "type": "tabCarousel",
+            "radius": 0,
+            "hotspots": [],
+            "tabs": [
+              {
+                "title": "",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-50.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-48.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-49.png",
+                "hotspots": []
+              },
+              {
+                "title": "分类 2",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-51.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-55.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-56.png",
+                "hotspots": []
+              },
+              {
+                "title": "分类 3",
+                "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-52.png",
+                "selectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-53.png",
+                "unselectedImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-54.png",
+                "hotspots": []
+              }
+            ],
+            "initialIndex": 2,
+            "background": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-73.jpg",
+            "backgroundColor": "#ffffff",
+            "moduleHeight": 917,
+            "thumbnailLayout": "horizontal",
+            "thumbnailBox": "718|226|113|20",
+            "thumbnailSize": "226|55|0",
+            "transition": "horizontal",
+            "contentBox": "718|917|0|0",
+            "animationTime": 0.5,
+            "autoPlay": true,
+            "autoInterval": 3
+          },
+          {
+            "id": "3b14cb56-ebbf-463c-9fc6-af59bf5bf074",
+            "type": "carousel",
+            "radius": 10,
+            "hotspots": [],
+            "images": [
+              "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-74.jpg",
+              "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-75.jpg",
+              "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-76.jpg",
+              "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-77.jpg"
+            ],
+            "interval": 3000,
+            "carouselAspects": [
+              "718|935",
+              "718|935",
+              "718|935",
+              "718|935"
+            ]
+          },
+          {
+            "id": "734bfbda-e4d8-49b9-97c2-6335da5acd51",
+            "type": "flipGrid",
+            "radius": 10,
+            "hotspots": [],
+            "items": [
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-36.png",
+                    "link": ""
+                  },
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-38.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-39.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-40.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-41.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-42.png",
+                    "link": ""
+                  }
+                ],
+                "empty": true
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-43.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-44.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-45.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              },
+              {
+                "images": [
+                  {
+                    "src": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-46.png",
+                    "link": ""
+                  }
+                ],
+                "empty": false
+              }
+            ],
+            "background": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-35.jpg",
+            "backgroundColor": "#ffffff",
+            "moduleHeight": 917,
+            "flipDirection": "horizontal",
+            "autoSwitch": true,
+            "carouselSettings": "2000|500|50",
+            "listSettings": "10|160|698|724",
+            "imageSize": "219|228",
+            "gridSize": "3|3",
+            "buttonPosition": "270|435",
+            "buttonImage": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-37.png",
+            "buttonAnimation": "scale"
+          },
+          {
+            "id": "34b9c4a5-e4bd-47ad-9b05-99565bb9a1cb",
+            "type": "poster",
+            "radius": 10,
+            "hotspots": [],
+            "image": "/images/douyin-shop/Crocs-Kids_2026_10-09_10-14/素材-78.jpg",
+            "posterAspect": "750/967"
+          }
+        ],
+        "componentRadius": 10,
+        "header": "/images/douyin-shop/店铺页头.webp",
+        "assetFolder": "Crocs-Kids_2026_10-09_10-14"
+      }
+    }
+  ],
+  "layout": {
+    "safeWidth": 1920,
+    "imageWidth": 0,
+    "imageHeight": 724.9252,
+    "gap": 46
+  }
+}

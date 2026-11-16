@@ -103,7 +103,7 @@ test("中文编辑器可加载及修改后实际保存", async ({ page }) => {
     await page.setViewportSize({ width: 1600, height: 1000 });
     await page.goto("/admin");
     await expect(
-      page.getByText("本地开发模式 · 内容保存为 JSON", { exact: true }),
+      page.getByText("本地草稿", { exact: true }),
     ).toBeVisible();
     const frame = page.frameLocator("iframe");
     await expect(

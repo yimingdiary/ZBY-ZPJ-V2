@@ -1,0 +1,803 @@
+.page {
+  box-sizing: border-box;
+  width: min(100%, 677px);
+  margin: auto;
+  min-height: 100vh;
+  padding: 0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  container-type: inline-size;
+  :global(.component-list) {
+    display: grid;
+    gap: 7px;
+  }
+  :global(.component-row) {
+    width: 100%;
+    border: 1px solid #e5e9e2;
+    background: #fff;
+    border-radius: 9px;
+    padding: 12px 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 12px;
+    color: #405141;
+  }
+  :global(.component-row):global(.selected) {
+    border-color: #8eaa83;
+    background: #f3f8f1;
+  }
+  :global(.component) {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: #edf0ea;
+    isolation: isolate;
+  }
+  :global(.component) img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  :global(.poster) img {
+    width: 100%;
+  }
+  :global(.empty-image) {
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+    color: #9aa398;
+    font-size: 13px;
+  }
+  :global(.carousel) {
+    aspect-ratio: 750/450;
+  }
+  :global(.slides),
+  :global(.slides) img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  :global(.slides) img {
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  :global(.slides) img:global(.active) {
+    opacity: 1;
+  }
+  :global(.dots) {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  :global(.dots) span {
+    width: 5px;
+    height: 5px;
+    border-radius: 9px;
+    background: #ffffff88;
+  }
+  :global(.dots) span:global(.active) {
+    width: 15px;
+    background: #fff;
+  }
+  :global(.hotspot) {
+    position: absolute;
+    z-index: 2;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  :global(.hotspot):focus-visible {
+    outline: 2px solid #57a8ff;
+  }
+  :global(.carousel) :global(.slides) {
+    left: 2.133%;
+    right: 2.133%;
+    width: auto;
+  }
+  :global(.components-panel) {
+    height: calc(100vh - 128px);
+    overflow: auto;
+    scrollbar-width: thin;
+  }
+  :global(.component-row) {
+    border-color: #ebebef;
+    background: #fff;
+    border-radius: 11px;
+    color: #303035;
+    font-size: 12px;
+    padding: 12px;
+  }
+  :global(.component-row):global(.selected) {
+    border-color: #91bfff;
+    background: #f2f7ff;
+  }
+  :global(.component) {
+    flex: none;
+    box-shadow: 0 2px 12px #1d1d1f0a;
+  }
+  @media (max-width: 1180px) {
+    :global(.components-panel) {
+      height: auto;
+    }
+  }
+  @media (max-width: 700px) {
+    :global(.components-panel) {
+      height: auto;
+    }
+  }
+  :global(.carousel) {
+    width: min(100%, 718px);
+    aspect-ratio: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  :global(.carousel) :global(.slides) {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+    transition: height 0.25s ease;
+  }
+  :global(.carousel) :global(.slides)::-webkit-scrollbar {
+    display: none;
+  }
+  :global(.carousel) :global(.slides) img {
+    position: relative;
+    inset: auto;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    object-fit: contain;
+    scroll-snap-align: start;
+    transition: none;
+  }
+  :global(.carousel) :global(.dots) {
+    pointer-events: none;
+  }
+  @media (max-width: 1720px) {
+    :global(.components-panel) {
+      height: auto;
+    }
+  }
+  @media (max-width: 1100px) {
+    :global(.components-panel) {
+      height: auto;
+    }
+  }
+  :global(.components-panel) {
+    height: calc(100vh - 128px);
+    overflow: auto;
+  }
+  @media (max-width: 700px) {
+    :global(.components-panel) {
+      height: calc(100vh - 128px);
+    }
+  }
+  :global(.components-panel) {
+    height: auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+  :global(.carousel) {
+    width: 100%;
+    max-width: none;
+  }
+  @media (max-width: 700px) {
+    :global(.components-panel) {
+      height: auto;
+      min-height: 0;
+    }
+  }
+  :global(.flip-grid) {
+    background: #fff;
+  }
+  :global(.grid-background) {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    z-index: 0;
+  }
+  :global(.flip-grid) :global(.grid) {
+    background: transparent;
+  }
+  :global(.flip-grid):global(.has-background) {
+    display: grid;
+  }
+  :global(.flip-grid):global(.has-background) :global(.grid-background) {
+    position: relative;
+    inset: auto;
+    grid-area: 1/1;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    align-self: start;
+    z-index: 0;
+  }
+  :global(.component-drag-ghost) {
+    opacity: 0.45;
+    background: #eef4ff;
+  }
+  :global(.component-drag-chosen) {
+    border-color: #0071e3;
+    box-shadow: 0 6px 18px #0071e326;
+  }
+  :global(.flip-grid) {
+    overflow: hidden;
+    background: #fff;
+  }
+  :global(.flip-grid) :global(.grid-background) {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill;
+    z-index: 0;
+  }
+  :global(.flip-list) {
+    position: absolute;
+    display: grid;
+    z-index: 1;
+    perspective: 1000px;
+  }
+  :global(.flip-item) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    cursor: pointer;
+    transition:
+      transform var(--flip-half, 250ms) ease-in-out,
+      opacity var(--flip-half, 250ms) ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+  :global(.flip-item):global(.is-empty) {
+    visibility: hidden;
+  }
+  :global(.flip-item) img {
+    width: var(--image-width);
+    height: var(--image-height);
+    object-fit: fill;
+  }
+  :global(.flip-grid)[data-flip-direction="horizontal"]
+    :global(.flip-item):global(.flipping) {
+    transform: rotateY(90deg);
+  }
+  :global(.flip-grid)[data-flip-direction="vertical"]
+    :global(.flip-item):global(.flipping) {
+    transform: rotateX(90deg);
+  }
+  :global(.flip-grid)[data-flip-direction="none"]
+    :global(.flip-item):global(.flipping) {
+    opacity: 0;
+  }
+  :global(.flip-button) {
+    position: absolute;
+    z-index: 2;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    transform-origin: center;
+    color: #fff;
+  }
+  :global(.flip-button) img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+  }
+  :global(.flip-button):global(.scale) {
+    animation: flipButtonScale 2s ease-in-out infinite;
+  }
+
+  :global(.flip-list) {
+    justify-content: space-between;
+    align-content: space-between;
+    perspective: none;
+  }
+  :global(.flip-item) {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    transition: none;
+    transform: none;
+    transform-style: flat;
+  }
+  :global(.flip-face) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition:
+      transform var(--flip-duration, 500ms) linear,
+      opacity var(--flip-duration, 500ms) linear;
+    backface-visibility: visible;
+  }
+  :global(.flip-face) img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill;
+  }
+  :global(.flip-item) :global(.face-a) {
+    opacity: 1;
+    transform: rotateY(0deg) translateZ(1px);
+  }
+  :global(.flip-item) :global(.face-b) {
+    opacity: 0;
+    transform: rotateY(180deg) translateZ(0);
+  }
+  :global(.flip-grid)[data-flip-direction="horizontal"]
+    :global(.flip-item):global(.show-b)
+    :global(.face-a) {
+    opacity: 0;
+    transform: rotateY(-180deg) translateZ(0);
+  }
+  :global(.flip-grid)[data-flip-direction="horizontal"]
+    :global(.flip-item):global(.show-b)
+    :global(.face-b) {
+    opacity: 1;
+    transform: rotateY(0deg) translateZ(1px);
+  }
+  :global(.flip-grid)[data-flip-direction="vertical"]
+    :global(.flip-item)
+    :global(.face-b) {
+    transform: rotateX(180deg) translateZ(0);
+  }
+  :global(.flip-grid)[data-flip-direction="vertical"]
+    :global(.flip-item):global(.show-b)
+    :global(.face-a) {
+    opacity: 0;
+    transform: rotateX(-180deg) translateZ(0);
+  }
+  :global(.flip-grid)[data-flip-direction="vertical"]
+    :global(.flip-item):global(.show-b)
+    :global(.face-b) {
+    opacity: 1;
+    transform: rotateX(0deg) translateZ(1px);
+  }
+  :global(.flip-grid)[data-flip-direction="none"]
+    :global(.flip-item)
+    :global(.flip-face) {
+    transform: none !important;
+  }
+  :global(.flip-grid)[data-flip-direction="none"]
+    :global(.flip-item):global(.show-b)
+    :global(.face-a) {
+    opacity: 0;
+  }
+  :global(.flip-grid)[data-flip-direction="none"]
+    :global(.flip-item):global(.show-b)
+    :global(.face-b) {
+    opacity: 1;
+  }
+  :global(.flip-button):global(.scale) {
+    animation-duration: 650ms;
+  }
+  :global(.flip-button) img {
+    display: block;
+    width: 100% !important;
+    max-width: none;
+    height: auto;
+  }
+  :global(.component-palette) {
+    position: sticky;
+    top: -18px;
+    z-index: 10;
+    background: #fff;
+    padding: 18px 0 12px;
+    margin: -18px 0 14px;
+    border-bottom: 1px solid #eceef1;
+  }
+  :global(.component-palette) :global(.add-menu) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+  :global(.component-palette) :global(.add-menu) button {
+    padding: 10px 5px;
+    font-size: 11px;
+    text-align: center;
+    cursor: grab;
+    user-select: none;
+  }
+  :global(.component-palette) :global(.add-menu) button:active {
+    cursor: grabbing;
+  }
+  :global(.component-drop-placeholder) {
+    height: 0;
+    min-height: 0;
+    flex: 0 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    opacity: 0;
+    border: 0 dashed #3e83ff;
+    border-radius: 10px;
+    background: #eaf2ff;
+    color: #286ae3;
+    font-size: 17px;
+    font-weight: 700;
+    transition:
+      height 180ms ease,
+      opacity 180ms ease,
+      border-width 180ms ease;
+    pointer-events: none;
+  }
+  :global(.component-drop-placeholder):global(.visible) {
+    height: 130px;
+    opacity: 1;
+    border-width: 3px;
+  }
+  :global(.tab-carousel) {
+    width: 100%;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  :global(.tab-carousel) :global(.tab-background) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 0;
+  }
+  :global(.tab-content) {
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+  }
+  :global(.tab-slide) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform var(--tab-duration, 0.5s) ease,
+      opacity var(--tab-duration, 0.5s) ease,
+      visibility 0s linear var(--tab-duration, 0.5s);
+  }
+  :global(.tab-slide) img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  :global(.tab-slide):global(.active) {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(0, 0);
+    z-index: 2;
+    transition:
+      transform var(--tab-duration, 0.5s) ease,
+      opacity var(--tab-duration, 0.5s) ease;
+  }
+  :global(.tab-carousel)[data-effect="horizontal"] :global(.tab-slide) {
+    transform: translateX(100%);
+  }
+  :global(.tab-carousel)[data-effect="horizontal"]
+    :global(.tab-slide):global(.leaving) {
+    transform: translateX(-100%);
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+  }
+  :global(.tab-carousel)[data-effect="horizontal"]
+    :global(.tab-slide):global(.active) {
+    transform: translateX(0);
+  }
+  :global(.tab-carousel)[data-effect="vertical"] :global(.tab-slide) {
+    transform: translateY(100%);
+  }
+  :global(.tab-carousel)[data-effect="vertical"]
+    :global(.tab-slide):global(.leaving) {
+    transform: translateY(-100%);
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+  }
+  :global(.tab-carousel)[data-effect="vertical"]
+    :global(.tab-slide):global(.active) {
+    transform: translateY(0);
+  }
+  :global(.tab-carousel)[data-effect="fade"] :global(.tab-slide) {
+    transform: none;
+  }
+  :global(.tab-carousel)[data-effect="fade"]
+    :global(.tab-slide):global(.leaving) {
+    visibility: visible;
+    opacity: 0;
+    z-index: 1;
+  }
+  :global(.tab-thumbnails) {
+    position: absolute;
+    z-index: 15;
+    display: flex;
+    overflow: auto;
+    scrollbar-width: none;
+    align-items: flex-start;
+  }
+  :global(.tab-thumbnails)::-webkit-scrollbar {
+    display: none;
+  }
+  :global(.tab-thumbnails):global(.horizontal) {
+    flex-direction: row;
+    gap: var(--thumb-gap);
+  }
+  :global(.tab-thumbnails):global(.vertical) {
+    flex-direction: column;
+    gap: var(--thumb-gap);
+  }
+  :global(.tab-thumb) {
+    position: relative;
+    flex: none;
+    width: var(--thumb-width);
+    height: var(--thumb-height);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #444;
+    overflow: hidden;
+  }
+  :global(.tab-thumb) img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  :global(.tab-thumb) :global(.thumb-selected) {
+    display: none;
+  }
+  :global(.tab-thumb):global(.active) :global(.thumb-selected) {
+    display: block;
+  }
+  :global(.tab-thumb):global(.active) :global(.thumb-unselected) {
+    display: none;
+  }
+  :global(.tab-thumb) span {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 99px;
+    font-size: 18px;
+  }
+  :global(.tab-thumb):global(.active) span {
+    background: #ffdb2a;
+    font-weight: 700;
+  }
+  :global(.tab-carousel) > :global(.hotspot) {
+    z-index: 20;
+  }
+  :global(.tab-slide) :global(.hotspot) {
+    z-index: 3;
+  }
+  :global(.tab-carousel) {
+    background: transparent;
+  }
+  :global(.tab-thumb) :global(.thumb-unselected) {
+    filter: grayscale(1);
+    opacity: 0.6;
+  }
+  :global(.component) {
+    border-radius: var(--component-radius, 10px) !important;
+  }
+  :global(.component),
+  :global(.component) * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  :global(.component) img {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+  :global(.tab-carousel) :global(.tab-slide) {
+    transition: none;
+  }
+  :global(.tab-carousel) :global(.tab-slide):global(.active),
+  :global(.tab-carousel) :global(.tab-slide):global(.leaving) {
+    transition:
+      transform var(--tab-duration, 0.5s) ease,
+      opacity var(--tab-duration, 0.5s) ease;
+  }
+
+  :global(.component):global(.is-pending) {
+    background: #edf0f2 !important;
+  }
+  :global(.component):global(.is-pending) > :not(:global(.component-skeleton)) {
+    opacity: 0 !important;
+  }
+  :global(.component-skeleton) {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #edf0f2;
+    transition: opacity 0.32s ease;
+  }
+  :global(.component-skeleton)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      115deg,
+      transparent 32%,
+      rgba(255, 255, 255, 0.24) 50%,
+      transparent 68%
+    );
+    transform: translateX(-100%);
+    animation: componentSkeletonSweep 1.5s linear infinite;
+  }
+  :global(.skeleton-shape) {
+    position: absolute;
+    display: block;
+    border-radius: 6px;
+    background: #dce2e6;
+  }
+  :global(.tab-carousel) :global(.skeleton-shape):first-child {
+    background: #e4e9ec;
+  }
+  :global(.tab-carousel) :global(.skeleton-shape):not(:first-child) {
+    border-radius: 999px;
+    background: #d7dee3;
+  }
+  :global(.flip-grid) :global(.skeleton-shape) {
+    border-radius: 8px;
+  }
+  :global(.component):global(.is-revealing)
+    > :not(:global(.component-skeleton)) {
+    animation: componentContentReveal 0.36s ease-out both;
+  }
+  :global(.component):global(.is-revealing) > :global(.component-skeleton) {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.component-skeleton)::after,
+    :global(.component):global(.is-revealing)
+      > :not(:global(.component-skeleton)) {
+      animation: none;
+    }
+    :global(.component-skeleton) {
+      transition: none;
+    }
+  }
+  :global(.component) {
+    background: #fff;
+  }
+  :global(.component):global(.poster):global(.is-pending) {
+    aspect-ratio: var(--poster-aspect, 718/917);
+  }
+  :global(.component):global(.carousel):global(.is-pending) {
+    aspect-ratio: var(--carousel-aspect, 750/450);
+  }
+  :global(.poster)[style*="aspect-ratio"] > img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  :global(.component):global(.carousel):global(.is-pending) {
+    aspect-ratio: auto;
+  }
+  :global(.component) {
+    flex: none;
+  }
+  :global(.hotspot) {
+    cursor: pointer;
+  }
+  :global(.carousel) {
+    width: 100%;
+  }
+}
+.header {
+  position: relative;
+  flex: none;
+  margin: 0;
+  background: #fff;
+}
+.header img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@keyframes flipButtonScale {
+  50% {
+    transform: scale(1.08);
+  }
+}
+@keyframes componentSkeletonSweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes componentContentReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 只在店铺装修根内开放真实控件，不覆盖其他 Puck 模块。 */
+.page[data-shop-block]
+  :global(
+    :is(
+      .tab-content,
+      .tab-thumb,
+      .tab-thumb img,
+      .flip-button,
+      .flip-button img,
+      .slides,
+      .slides img
+    )
+  ) {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* 公开店铺页固定跟随；装修根仍使用普通文档流的 header。 */
+.publicHeader {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+}
+
+/* 设计基准：组件 750，左右各 20，整页 790；所有素材统一适配组件宽度。 */
+.content {
+  display: flow-root;
+  width: calc(100% * 750 / 790);
+  margin-inline: auto;
+  padding-bottom: calc(100cqw * 20 / 790);
+}
+.content > :global(.component),
+.content [data-shop-block] {
+  margin-bottom: calc(100cqw * 20 / 790);
+}
+.content > :global(.component):last-child {
+  margin-bottom: 0;
+}
+.page[data-shop-block] {
+  container-type: normal;
+}

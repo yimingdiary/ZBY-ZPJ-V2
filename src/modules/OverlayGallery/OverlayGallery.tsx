@@ -1,3 +1,4 @@
+import { attachGalleryRatios } from "../../design/gallery-image";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { attachOverlayPreview } from "./preview";
 import s from "./OverlayGallery.module.css";
@@ -24,7 +25,13 @@ export function OverlayGallery(p: OverlayGalleryProps) {
         "[data-overlay-work]",
       ) || []),
     ].map(attachOverlayPreview);
-    return () => cleanups.forEach((cleanup) => cleanup());
+    const cleanRatios = root.current
+      ? attachGalleryRatios(root.current)
+      : () => {};
+    return () => {
+      cleanups.forEach((cleanup) => cleanup());
+      cleanRatios();
+    };
   }, [p.items]);
   return (
     <section
@@ -41,12 +48,16 @@ export function OverlayGallery(p: OverlayGalleryProps) {
         <p className={s.category}>{p.category}</p>
       </header>
       <div
+        data-auto-width={p.layout?.imageWidth === 0 ? "true" : undefined}
         className={`${s.grid} ${p.layout ? s.configured : p.items.length === hotspots.areas.length ? s.positioned : ""}`}
         style={
           p.layout
             ? ({
                 "--safe-width": `${p.layout.safeWidth / 19.2}cqw`,
-                "--image-width": `${p.layout.imageWidth / 19.2}cqw`,
+                "--image-width":
+                  p.layout.imageWidth === 0
+                    ? "auto"
+                    : `${p.layout.imageWidth / 19.2}cqw`,
                 "--image-height": `${p.layout.imageHeight / 19.2}cqw`,
                 "--image-gap": `${p.layout.gap / 19.2}cqw`,
                 justifyContent: p.layout.gap === 0 ? "space-between" : "center",
@@ -61,6 +72,7 @@ export function OverlayGallery(p: OverlayGalleryProps) {
           return (
             <figure
               key={i}
+              data-gallery-figure=""
               style={
                 !p.layout && p.items.length === hotspots.areas.length
                   ? ({
@@ -69,7 +81,12 @@ export function OverlayGallery(p: OverlayGalleryProps) {
                       "--overlay-card-width": `${(hotspots.areas[i].width / hotspots.baseSize.width) * 100}%`,
                       "--overlay-card-height": `${(hotspots.areas[i].height / hotspots.baseSize.height) * 100}%`,
                     } as CSSProperties)
-                  : undefined
+                  : ({
+                      "--image-aspect":
+                        work?.canvas.height === 2791
+                          ? 1290 / 2791
+                          : 1080 / 1920,
+                    } as CSSProperties)
               }
             >
               {dynamic && work ? (

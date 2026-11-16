@@ -1,3 +1,9 @@
+import { ShopWorkField } from "./DouyinShop/ShopWorkField";
+import {
+  DouyinGallery,
+  type DouyinGalleryProps,
+} from "./DouyinShop/DouyinGallery";
+import douyinDefaults from "./DouyinShop/defaults.json";
 import { WorkFolderPicker } from "../editor/WorkFolderPicker";
 import { ImagePicker } from "../editor/ImagePicker";
 import type { Config } from "@puckeditor/core";
@@ -17,6 +23,7 @@ import {
 } from "./OverlayGallery/OverlayGallery";
 import overlayDefaults from "./OverlayGallery/defaults.json";
 export type Modules = {
+  DouyinGallery: DouyinGalleryProps;
   OverlayGallery: OverlayGalleryProps;
   Contents: ContentsProps;
   Closing: ClosingProps;
@@ -49,6 +56,92 @@ export const config: Config<Modules> = {
     ),
   },
   components: {
+    DouyinGallery: {
+      label: "抖音店铺-首页作品",
+      fields: {
+        version: versionField,
+        title: { type: "text", label: "作品板块英文标题" },
+        subtitle: { type: "text", label: "作品类型说明" },
+        category: { type: "text", label: "作品分类名称" },
+        layout: {
+          type: "object",
+          label: "作品排版（1920 设计稿单位）",
+          objectFields: {
+            safeWidth: {
+              type: "number",
+              label: "安全区域总宽度",
+              min: 0.01,
+              max: 10000,
+            },
+            imageWidth: {
+              type: "number",
+              label: "单图宽度（0 按比例自适应）",
+              min: 0,
+              max: 10000,
+            },
+            imageHeight: {
+              type: "number",
+              label: "单图高度",
+              min: 0.01,
+              max: 724.9252,
+            },
+            gap: {
+              type: "number",
+              label: "图间距（0 自动均分）",
+              min: 0,
+              max: 10000,
+            },
+          },
+        },
+        items: {
+          type: "array",
+          label: "店铺作品",
+          max: 12,
+          defaultItemProps: {
+            slug: "",
+            name: "",
+            cover: "",
+            page: { componentRadius: 10, components: [] },
+          },
+          getItemSummary: (item, i) => item.name || `店铺 ${(i ?? 0) + 1}`,
+          arrayFields: {
+            name: { type: "text", label: "作品名称" },
+            slug: {
+              type: "text",
+              label: "作品标识（小写字母、数字和短横线，不重复）",
+            },
+            cover: {
+              type: "custom",
+              label: "首页 KV 海报",
+              render: ({ value, onChange, readOnly, name }) => (
+                <ShopWorkField
+                  kind="cover"
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  readOnly={readOnly}
+                />
+              ),
+            },
+            page: {
+              type: "custom",
+              label: "完整店铺首页",
+              render: ({ value, onChange, readOnly, name }) => (
+                <ShopWorkField
+                  kind="page"
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  readOnly={readOnly}
+                />
+              ),
+            },
+          },
+        },
+      },
+      defaultProps: { ...douyinDefaults, version: 1 } as DouyinGalleryProps,
+      render: DouyinGallery,
+    },
     OverlayGallery: {
       label: "贴片设计作品",
       fields: {
@@ -68,15 +161,15 @@ export const config: Config<Modules> = {
             },
             imageWidth: {
               type: "number",
-              label: "单图宽度",
-              min: 0.01,
+              label: "单图宽度（0 按比例自适应）",
+              min: 0,
               max: 10000,
             },
             imageHeight: {
               type: "number",
               label: "单图高度",
               min: 0.01,
-              max: 10000,
+              max: 724.9252,
             },
             gap: {
               type: "number",

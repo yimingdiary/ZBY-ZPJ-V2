@@ -14,7 +14,9 @@
               "type": "boolean"
             }
           },
-          "required": ["chrome"]
+          "required": [
+            "chrome"
+          ]
         },
         "readOnly": {
           "type": "object",
@@ -26,7 +28,9 @@
           "additionalProperties": false
         }
       },
-      "required": ["props"]
+      "required": [
+        "props"
+      ]
     },
     "content": {
       "type": "array",
@@ -74,7 +78,10 @@
                           "pattern": "^(#|/[^/]|https://|$)"
                         }
                       },
-                      "required": ["label", "href"]
+                      "required": [
+                        "label",
+                        "href"
+                      ]
                     }
                   },
                   "motto": {
@@ -82,7 +89,13 @@
                     "maxLength": 300
                   }
                 },
-                "required": ["id", "version", "brand", "items", "motto"]
+                "required": [
+                  "id",
+                  "version",
+                  "brand",
+                  "items",
+                  "motto"
+                ]
               },
               "readOnly": {
                 "type": "object",
@@ -106,7 +119,10 @@
                 "additionalProperties": false
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
           },
           {
             "type": "object",
@@ -145,7 +161,10 @@
                     "maxLength": 300
                   },
                   "font": {
-                    "enum": ["display", "body"]
+                    "enum": [
+                      "display",
+                      "body"
+                    ]
                   },
                   "ink": {
                     "type": "string",
@@ -203,7 +222,10 @@
                 "additionalProperties": false
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
           },
           {
             "type": "object",
@@ -233,7 +255,12 @@
                     "maxLength": 300
                   }
                 },
-                "required": ["id", "version", "years", "category"]
+                "required": [
+                  "id",
+                  "version",
+                  "years",
+                  "category"
+                ]
               },
               "readOnly": {
                 "type": "object",
@@ -254,7 +281,10 @@
                 "additionalProperties": false
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
           },
           {
             "type": "object",
@@ -328,7 +358,10 @@
                           "maxLength": 1000
                         }
                       },
-                      "required": ["label", "value"]
+                      "required": [
+                        "label",
+                        "value"
+                      ]
                     }
                   },
                   "achievements": {
@@ -347,7 +380,10 @@
                           "maxLength": 1000
                         }
                       },
-                      "required": ["title", "description"]
+                      "required": [
+                        "title",
+                        "description"
+                      ]
                     }
                   },
                   "education": {
@@ -374,7 +410,12 @@
                           "maxLength": 1000
                         }
                       },
-                      "required": ["school", "qualification", "major", "period"]
+                      "required": [
+                        "school",
+                        "qualification",
+                        "major",
+                        "period"
+                      ]
                     }
                   },
                   "skills": {
@@ -389,7 +430,9 @@
                           "maxLength": 1000
                         }
                       },
-                      "required": ["label"]
+                      "required": [
+                        "label"
+                      ]
                     }
                   }
                 },
@@ -463,7 +506,10 @@
                 }
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
           },
           {
             "type": "object",
@@ -531,7 +577,13 @@
                     }
                   }
                 },
-                "required": ["id", "version", "title", "subtitle", "items"]
+                "required": [
+                  "id",
+                  "version",
+                  "title",
+                  "subtitle",
+                  "items"
+                ]
               },
               "readOnly": {
                 "type": "object",
@@ -555,7 +607,10 @@
                 }
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
           },
           {
             "type": "object",
@@ -597,7 +652,10 @@
                           "pattern": "^(#|/[^/]|https://|$)"
                         }
                       },
-                      "required": ["label", "href"]
+                      "required": [
+                        "label",
+                        "href"
+                      ]
                     }
                   },
                   "motto": {
@@ -691,7 +749,10 @@
                 }
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
           },
           {
             "type": "object",
@@ -757,7 +818,10 @@
                           "type": "boolean"
                         }
                       },
-                      "required": ["src", "alt"],
+                      "required": [
+                        "src",
+                        "alt"
+                      ],
                       "allOf": [
                         {
                           "if": {
@@ -766,7 +830,9 @@
                                 "const": true
                               }
                             },
-                            "required": ["dynamic"]
+                            "required": [
+                              "dynamic"
+                            ]
                           },
                           "then": {
                             "properties": {
@@ -803,7 +869,7 @@
                       },
                       "imageWidth": {
                         "type": "number",
-                        "minimum": 0.01,
+                        "minimum": 0,
                         "maximum": 10000
                       },
                       "imageHeight": {
@@ -862,7 +928,511 @@
                 }
               }
             },
-            "required": ["type", "props"]
+            "required": [
+              "type",
+              "props"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "const": "DouyinGallery"
+              },
+              "props": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 1
+                  },
+                  "version": {
+                    "const": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "subtitle": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "category": {
+                    "type": "string",
+                    "maxLength": 300
+                  },
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "slug": {
+                          "type": "string",
+                          "maxLength": 100,
+                          "minLength": 1,
+                          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        },
+                        "name": {
+                          "type": "string",
+                          "maxLength": 300
+                        },
+                        "cover": {
+                          "type": "string",
+                          "maxLength": 1000,
+                          "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                        },
+                        "page": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "componentRadius": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 100
+                            },
+                            "header": {
+                              "type": "string",
+                              "maxLength": 1000,
+                              "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                            },
+                            "components": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "minLength": 1
+                                  },
+                                  "type": {
+                                    "enum": [
+                                      "poster",
+                                      "carousel",
+                                      "tabCarousel",
+                                      "flipGrid"
+                                    ]
+                                  },
+                                  "radius": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100
+                                  },
+                                  "hotspots": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "additionalProperties": false,
+                                      "properties": {
+                                        "x": {
+                                          "type": "number",
+                                          "minimum": 0,
+                                          "maximum": 100
+                                        },
+                                        "y": {
+                                          "type": "number",
+                                          "minimum": 0,
+                                          "maximum": 100
+                                        },
+                                        "width": {
+                                          "type": "number",
+                                          "minimum": 0,
+                                          "maximum": 100
+                                        },
+                                        "height": {
+                                          "type": "number",
+                                          "minimum": 0,
+                                          "maximum": 100
+                                        },
+                                        "action": {
+                                          "enum": [
+                                            "url",
+                                            "project",
+                                            "switch"
+                                          ]
+                                        },
+                                        "target": {
+                                          "type": "string",
+                                          "maxLength": 1000,
+                                          "pattern": "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$"
+                                        }
+                                      },
+                                      "required": [
+                                        "x",
+                                        "y",
+                                        "width",
+                                        "height",
+                                        "action",
+                                        "target"
+                                      ]
+                                    },
+                                    "maxItems": 50
+                                  },
+                                  "link": {
+                                    "type": "string",
+                                    "maxLength": 1000,
+                                    "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"
+                                  },
+                                  "image": {
+                                    "type": "string",
+                                    "maxLength": 1000,
+                                    "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                  },
+                                  "images": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "maxLength": 1000,
+                                      "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                    },
+                                    "maxItems": 30
+                                  },
+                                  "interval": {
+                                    "type": "number",
+                                    "minimum": 800,
+                                    "maximum": 3600000
+                                  },
+                                  "posterAspect": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?/\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "carouselAspects": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "maxLength": 100,
+                                      "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                    },
+                                    "maxItems": 30
+                                  },
+                                  "background": {
+                                    "type": "string",
+                                    "maxLength": 1000,
+                                    "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                  },
+                                  "backgroundColor": {
+                                    "type": "string",
+                                    "maxLength": 7,
+                                    "pattern": "^$|^#[\\da-fA-F]{6}$"
+                                  },
+                                  "moduleHeight": {
+                                    "type": "number",
+                                    "minimum": 1,
+                                    "maximum": 100000
+                                  },
+                                  "thumbnailLayout": {
+                                    "enum": [
+                                      "horizontal",
+                                      "vertical"
+                                    ]
+                                  },
+                                  "thumbnailBox": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "thumbnailSize": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "contentBox": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "transition": {
+                                    "enum": [
+                                      "horizontal",
+                                      "vertical",
+                                      "fade"
+                                    ]
+                                  },
+                                  "animationTime": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 60
+                                  },
+                                  "autoPlay": {
+                                    "type": "boolean"
+                                  },
+                                  "autoInterval": {
+                                    "type": "number",
+                                    "minimum": 0.1,
+                                    "maximum": 3600
+                                  },
+                                  "initialIndex": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 29
+                                  },
+                                  "tabs": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "additionalProperties": false,
+                                      "properties": {
+                                        "title": {
+                                          "type": "string",
+                                          "maxLength": 300
+                                        },
+                                        "image": {
+                                          "type": "string",
+                                          "maxLength": 1000,
+                                          "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                        },
+                                        "images": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "string",
+                                            "maxLength": 1000,
+                                            "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                          },
+                                          "maxItems": 30
+                                        },
+                                        "selectedImage": {
+                                          "type": "string",
+                                          "maxLength": 1000,
+                                          "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                        },
+                                        "unselectedImage": {
+                                          "type": "string",
+                                          "maxLength": 1000,
+                                          "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                        },
+                                        "hotspots": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                              "x": {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              "y": {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              "width": {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              "height": {
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 100
+                                              },
+                                              "action": {
+                                                "enum": [
+                                                  "url",
+                                                  "project",
+                                                  "switch"
+                                                ]
+                                              },
+                                              "target": {
+                                                "type": "string",
+                                                "maxLength": 1000,
+                                                "pattern": "^(?:$|https?://[^\\s<>]+|[a-z0-9-]+|/shop/[a-z0-9-]+)$"
+                                              }
+                                            },
+                                            "required": [
+                                              "x",
+                                              "y",
+                                              "width",
+                                              "height",
+                                              "action",
+                                              "target"
+                                            ]
+                                          },
+                                          "maxItems": 50
+                                        }
+                                      }
+                                    },
+                                    "maxItems": 30
+                                  },
+                                  "items": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "additionalProperties": false,
+                                      "properties": {
+                                        "empty": {
+                                          "type": "boolean"
+                                        },
+                                        "images": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                              "src": {
+                                                "type": "string",
+                                                "maxLength": 1000,
+                                                "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                              },
+                                              "link": {
+                                                "type": "string",
+                                                "maxLength": 1000,
+                                                "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"
+                                              }
+                                            },
+                                            "required": [
+                                              "src",
+                                              "link"
+                                            ]
+                                          },
+                                          "maxItems": 30
+                                        }
+                                      },
+                                      "required": [
+                                        "empty",
+                                        "images"
+                                      ]
+                                    },
+                                    "maxItems": 100
+                                  },
+                                  "flipDirection": {
+                                    "enum": [
+                                      "horizontal",
+                                      "vertical",
+                                      "none"
+                                    ]
+                                  },
+                                  "autoSwitch": {
+                                    "type": "boolean"
+                                  },
+                                  "carouselSettings": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "listSettings": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "imageSize": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "gridSize": {
+                                    "type": "string",
+                                    "maxLength": 10,
+                                    "pattern": "^(?:[1-9]|10)\\|(?:[1-9]|10)$"
+                                  },
+                                  "buttonPosition": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "buttonImage": {
+                                    "type": "string",
+                                    "maxLength": 1000,
+                                    "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                  },
+                                  "buttonAnimation": {
+                                    "enum": [
+                                      "none",
+                                      "scale"
+                                    ]
+                                  },
+                                  "centerImage": {
+                                    "type": "string",
+                                    "maxLength": 1000,
+                                    "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "type"
+                                ]
+                              },
+                              "maxItems": 100
+                            },
+                            "assetFolder": {
+                              "type": "string",
+                              "pattern": "^[A-Za-z0-9_-]{1,120}$"
+                            }
+                          },
+                          "required": [
+                            "componentRadius",
+                            "components"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "slug",
+                        "name",
+                        "cover",
+                        "page"
+                      ]
+                    },
+                    "maxItems": 12
+                  },
+                  "layout": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "safeWidth": {
+                        "type": "number",
+                        "minimum": 0.01,
+                        "maximum": 10000
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 10000
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "minimum": 0.01,
+                        "maximum": 10000
+                      },
+                      "gap": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 10000
+                      }
+                    },
+                    "required": [
+                      "safeWidth",
+                      "imageWidth",
+                      "imageHeight",
+                      "gap"
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "version",
+                  "title",
+                  "subtitle",
+                  "category",
+                  "items"
+                ]
+              },
+              "readOnly": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "required": [
+              "type",
+              "props"
+            ]
           }
         ]
       }
@@ -873,5 +1443,8 @@
       "additionalProperties": false
     }
   },
-  "required": ["root", "content"]
+  "required": [
+    "root",
+    "content"
+  ]
 }

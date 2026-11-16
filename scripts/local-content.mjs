@@ -1,3 +1,5 @@
+import { StringDecoder } from "node:string_decoder";
+import { assertShopPages } from "../src/content/shop-validation.mjs";
 import { readFile, writeFile, rename } from "node:fs/promises";
 import Ajv from "ajv";
 import { configureLocalAssets } from "./local-assets.mjs";
@@ -42,10 +44,12 @@ export function localContent() {
           )
             return send(403, { error: "来源验证失败" });
           let body = "";
+          const decoder = new StringDecoder("utf8");
           for await (const chunk of req) {
-            body += chunk;
+            body += decoder.write(chunk);
             if (body.length > 200000) return send(413, { error: "配置过大" });
           }
+          body += decoder.end();
           let data;
           try {
             data = JSON.parse(body);
@@ -62,6 +66,11 @@ export function localContent() {
           );
           if (!validate(data))
             return send(400, { error: new Ajv().errorsText(validate.errors) });
+          try {
+            assertShopPages(data);
+          } catch (error) {
+            return send(400, { error: error.message });
+          }
           const ids = data.content.map((x) => x.props.id);
           if (new Set(ids).size !== ids.length)
             return send(400, { error: "模块 ID 重复" });

@@ -60,7 +60,7 @@ html:has([data-photoshop-workspace]) {
   scroll-padding-top: 2.380208333vw;
 }
 [data-page-scroll],
-[data-page-scroll] :is(#about, #contents, #overlay, #closing) {
+[data-page-scroll] :is(#about, #contents, #overlay, #douyin-shop, #closing) {
   scroll-snap-align: start;
   scroll-snap-stop: normal;
 }
