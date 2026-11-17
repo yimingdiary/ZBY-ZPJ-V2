@@ -150,3 +150,24 @@ html:has(> body > .store)::-webkit-scrollbar {
   flex-shrink: 0;
   object-fit: contain;
 }
+
+.store .panel-track.is-direct-switch {
+  transition: none;
+}
+
+/* Font-weight interpolation redraws the old label for 220ms after selection. */
+.store .tabs > button {
+  transition: none;
+}
+
+/* cover.png is 1126px wide; its last two columns are transparent export padding.
+   Fit the 1124px artwork to the viewport and clip only that right padding. */
+.store .cover,
+.store .toolbar-shade::before {
+  background-size: calc(100% * 1126 / 1124) auto;
+  background-position: left top;
+}
+.store.is-folded .tabs::before {
+  background-size: 100% 23.4375rem, calc(100% * 1126 / 1124) auto;
+  background-position: left calc(-1 * var(--ios-nav-bottom));
+}

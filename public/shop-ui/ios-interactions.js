@@ -33,12 +33,16 @@
   animateTo(y>=threshold?range:0,380);
  }
  function scheduleSettle(){clearTimeout(settleTimer);settleTimer=setTimeout(settle,115)}
- function selectTab(tab,collapse=true){
+ function selectTab(tab,collapse=true,slide=false){
   const index=buttons.findIndex(b=>b.dataset.tab===tab);if(index<0)return;
   clearTimeout(settleTimer);activeTab=tab;
   buttons.forEach((b,i)=>{b.setAttribute('aria-selected',i===index);b.tabIndex=i===index?0:-1});
   panels.forEach((p,i)=>{p.inert=i!==index;p.setAttribute('aria-hidden',i!==index)});
-  track.style.setProperty('--panel-index',index);setIndicator(index);updateHeight();
+  // Direct tab clicks must not sweep unrelated panels through the viewport.
+  if(!slide)track.classList.add('is-direct-switch');
+  track.style.setProperty('--panel-index',index);
+  if(!slide){track.getBoundingClientRect();track.classList.remove('is-direct-switch')}
+  setIndicator(index);updateHeight();
   if(collapse)animateTo(foldRange());
  }
  window.shopMotion={selectTab,foldRange,expand:()=>animateTo(0),collapse:()=>animateTo(foldRange()),settle, get animating(){return animationActive}};
@@ -55,7 +59,7 @@
   if(horizontal.active){e.preventDefault();const shift=Math.max(-1,Math.min(1,dx/viewport.clientWidth));const pos=Math.max(0,Math.min(buttons.length-1,horizontal.index-shift));track.style.setProperty('--panel-index',pos);const left=Math.floor(pos),right=Math.ceil(pos),x=indicatorAt(left)+(indicatorAt(right)-indicatorAt(left))*(pos-left);indicator.style.transform=`translate3d(${x}px,0,0)`}
  });
  let suppressClick=false;
- viewport.addEventListener('pointerup',e=>{if(!horizontal)return;const h=horizontal;horizontal=null;track.classList.remove('is-dragging');tabs.classList.remove('is-dragging');if(h.active){suppressClick=true;const dx=e.clientX-h.x;const next=Math.max(0,Math.min(buttons.length-1,h.index+(Math.abs(dx)>45?(dx<0?1:-1):0)));selectTab(buttons[next].dataset.tab);setTimeout(()=>suppressClick=false,0)}});
+ viewport.addEventListener('pointerup',e=>{if(!horizontal)return;const h=horizontal;horizontal=null;track.classList.remove('is-dragging');tabs.classList.remove('is-dragging');if(h.active){suppressClick=true;const dx=e.clientX-h.x;const next=Math.max(0,Math.min(buttons.length-1,h.index+(Math.abs(dx)>45?(dx<0?1:-1):0)));selectTab(buttons[next].dataset.tab,true,true);setTimeout(()=>suppressClick=false,0)}});
  viewport.addEventListener('pointercancel',()=>{if(horizontal){horizontal=null;track.classList.remove('is-dragging');tabs.classList.remove('is-dragging');track.style.setProperty('--panel-index',selectedIndex());setIndicator(selectedIndex())}});
  viewport.addEventListener('click',e=>{if(suppressClick){e.preventDefault();e.stopPropagation()}},true);
  viewport.addEventListener('dragstart',e=>e.preventDefault());

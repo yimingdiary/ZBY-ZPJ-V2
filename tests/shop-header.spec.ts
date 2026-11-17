@@ -174,3 +174,32 @@ test("原版触摸口碑横滑、栏目横滑和自动收起仍可用", async ({
     await context.close();
   }
 });
+
+test("点击跨栏目不扫过中间页面，快速往返也不闪回", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(path);
+  await page.waitForFunction(() => !!(window as any).shopMotion);
+  await page.evaluate(() => (window as any).shopMotion.collapse());
+  await expect.poll(() => page.locator('.mini-brand').evaluate(el => getComputedStyle(el).opacity)).toBe('1');
+  const unexpected = await page.evaluate(async () => {
+    const seen: string[] = [];
+    for (const tab of ['category', 'brand', 'new', 'category', 'brand']) {
+      (document.querySelector(`[data-tab="${tab}"]`) as HTMLElement).click();
+      document.querySelectorAll<HTMLElement>('[data-tab]').forEach(button => {
+        const expected = button.dataset.tab === tab ? '600' : '400';
+        if (getComputedStyle(button).fontWeight !== expected) seen.push(`weight:${button.dataset.tab}`);
+        if (button.getAnimations().length) seen.push(`animation:${button.dataset.tab}`);
+      });
+      for (let frame = 0; frame < 5; frame++) {
+        await new Promise(requestAnimationFrame);
+        const viewport = document.querySelector('.panel-viewport')!.getBoundingClientRect();
+        document.querySelectorAll('[role=tabpanel]').forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.right > viewport.left + 1 && r.left < viewport.right - 1 && el.id !== `panel-${tab}`) seen.push(el.id);
+        });
+      }
+    }
+    return seen;
+  });
+  expect(unexpected).toEqual([]);
+});
