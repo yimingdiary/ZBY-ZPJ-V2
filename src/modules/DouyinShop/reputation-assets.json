@@ -1,0 +1,73 @@
+{
+  "extracted_on": "2026-11-17",
+  "assets": [
+    {
+      "asset": "/shop-ui/assets/reputation-sales.png",
+      "source": "MuMu shared external image cache",
+      "cache_file": "EzsnH2TV5JCKDrfcHiTbbZjXbFo.cnt",
+      "source_sha256": "dcd694c672eabb2acdcff245b1d4f4609285a7114b4bf14b335a6c59bc721eb2",
+      "output_sha256": "12967fd820c57b86232f8c3eb23b725f6989ec6905a6f9ee8b0d578934d1f31b",
+      "size": [
+        30,
+        30
+      ]
+    },
+    {
+      "asset": "/shop-ui/assets/reputation-cart.png",
+      "source": "MuMu shared external image cache",
+      "cache_file": "XHbNKOF9Qra-4U9N0JI_Yrfo_Oo.cnt",
+      "source_sha256": "7cf61f3561697379c7141d92ca53db05f7904adab836143b9addd0fba1be2305",
+      "output_sha256": "9e40d8835083fb3a3b16ff17e75eb2580ff46d9d90caf417286b0e8bd58a1f3f",
+      "size": [
+        30,
+        30
+      ]
+    },
+    {
+      "asset": "/shop-ui/assets/reputation-search.png",
+      "source": "MuMu shared external image cache",
+      "cache_file": "Zl0wb-37znn7FFx6fpicgyGHy7s.cnt",
+      "source_sha256": "32d5191daf4626947445882b3f359f832f4a40ccfaaee52ac853a83b8d1ff7c8",
+      "output_sha256": "019b8d4b096090dc0f043333459ace6782d9d84e2ed4ee32c23f252fa8d64377",
+      "size": [
+        30,
+        30
+      ]
+    },
+    {
+      "asset": "/shop-ui/assets/reputation-ranking.png",
+      "source": "MuMu shared external image cache",
+      "cache_file": "a3UJiqIwEREv5tYidpYfMgeNXgo.cnt",
+      "source_sha256": "ecaa61ac5e946afaabbbec8b8a6aa4e737500ff73a35da39730862572a6807c3",
+      "output_sha256": "93308e1ec72022000997eb8311417344e2aca9e80162919bc5e8775a75f31648",
+      "size": [
+        102,
+        30
+      ]
+    },
+    {
+      "asset": "/shop-ui/assets/reputation-chevron.png",
+      "source": "MuMu shared external image cache",
+      "cache_file": "MD5jx06pykMTGM1BnqkJG-BWkgE.cnt",
+      "source_sha256": "afaac1f220626493ffc44876975c182e8353faa82a78066403d3da3c1b837c4a",
+      "output_sha256": "2cb8c022936121f3e500e82b7ba7c4c5b46ab2d11c228331c068510186b91a16",
+      "size": [
+        24,
+        24
+      ]
+    },
+    {
+      "asset": "/shop-ui/assets/live-waveform.webp",
+      "source": "MuMu shared external image cache",
+      "cache_file": "y4faRJ0by9uJ0PUSruRAdiXFEDo.cnt",
+      "source_sha256": "43cad499c2acdbe3370b8d8e61b4e043a86580f27fce46201f4b4fdfc7a06aae",
+      "output_sha256": "43cad499c2acdbe3370b8d8e61b4e043a86580f27fce46201f4b4fdfc7a06aae",
+      "size": [
+        42,
+        42
+      ],
+      "frames": 22,
+      "frame_duration_ms": 33
+    }
+  ]
+}

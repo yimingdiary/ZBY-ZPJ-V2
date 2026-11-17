@@ -53,7 +53,7 @@ test("KV入口打开完整店铺，真实素材、桌面手机布局与动画均
       await firstPoster.evaluate((e) => e.getBoundingClientRect().top),
     ).toBeGreaterThanOrEqual((await header.boundingBox())!.height);
     await detail.evaluate(() => window.scrollTo(0, 500));
-    await expect.poll(() => header.boundingBox().then((b) => b?.y)).toBe(0);
+    await expect.poll(() => header.boundingBox().then((b) => b?.y)).toBeCloseTo(Math.min(width, 590) * 36 / 750, 1);
     await detail.evaluate(() => window.scrollTo(0, 0));
   }
   const tabs = detail.locator(".tab-carousel").first();

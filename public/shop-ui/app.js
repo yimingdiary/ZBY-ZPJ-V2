@@ -40,8 +40,8 @@ function updateScroll(){
  // Keep the offscreen full header out of the focus order after it has folded.
  for(const [selector,key] of [['.name-row','name'],['.reputation','reputation'],['.benefit-cards','cards'],['.official-banner','certification']])$(selector).inert=sourceOpacity(key,progress)<=0;
  miniBrand.tabIndex=mini>.5?0:-1;miniBrand.setAttribute('aria-hidden',mini<=.5);
- $('#toTop').hidden=window.scrollY<900*unit;scheduled=false;
+ scheduled=false;
 }
 window.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(updateScroll)}},{passive:true});
 window.addEventListener('resize',updateScroll);
-$('#toTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));updateScroll();
+updateScroll();
