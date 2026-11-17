@@ -1,0 +1,25 @@
+/* GENERATED from source-templates/*.json. Rebuild with scripts/compile-source-styles.py. */
+@font-face{font-family:DouyinNumberABC;src:url("assets/douyin_number_abc_medium.otf") format("opentype");font-weight:500;font-display:swap}
+.header-details{padding:4.82rem 0 0;}
+.wordmark{height:2.72rem;width:9.52rem;margin:0 0.96rem;transform:none;object-fit:contain}
+.name-row{height:2.72rem;margin:0.32rem 0.96rem 0}
+.store-name{font-size:1.5rem;font-weight:600;letter-spacing:0}
+.follow{min-width:0;width:4.32rem;height:1.92rem;border-radius:0.96rem;font-size:1.04rem;padding:0;flex-shrink:0;background:linear-gradient(101.17deg,#FF9624 0%,#FF244F 27.0%,#FF005C 100%)}
+.follow[aria-pressed=true]{background:#ffffff33;color:#ffffff57;font-size:1.04rem}
+.reputation{height:1.28rem;margin:0.32rem 0.96rem 0;width:calc(100% - 1.92rem);padding:0}
+.benefit-cards{height:4.16rem;margin:1.28rem 0 0;padding:0 0.96rem;gap:0.88rem}
+.benefit{border-radius:0.96rem}.live-preview,.member-icon{height:4.16rem;width:4.16rem;flex-shrink:0}
+.member-icon img{width:100%;height:100%}.member-icon>span{top:0.96rem;left:0.88rem;right:0.88rem;display:flex;align-items:center;justify-content:center;color:#7A513A;font-size:1.04rem;font-family:DouyinNumberABC,sans-serif;letter-spacing:0;font-weight:500;line-height:1}.member-icon>span small{font-size:0.72rem;font-family:inherit;margin-top:0.16rem}
+.benefit-copy,.member-card .benefit-copy{padding-left:0.96rem}.benefit-copy strong{font-size:1.04rem;font-weight:600;line-height:1.2}.benefit-copy small{font-size:0.88rem;font-weight:500;color:#ffffff99;line-height:1.2;margin-top:0.32rem}
+.live-card{border-color:rgba(243,149,188,.34);background:linear-gradient(281deg,rgba(255,46,122,.15) 0%,rgba(255,255,255,.06) 55%)}
+.member-card{border-color:#ffe2a433;background:linear-gradient(281.25deg,rgba(255,225,119,.15) 7%,rgba(255,255,255,.06) 54%)}
+.mini-info strong{font-size:0.75rem;font-weight:600}
+.cover-shade{background:linear-gradient(to bottom,rgba(0,0,0,var(--mask-alpha,.2)) 0%,#000000c2 50%,#000 100%)}
+.toolbar-shade{opacity:1;background:linear-gradient(to bottom,rgba(0,0,0,var(--mask-alpha,.2)),#000000c2 50%,#000)}
+@font-face{font-family:AndroidLatin;src:url(assets/android-latin.woff2) format("woff2");font-weight:100 900;font-display:swap}@font-face{font-family:AndroidCJK;src:url(assets/android-cjk.woff2) format("woff2");font-weight:400;font-display:swap}body{font-family:AndroidLatin,AndroidCJK,sans-serif}
+.cover,.cover-shade{height:23.4375rem}.toolbar-shade{display:none}
+.toolbar{padding:0;gap:0}.toolbar>button{transform:none}.toolbar .back{margin-left:.75rem;width:1.5rem;height:1.5rem;padding:0}.toolbar .share{width:1.5rem;height:1.5rem;margin:0 .75rem;padding:0}.toolbar .back img,.toolbar .share img{width:1.5rem;height:1.5rem}.toolbar .search{margin-left:calc((157 - 21*var(--search-progress,0))*1rem/16);flex:1;min-width:0;width:auto;height:2.25rem;padding:0 .5rem;background:#ffffff30;border-color:#ffffff26;border-radius:1.125rem}.mini-brand{left:2.5rem;top:.375rem;height:2rem;gap:.5rem}.mini-logo{width:2rem;height:2rem;background:url(assets/mini-logo-border.png) center/100% 100%;border:0;border-radius:0}.mini-logo img{width:1.625rem}.mini-plus{width:1rem;height:1rem;right:-.4375rem;bottom:-.25rem;background:transparent;font-size:0}.mini-plus:before{content:"";position:absolute;inset:0;background:url(assets/mini-follow.png) center/contain no-repeat}.mini-info strong{line-height:1rem}.mini-info>img{height:.75rem;margin-top:.1875rem}.floating-live{background:#ffffff88}
+.official-banner{isolation:isolate}.official-banner img{position:relative;z-index:1}.slide img{user-select:none;-webkit-user-drag:none}
+.store-name{line-height:2.020833rem}
+.benefit-copy strong{line-height:1.208333rem}
+.benefit-copy small{line-height:1.020833rem}

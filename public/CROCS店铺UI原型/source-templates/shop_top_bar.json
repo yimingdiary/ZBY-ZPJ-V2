@@ -1,0 +1,1726 @@
+{
+  "type": "View",
+  "style": {
+    "width": "100%",
+    "height": "100%",
+    "overflow": "visible",
+    "align_items": "center"
+  },
+  "config": {
+    "disable_scale": true,
+    "disable_adapt_screen": true
+  },
+  "elements": [
+    {
+      "type": "Image",
+      "style": {
+        "width": 24,
+        "height": 24,
+        "margin": [
+          0,
+          0,
+          0,
+          12
+        ],
+        "flex_shrink": 0
+      },
+      "attr": {
+        ":src": "option(data.slice_item_states.modal=='seven_split',\"https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_shop_close_icon.png\",\"https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/topbar/left.png\")"
+      },
+      ":click_action": "data.slice_item_actions.close_shop"
+    },
+    {
+      "type": "View",
+      "style": {
+        "flex_grow": 999,
+        "height": "100%",
+        "align_items": "center",
+        ":overflow": "option(data.slice_item_states.is_split_mode, 'hidden', 'visible')"
+      },
+      "if": "data.slice_item_extra.shop_search_style>0",
+      "elements": [
+        {
+          "type": "View",
+          "style": {
+            "flex_shrink": 0,
+            ":width": "option(data.slice_item_states.is_split_mode, 128, 149 - 21 * option((data.slice_item_states.profile_scroll_percent - 0) / (0.44 - 0) > 1, 1, option((data.slice_item_states.profile_scroll_percent - 0) / (0.44 - 0) < 0, 0, (data.slice_item_states.profile_scroll_percent - 0) / (0.44 - 0))))"
+          }
+        },
+        {
+          "type": "View",
+          "attr": {
+            "slice_key": "top_slice_info"
+          },
+          "style": {
+            "position": "absolute",
+            "left": "4",
+            "width": 124,
+            "height": "100%",
+            "overflow": "visible",
+            "align_items": "center",
+            ":opacity": "(data.slice_item_states.profile_scroll_percent - 0.27) / (0.44 - 0.27)"
+          },
+          ":click_action": "data.slice_item_actions.open_shop_detail_schema",
+          "elements": [
+            {
+              "type": "View",
+              "style": {
+                "overflow": "visible"
+              },
+              "props": {
+                ":brand_top_tag_list": "data.kol_basic_info.data.kol_top_tag_list",
+                ":follow_state": "data.slice_item_states.shop_follow_state",
+                ":profile_scroll_percent": "data.slice_item_states.profile_scroll_percent",
+                ":should_show_animate_follow": "data.slice_item_states.should_show_animate_follow",
+                ":follow_click_action": "data.slice_item_actions.follow_click",
+                ":animate_follow_show": "data.slice_item_actions.animate_follow_show",
+                ":tag_list": "data.kol_basic_info.data.kol_score_tag_list",
+                ":logo": "data.kol_header_style.data.logo.url_list[0]",
+                ":isBrandLogoColorful": "data.kol_header_style.data.logo_color==1",
+                ":shop_display_name": "data.shop_basic_info.data.shop_display_name",
+                ":hide_follow_button": "data.shop_account_info.data.hide_follow_button"
+              },
+              "if": "data.kol_basic_info.data.shop_celebrity_kol_info_v2",
+              "elements": [
+                {
+                  "type": "View",
+                  "style": {
+                    "width": 32,
+                    "height": 32,
+                    "flex_shrink": 0,
+                    "overflow": "visible",
+                    "align_items": "center",
+                    "justify_content": "center",
+                    ":bg_img": "option(props.follow_state == 'unfollow', \"https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/logo_border_unfollow.png\", \"https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/logo_border_follow.png\")"
+                  },
+                  "if": "props.logo",
+                  "elements": [
+                    {
+                      "type": "View",
+                      "attr": {
+                        "slice_key": "shop_logo"
+                      },
+                      "style": {
+                        "height": 33,
+                        "width": 33,
+                        "padding": [
+                          0.5
+                        ],
+                        "flex_shrink": 0,
+                        "radius": [
+                          8
+                        ],
+                        "bg_gradient": {
+                          "degree": "134.26",
+                          "colors": [
+                            {
+                              "color": "#FFFFFFFF",
+                              "location": 0.0127
+                            },
+                            {
+                              "color": "#57FFFFFF",
+                              "location": 0.5089
+                            },
+                            {
+                              "color": "#57FFFFFF",
+                              "location": 0.7532
+                            },
+                            {
+                              "color": "#FFFFFFFF",
+                              "location": 1
+                            }
+                          ]
+                        }
+                      },
+                      "if": "props.logo&&props.isBrandLogoColorful==true",
+                      "elements": [
+                        {
+                          "type": "View",
+                          "style": {
+                            "height": 32,
+                            "width": "100%",
+                            "radius": [
+                              8
+                            ],
+                            "flex_shrink": 0,
+                            "bg_color": "#FFFFFFFF"
+                          },
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                ":src": "props.logo",
+                                "scene_tag": "ec_shop.store_info.logo"
+                              },
+                              "style": {
+                                "height": "100%",
+                                "width": "100%",
+                                "aspect_ratio": 1,
+                                "scale_type": "center_crop",
+                                "radius": [
+                                  8
+                                ],
+                                "flex_shrink": 0
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Image",
+                      "attr": {
+                        "slice_key": "shop_logo",
+                        ":src": "props.logo",
+                        "scene_tag": "ec_shop.store_info.logo"
+                      },
+                      "style": {
+                        "width": 26,
+                        "max_height": 26
+                      },
+                      "if": "props.logo&&props.isBrandLogoColorful==false"
+                    },
+                    {
+                      "type": "View",
+                      "style": {
+                        "position": "absolute",
+                        "top": "-2",
+                        "left": "-2",
+                        "width": 36,
+                        "height": 36,
+                        "radius": [
+                          9
+                        ],
+                        "border_width": 0.889,
+                        "border_color": "#FFFF003C"
+                      },
+                      "if": "props.is_live"
+                    },
+                    {
+                      "type": "View",
+                      "style": {
+                        "position": "absolute",
+                        "width": 20,
+                        "height": 20,
+                        "bottom": "-4",
+                        "right": "-7",
+                        "align_items": "center",
+                        "justify_content": "center"
+                      },
+                      "if": "!props.hide_follow_button",
+                      "elements": [
+                        {
+                          "type": "Image",
+                          "attr": {
+                            "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/follow_btn.png",
+                            "hit_slop": [
+                              2,
+                              2,
+                              2,
+                              2
+                            ]
+                          },
+                          "style": {
+                            "width": 16,
+                            "height": 16
+                          },
+                          ":click_action": "props.follow_click_action",
+                          "if": "props.follow_state=='unfollow'"
+                        },
+                        {
+                          "type": "Image",
+                          "attr": {
+                            ":slice_key": "strcat(\"follow_button\",curTime())",
+                            "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/follow_btn.webp"
+                          },
+                          "action": {
+                            ":on_exposure": "props.animate_follow_show"
+                          },
+                          "style": {
+                            "width": 16,
+                            "height": 16
+                          },
+                          "if": "props.follow_state!='unfollow'&&props.should_show_animate_follow"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "View",
+                  "style": {
+                    "flex_direction": "column",
+                    "align_items": "flex-start",
+                    "flex_grow": 999,
+                    "margin": [
+                      1,
+                      0,
+                      0,
+                      8
+                    ]
+                  },
+                  "elements": [
+                    {
+                      "type": "ECShopScrollText",
+                      "attr": {
+                        "slice_key": "shop_name",
+                        "scroll_max_loop": "3",
+                        "scroll_speed": "10",
+                        "scroll_start_delay": "3",
+                        "scroll_end_pause": "2",
+                        "scroll_time_interval": "3",
+                        ":play_state": "option(props.profile_scroll_percent>0.7,'play','pause')",
+                        ":text": "strcat(props.shop_display_name.base_name,props.shop_display_name.shop_type_display)"
+                      },
+                      "style": {
+                        "font_size": 12,
+                        "font_weight": 600,
+                        "font_color": "#FFFFFF",
+                        "height": 16
+                      }
+                    },
+                    {
+                      "type": "Image",
+                      "attr": {
+                        ":src": "props.tag_list[0].url_list[0]"
+                      },
+                      "style": {
+                        "height": 12,
+                        "margin": [
+                          3,
+                          0,
+                          0
+                        ],
+                        "flex_shrink": 0
+                      },
+                      "if": "!props.brand_top_tag_list&&props.tag_list[0]"
+                    },
+                    {
+                      "type": "ECShopTagList",
+                      "attr": {
+                        ":tag_list": "props.brand_top_tag_list"
+                      },
+                      "style": {
+                        ":height": "props.brand_top_tag_list.tag_list_ui.height",
+                        ":margin": "option(__globalProps.os == 'iOS', [2, 0, 0, 0], [0, 0, 0, 0])"
+                      },
+                      "if": "props.brand_top_tag_list"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "View",
+              "style": {
+                "overflow": "visible"
+              },
+              "props": {
+                ":brand_top_tag_list": "data.brand_basic_info.data.brand_top_tag_list",
+                ":follow_state": "data.slice_item_states.shop_follow_state",
+                ":profile_scroll_percent": "data.slice_item_states.profile_scroll_percent",
+                ":should_show_animate_follow": "data.slice_item_states.should_show_animate_follow",
+                ":follow_click_action": "data.slice_item_actions.follow_click",
+                ":animate_follow_show": "data.slice_item_actions.animate_follow_show",
+                ":tag_list": "data.shop_basic_info.data.tag_list",
+                ":logo": "data.brand_header_style.data.logo.url_list[0]",
+                ":isBrandLogoColorful": "data.brand_header_style.data.logo_color==1",
+                ":shop_display_name": "data.shop_basic_info.data.shop_display_name",
+                ":hide_follow_button": "data.shop_account_info.data.hide_follow_button"
+              },
+              "if": "!data.kol_basic_info.data.shop_celebrity_kol_info_v2",
+              "elements": [
+                {
+                  "type": "View",
+                  "style": {
+                    "width": 32,
+                    "height": 32,
+                    "flex_shrink": 0,
+                    "overflow": "visible",
+                    "align_items": "center",
+                    "justify_content": "center",
+                    ":bg_img": "option(props.follow_state == 'unfollow', \"https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/logo_border_unfollow.png\", \"https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/logo_border_follow.png\")"
+                  },
+                  "if": "props.logo",
+                  "elements": [
+                    {
+                      "type": "View",
+                      "attr": {
+                        "slice_key": "shop_logo"
+                      },
+                      "style": {
+                        "height": 33,
+                        "width": 33,
+                        "padding": [
+                          0.5
+                        ],
+                        "flex_shrink": 0,
+                        "radius": [
+                          8
+                        ],
+                        "bg_gradient": {
+                          "degree": "134.26",
+                          "colors": [
+                            {
+                              "color": "#FFFFFFFF",
+                              "location": 0.0127
+                            },
+                            {
+                              "color": "#57FFFFFF",
+                              "location": 0.5089
+                            },
+                            {
+                              "color": "#57FFFFFF",
+                              "location": 0.7532
+                            },
+                            {
+                              "color": "#FFFFFFFF",
+                              "location": 1
+                            }
+                          ]
+                        }
+                      },
+                      "if": "props.logo&&props.isBrandLogoColorful==true",
+                      "elements": [
+                        {
+                          "type": "View",
+                          "style": {
+                            "height": 32,
+                            "width": "100%",
+                            "radius": [
+                              8
+                            ],
+                            "flex_shrink": 0,
+                            "bg_color": "#FFFFFFFF"
+                          },
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                ":src": "props.logo",
+                                "scene_tag": "ec_shop.store_info.logo"
+                              },
+                              "style": {
+                                "height": "100%",
+                                "width": "100%",
+                                "aspect_ratio": 1,
+                                "scale_type": "center_crop",
+                                "radius": [
+                                  8
+                                ],
+                                "flex_shrink": 0
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Image",
+                      "attr": {
+                        "slice_key": "shop_logo",
+                        ":src": "props.logo",
+                        "scene_tag": "ec_shop.store_info.logo"
+                      },
+                      "style": {
+                        "width": 26,
+                        "max_height": 26
+                      },
+                      "if": "props.logo&&props.isBrandLogoColorful==false"
+                    },
+                    {
+                      "type": "View",
+                      "style": {
+                        "position": "absolute",
+                        "top": "-2",
+                        "left": "-2",
+                        "width": 36,
+                        "height": 36,
+                        "radius": [
+                          9
+                        ],
+                        "border_width": 0.889,
+                        "border_color": "#FFFF003C"
+                      },
+                      "if": "props.is_live"
+                    },
+                    {
+                      "type": "View",
+                      "style": {
+                        "position": "absolute",
+                        "width": 20,
+                        "height": 20,
+                        "bottom": "-4",
+                        "right": "-7",
+                        "align_items": "center",
+                        "justify_content": "center"
+                      },
+                      "if": "!props.hide_follow_button",
+                      "elements": [
+                        {
+                          "type": "Image",
+                          "attr": {
+                            "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/follow_btn.png",
+                            "hit_slop": [
+                              2,
+                              2,
+                              2,
+                              2
+                            ]
+                          },
+                          "style": {
+                            "width": 16,
+                            "height": 16
+                          },
+                          ":click_action": "props.follow_click_action",
+                          "if": "props.follow_state=='unfollow'"
+                        },
+                        {
+                          "type": "Image",
+                          "attr": {
+                            ":slice_key": "strcat(\"follow_button\",curTime())",
+                            "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/follow_btn.webp"
+                          },
+                          "action": {
+                            ":on_exposure": "props.animate_follow_show"
+                          },
+                          "style": {
+                            "width": 16,
+                            "height": 16
+                          },
+                          "if": "props.follow_state!='unfollow'&&props.should_show_animate_follow"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "View",
+                  "style": {
+                    "flex_direction": "column",
+                    "align_items": "flex-start",
+                    "flex_grow": 999,
+                    "margin": [
+                      1,
+                      0,
+                      0,
+                      8
+                    ]
+                  },
+                  "elements": [
+                    {
+                      "type": "ECShopScrollText",
+                      "attr": {
+                        "slice_key": "shop_name",
+                        "scroll_max_loop": "3",
+                        "scroll_speed": "10",
+                        "scroll_start_delay": "3",
+                        "scroll_end_pause": "2",
+                        "scroll_time_interval": "3",
+                        ":play_state": "option(props.profile_scroll_percent>0.7,'play','pause')",
+                        ":text": "strcat(props.shop_display_name.base_name,props.shop_display_name.shop_type_display)"
+                      },
+                      "style": {
+                        "font_size": 12,
+                        "font_weight": 600,
+                        "font_color": "#FFFFFF",
+                        "height": 16
+                      }
+                    },
+                    {
+                      "type": "Image",
+                      "attr": {
+                        ":src": "props.tag_list[0].url_list[0]"
+                      },
+                      "style": {
+                        "height": 12,
+                        "margin": [
+                          3,
+                          0,
+                          0
+                        ],
+                        "flex_shrink": 0
+                      },
+                      "if": "!props.brand_top_tag_list&&props.tag_list[0]"
+                    },
+                    {
+                      "type": "ECShopTagList",
+                      "attr": {
+                        ":tag_list": "props.brand_top_tag_list"
+                      },
+                      "style": {
+                        ":height": "props.brand_top_tag_list.tag_list_ui.height",
+                        ":margin": "option(__globalProps.os == 'iOS', [2, 0, 0, 0], [0, 0, 0, 0])"
+                      },
+                      "if": "props.brand_top_tag_list"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "View",
+          "style": {
+            "radius": [
+              18
+            ],
+            "height": 36,
+            ":bg_color": "option(__globalProps.os == 'iOS', '#00000000', '#30FFFFFF')",
+            "flex_grow": 999,
+            "margin": [
+              0,
+              0,
+              0,
+              8
+            ]
+          },
+          "elements": [
+            {
+              "type": "View",
+              "style": {
+                "position": "absolute",
+                "left": "0",
+                "right": "0",
+                "top": "0",
+                "bottom": "0",
+                ":opacity": "option(__globalProps.os == 'iOS', 0.2, 0.1)",
+                "bg_gradient": {
+                  "degree": "-5",
+                  "colors": [
+                    {
+                      "color": "#FF3C83",
+                      "location": 0
+                    },
+                    {
+                      "color": "#00FF3C83",
+                      "location": 0.4
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "BackdropBlurView",
+              "attr": {
+                "blur_radius": "10"
+              },
+              "style": {
+                "position": "absolute",
+                "top": "0",
+                "bottom": "0",
+                "left": "0",
+                "right": "0",
+                "flex_grow": 999
+              },
+              "if": "__globalProps.os=='iOS'"
+            },
+            {
+              "type": "View",
+              "style": {
+                "position": "absolute",
+                "left": "0",
+                "right": "0",
+                "top": "0",
+                "bottom": "0",
+                "radius": [
+                  18
+                ],
+                "border_width": 1,
+                "border_color": "#26FFFFFF"
+              }
+            },
+            {
+              "type": "ECShopSearchBar",
+              "attr": {
+                "slice_key": "shop_search",
+                ":factor": "option((data.slice_item_states.profile_scroll_percent-0)/(0.44-0)>1,1,option((data.slice_item_states.profile_scroll_percent-0)/(0.44-0)<0,0,(data.slice_item_states.profile_scroll_percent-0)/(0.44-0)))",
+                "show_search_buttons": "false",
+                "search_icon_color": "#FFFFFF",
+                "default_placeholder": "搜索本店商品",
+                "placeholder_color": "#99FFFFFF",
+                "camera_color": "#99FFFFFF",
+                "seperator_color": "#66FFFFFF",
+                "search_text_color": "#FFFFFF"
+              },
+              "style": {
+                "flex_grow": 999
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "View",
+      "style": {
+        "flex_grow": 999,
+        "height": "100%",
+        "align_items": "center",
+        ":overflow": "option(data.slice_item_states.is_split_mode, 'hidden', 'visible')"
+      },
+      "if": "!(data.slice_item_extra.shop_search_style>0)",
+      "elements": [
+        {
+          "type": "View",
+          "attr": {
+            "slice_key": "top_slice_info"
+          },
+          "style": {
+            ":opacity": "(data.slice_item_states.profile_scroll_percent - 0.19) / (0.76 - 0.19)",
+            "overflow": "visible"
+          },
+          ":click_action": "data.slice_item_actions.open_shop_detail_schema",
+          "elements": [
+            {
+              "type": "View",
+              "attr": {
+                "slice_key": "follow_popup_container"
+              },
+              "style": {
+                "width": "100%",
+                "padding": [
+                  0,
+                  0,
+                  0,
+                  6
+                ],
+                "overflow": "visible",
+                "align_items": "center"
+              },
+              "props": {
+                ":brand_top_tag_list": "data.kol_basic_info.data.kol_top_tag_list",
+                ":follow_state": "data.slice_item_states.shop_follow_state",
+                ":fans_level": "data.slice_item_states.shop_fans_level",
+                ":profile_scroll_percent": "data.slice_item_states.profile_scroll_percent",
+                ":should_show_animate_follow": "data.slice_item_states.should_show_animate_follow",
+                ":follow_click_action": "data.slice_item_actions.follow_click",
+                ":fans_club_click_action": "data.slice_item_actions.fans_club_click",
+                ":animate_follow_show": "data.slice_item_actions.animate_follow_show",
+                ":tag_list": "data.kol_basic_info.data.kol_score_tag_list",
+                ":logo": "data.kol_header_style.data.logo.url_list[0]",
+                ":shop_display_name": "data.shop_basic_info.data.shop_display_name",
+                ":hide_follow_button": "data.shop_account_info.data.hide_follow_button",
+                ":value_info": "data.shop_basic_info.data.value_info",
+                ":isBrandLogoColorful": "data.kol_header_style.data.logo_color==1"
+              },
+              "if": "data.kol_basic_info.data.shop_celebrity_kol_info_v2",
+              "elements": [
+                {
+                  "type": "View",
+                  "attr": {
+                    "slice_key": "shop_logo"
+                  },
+                  "style": {
+                    "height": 33,
+                    "max_width": 63,
+                    "flex_shrink": 0,
+                    "radius": [
+                      8
+                    ],
+                    "bg_gradient": {
+                      "degree": "134.26",
+                      "colors": [
+                        {
+                          "color": "#FFFFFFFF",
+                          "location": 0.0127
+                        },
+                        {
+                          "color": "#57FFFFFF",
+                          "location": 0.5089
+                        },
+                        {
+                          "color": "#57FFFFFF",
+                          "location": 0.7532
+                        },
+                        {
+                          "color": "#FFFFFFFF",
+                          "location": 1
+                        }
+                      ]
+                    }
+                  },
+                  "if": "props.logo&&props.isBrandLogoColorful==true",
+                  "elements": [
+                    {
+                      "type": "View",
+                      "style": {
+                        "height": 32,
+                        "radius": [
+                          8
+                        ],
+                        "flex_shrink": 0,
+                        "bg_color": "#FFFFFFFF"
+                      },
+                      "elements": [
+                        {
+                          "type": "Image",
+                          "attr": {
+                            ":src": "props.logo",
+                            "scene_tag": "ec_shop.store_info.logo"
+                          },
+                          "style": {
+                            "height": 32,
+                            "max_width": 63,
+                            "aspect_ratio": 1,
+                            "scale_type": "center_crop",
+                            "radius": [
+                              8
+                            ],
+                            "flex_shrink": 0
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Image",
+                  "attr": {
+                    "slice_key": "shop_logo",
+                    ":src": "props.logo",
+                    "scene_tag": "ec_shop.store_info.logo"
+                  },
+                  "style": {
+                    ":height": "option(props.isBrandLogoColorful, 30, 18)",
+                    "max_width": 63,
+                    ":aspect_ratio": "option(props.isBrandLogoColorful, 1, '')",
+                    ":scale_type": "option(props.isBrandLogoColorful, 'center_crop', 'fit_center')",
+                    ":radius": "option(props.isBrandLogoColorful, [7,7,7,7], [0,0,0,0])",
+                    ":border_width": "option(props.isBrandLogoColorful, 0.5, 0)",
+                    "border_color": "#33FFFFFF",
+                    "flex_shrink": 0
+                  },
+                  "if": "props.logo&&!props.isBrandLogoColorful"
+                },
+                {
+                  "type": "View",
+                  "style": {
+                    "flex_direction": "column",
+                    "flex_grow": 999,
+                    "margin": [
+                      0,
+                      0,
+                      0,
+                      6
+                    ]
+                  },
+                  "elements": [
+                    {
+                      "type": "ECShopScrollText",
+                      "attr": {
+                        "slice_key": "shop_name",
+                        "scroll_max_loop": "3",
+                        "scroll_speed": "10",
+                        "scroll_start_delay": "3",
+                        "scroll_end_pause": "2",
+                        "scroll_time_interval": "3",
+                        ":play_state": "option(props.profile_scroll_percent>0.7,'play','pause')",
+                        ":text": "strcat(props.shop_display_name.base_name,props.shop_display_name.shop_type_display)"
+                      },
+                      "style": {
+                        "font_size": 12,
+                        "font_weight": 600,
+                        "font_color": "#FFFFFF"
+                      }
+                    },
+                    {
+                      "type": "View",
+                      "style": {
+                        "height": 14,
+                        "margin": [
+                          2,
+                          0,
+                          0
+                        ]
+                      },
+                      "elements": [
+                        {
+                          "type": "View",
+                          "style": {
+                            "height": "100%",
+                            "align_items": "center",
+                            "flex_wrap": "wrap"
+                          },
+                          ":click_action": "data.slice_item_actions.open_shop_detail_schema",
+                          "props": {
+                            ":tag_list": "props.tag_list",
+                            ":value_info": "props.value_info",
+                            ":hide_fans_value": "props.hide_follow_button",
+                            "font_size": "10"
+                          },
+                          "if": "!props.brand_top_tag_list",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                ":src": "props.tag_list[0].url_list[0]"
+                              },
+                              "style": {
+                                "height": "100%",
+                                ":margin": "[0,option(props.value_info.fans && !props.hide_fans_value || props.value_info.sales && (!props.tag_list[0] || !(props.value_info.fans && !props.hide_fans_value)), 6, 0),0,0]",
+                                "flex_shrink": 0
+                              },
+                              "if": "props.tag_list[0]"
+                            },
+                            {
+                              "type": "View",
+                              "style": {
+                                "height": "100%",
+                                "align_items": "center"
+                              },
+                              "if": "props.value_info.fans&&!props.hide_fans_value",
+                              "elements": [
+                                {
+                                  "type": "View",
+                                  "props": {
+                                    ":desc": "props.value_info.fans.desc",
+                                    ":content": "props.value_info.fans.number_text",
+                                    ":suffix": "props.value_info.fans.unit",
+                                    ":font_size": "props.font_size"
+                                  },
+                                  "elements": [
+                                    {
+                                      "type": "Text",
+                                      "attr": {
+                                        ":text": "strcat(props.desc,props.content,props.suffix)"
+                                      },
+                                      "style": {
+                                        ":font_size": "props.font_size",
+                                        "font_color": "#bfffffff",
+                                        "font_weight": 400,
+                                        "end_ellipse": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "View",
+                              "style": {
+                                "height": "100%",
+                                "align_items": "center"
+                              },
+                              "if": "props.value_info.sales&&(!props.tag_list[0]||!(props.value_info.fans&&!props.hide_fans_value))",
+                              "elements": [
+                                {
+                                  "type": "View",
+                                  "style": {
+                                    ":width": "1/3",
+                                    "height": 10,
+                                    "margin": [
+                                      0,
+                                      6
+                                    ],
+                                    "flex_shrink": 0,
+                                    "bg_color": "#73FFFFFF"
+                                  },
+                                  "if": "props.value_info.fans&&!props.hide_fans_value"
+                                },
+                                {
+                                  "type": "View",
+                                  "props": {
+                                    ":desc": "props.value_info.sales.desc",
+                                    ":content": "props.value_info.sales.number_text",
+                                    ":suffix": "props.value_info.sales.unit",
+                                    ":font_size": "props.font_size"
+                                  },
+                                  "elements": [
+                                    {
+                                      "type": "Text",
+                                      "attr": {
+                                        ":text": "strcat(props.desc,props.content,props.suffix)"
+                                      },
+                                      "style": {
+                                        ":font_size": "props.font_size",
+                                        "font_color": "#bfffffff",
+                                        "font_weight": 400,
+                                        "end_ellipse": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "ECShopTagList",
+                          "attr": {
+                            ":tag_list": "props.brand_top_tag_list"
+                          },
+                          "if": "props.brand_top_tag_list"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "View",
+                  "attr": {
+                    "slice_key": "follow_button",
+                    "hit_slop": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ]
+                  },
+                  "style": {
+                    "margin": [
+                      0,
+                      0,
+                      0,
+                      6
+                    ],
+                    "flex_shrink": 0,
+                    "width": 52,
+                    "height": 22,
+                    "radius": [
+                      11
+                    ]
+                  },
+                  "if": "!props.hide_follow_button",
+                  "elements": [
+                    {
+                      "type": "View",
+                      "style": {
+                        "width": "100%",
+                        "height": "100%"
+                      },
+                      "props": {
+                        ":follow_state": "props.follow_state",
+                        ":fans_level": "props.fans_level",
+                        ":follow_click_action": "props.follow_click_action",
+                        ":fans_club_click_action": "props.fans_club_click_action"
+                      },
+                      "elements": [
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_gradient": {
+                              "degree": 101.17,
+                              "colors": [
+                                {
+                                  "color": "#FF9624",
+                                  "location": 0
+                                },
+                                {
+                                  "color": "#FF244F",
+                                  "location": 0.27
+                                },
+                                {
+                                  "color": "#FF005C",
+                                  "location": 1
+                                }
+                              ]
+                            }
+                          },
+                          ":click_action": "props.follow_click_action",
+                          "if": "props.follow_state=='unfollow'",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/profile/shop_follow_icon_new.png"
+                              },
+                              "style": {
+                                "width": 11,
+                                "height": 11,
+                                "tint_color": "#FFFFFF"
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "attr": {
+                                "text": "关注"
+                              },
+                              "style": {
+                                "font_size": 12,
+                                "font_weight": 500,
+                                "font_color": "#FFFFFF",
+                                "margin": [
+                                  0,
+                                  0,
+                                  0,
+                                  1
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_color": "#33FFFFFF"
+                          },
+                          ":click_action": "props.follow_click_action",
+                          "if": "props.follow_state=='follow'",
+                          "elements": [
+                            {
+                              "type": "Text",
+                              "attr": {
+                                "text": "已关注"
+                              },
+                              "style": {
+                                "font_size": 12,
+                                "font_weight": 500,
+                                "font_color": "#57FFFFFF"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_color": "#FFCCDC"
+                          },
+                          ":click_action": "props.fans_club_click_action",
+                          "if": "props.follow_state=='join_fans'",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_store_info_join_fans_group_image.png"
+                              },
+                              "style": {
+                                "width": 23,
+                                "height": 16
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_color": "#FFCCDC"
+                          },
+                          ":click_action": "props.fans_club_click_action",
+                          "if": "props.follow_state=='fans_level'",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_store_info_fans_group_heart_image.png"
+                              },
+                              "style": {
+                                "width": 23,
+                                "height": 16
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "attr": {
+                                ":text": "props.fans_level"
+                              },
+                              "style": {
+                                "font_size": 9,
+                                "font_weight": 600,
+                                "font_color": "#FFFFFF",
+                                "position": "absolute",
+                                "text_align": "center"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "View",
+              "attr": {
+                "slice_key": "follow_popup_container"
+              },
+              "style": {
+                "width": "100%",
+                "padding": [
+                  0,
+                  0,
+                  0,
+                  6
+                ],
+                "overflow": "visible",
+                "align_items": "center"
+              },
+              "props": {
+                ":brand_top_tag_list": "data.brand_basic_info.data.brand_top_tag_list",
+                ":follow_state": "data.slice_item_states.shop_follow_state",
+                ":fans_level": "data.slice_item_states.shop_fans_level",
+                ":profile_scroll_percent": "data.slice_item_states.profile_scroll_percent",
+                ":should_show_animate_follow": "data.slice_item_states.should_show_animate_follow",
+                ":follow_click_action": "data.slice_item_actions.follow_click",
+                ":fans_club_click_action": "data.slice_item_actions.fans_club_click",
+                ":animate_follow_show": "data.slice_item_actions.animate_follow_show",
+                ":tag_list": "data.shop_basic_info.data.tag_list",
+                ":logo": "data.brand_header_style.data.logo.url_list[0]",
+                ":shop_display_name": "data.shop_basic_info.data.shop_display_name",
+                ":hide_follow_button": "data.shop_account_info.data.hide_follow_button",
+                ":value_info": "data.shop_basic_info.data.value_info",
+                ":isBrandLogoColorful": "data.brand_header_style.data.logo_color==1"
+              },
+              "if": "!data.kol_basic_info.data.shop_celebrity_kol_info_v2",
+              "elements": [
+                {
+                  "type": "View",
+                  "attr": {
+                    "slice_key": "shop_logo"
+                  },
+                  "style": {
+                    "height": 33,
+                    "max_width": 63,
+                    "flex_shrink": 0,
+                    "radius": [
+                      8
+                    ],
+                    "bg_gradient": {
+                      "degree": "134.26",
+                      "colors": [
+                        {
+                          "color": "#FFFFFFFF",
+                          "location": 0.0127
+                        },
+                        {
+                          "color": "#57FFFFFF",
+                          "location": 0.5089
+                        },
+                        {
+                          "color": "#57FFFFFF",
+                          "location": 0.7532
+                        },
+                        {
+                          "color": "#FFFFFFFF",
+                          "location": 1
+                        }
+                      ]
+                    }
+                  },
+                  "if": "props.logo&&props.isBrandLogoColorful==true",
+                  "elements": [
+                    {
+                      "type": "View",
+                      "style": {
+                        "height": 32,
+                        "radius": [
+                          8
+                        ],
+                        "flex_shrink": 0,
+                        "bg_color": "#FFFFFFFF"
+                      },
+                      "elements": [
+                        {
+                          "type": "Image",
+                          "attr": {
+                            ":src": "props.logo",
+                            "scene_tag": "ec_shop.store_info.logo"
+                          },
+                          "style": {
+                            "height": 32,
+                            "max_width": 63,
+                            "aspect_ratio": 1,
+                            "scale_type": "center_crop",
+                            "radius": [
+                              8
+                            ],
+                            "flex_shrink": 0
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Image",
+                  "attr": {
+                    "slice_key": "shop_logo",
+                    ":src": "props.logo",
+                    "scene_tag": "ec_shop.store_info.logo"
+                  },
+                  "style": {
+                    ":height": "option(props.isBrandLogoColorful, 30, 18)",
+                    "max_width": 63,
+                    ":aspect_ratio": "option(props.isBrandLogoColorful, 1, '')",
+                    ":scale_type": "option(props.isBrandLogoColorful, 'center_crop', 'fit_center')",
+                    ":radius": "option(props.isBrandLogoColorful, [7,7,7,7], [0,0,0,0])",
+                    ":border_width": "option(props.isBrandLogoColorful, 0.5, 0)",
+                    "border_color": "#33FFFFFF",
+                    "flex_shrink": 0
+                  },
+                  "if": "props.logo&&!props.isBrandLogoColorful"
+                },
+                {
+                  "type": "View",
+                  "style": {
+                    "flex_direction": "column",
+                    "flex_grow": 999,
+                    "margin": [
+                      0,
+                      0,
+                      0,
+                      6
+                    ]
+                  },
+                  "elements": [
+                    {
+                      "type": "ECShopScrollText",
+                      "attr": {
+                        "slice_key": "shop_name",
+                        "scroll_max_loop": "3",
+                        "scroll_speed": "10",
+                        "scroll_start_delay": "3",
+                        "scroll_end_pause": "2",
+                        "scroll_time_interval": "3",
+                        ":play_state": "option(props.profile_scroll_percent>0.7,'play','pause')",
+                        ":text": "strcat(props.shop_display_name.base_name,props.shop_display_name.shop_type_display)"
+                      },
+                      "style": {
+                        "font_size": 12,
+                        "font_weight": 600,
+                        "font_color": "#FFFFFF"
+                      }
+                    },
+                    {
+                      "type": "View",
+                      "style": {
+                        "height": 14,
+                        "margin": [
+                          2,
+                          0,
+                          0
+                        ]
+                      },
+                      "elements": [
+                        {
+                          "type": "View",
+                          "style": {
+                            "height": "100%",
+                            "align_items": "center",
+                            "flex_wrap": "wrap"
+                          },
+                          ":click_action": "data.slice_item_actions.open_shop_detail_schema",
+                          "props": {
+                            ":tag_list": "props.tag_list",
+                            ":value_info": "props.value_info",
+                            ":hide_fans_value": "props.hide_follow_button",
+                            "font_size": "10"
+                          },
+                          "if": "!props.brand_top_tag_list",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                ":src": "props.tag_list[0].url_list[0]"
+                              },
+                              "style": {
+                                "height": "100%",
+                                ":margin": "[0,option(props.value_info.fans && !props.hide_fans_value || props.value_info.sales && (!props.tag_list[0] || !(props.value_info.fans && !props.hide_fans_value)), 6, 0),0,0]",
+                                "flex_shrink": 0
+                              },
+                              "if": "props.tag_list[0]"
+                            },
+                            {
+                              "type": "View",
+                              "style": {
+                                "height": "100%",
+                                "align_items": "center"
+                              },
+                              "if": "props.value_info.fans&&!props.hide_fans_value",
+                              "elements": [
+                                {
+                                  "type": "View",
+                                  "props": {
+                                    ":desc": "props.value_info.fans.desc",
+                                    ":content": "props.value_info.fans.number_text",
+                                    ":suffix": "props.value_info.fans.unit",
+                                    ":font_size": "props.font_size"
+                                  },
+                                  "elements": [
+                                    {
+                                      "type": "Text",
+                                      "attr": {
+                                        ":text": "strcat(props.desc,props.content,props.suffix)"
+                                      },
+                                      "style": {
+                                        ":font_size": "props.font_size",
+                                        "font_color": "#bfffffff",
+                                        "font_weight": 400,
+                                        "end_ellipse": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "View",
+                              "style": {
+                                "height": "100%",
+                                "align_items": "center"
+                              },
+                              "if": "props.value_info.sales&&(!props.tag_list[0]||!(props.value_info.fans&&!props.hide_fans_value))",
+                              "elements": [
+                                {
+                                  "type": "View",
+                                  "style": {
+                                    ":width": "1/3",
+                                    "height": 10,
+                                    "margin": [
+                                      0,
+                                      6
+                                    ],
+                                    "flex_shrink": 0,
+                                    "bg_color": "#73FFFFFF"
+                                  },
+                                  "if": "props.value_info.fans&&!props.hide_fans_value"
+                                },
+                                {
+                                  "type": "View",
+                                  "props": {
+                                    ":desc": "props.value_info.sales.desc",
+                                    ":content": "props.value_info.sales.number_text",
+                                    ":suffix": "props.value_info.sales.unit",
+                                    ":font_size": "props.font_size"
+                                  },
+                                  "elements": [
+                                    {
+                                      "type": "Text",
+                                      "attr": {
+                                        ":text": "strcat(props.desc,props.content,props.suffix)"
+                                      },
+                                      "style": {
+                                        ":font_size": "props.font_size",
+                                        "font_color": "#bfffffff",
+                                        "font_weight": 400,
+                                        "end_ellipse": true
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "ECShopTagList",
+                          "attr": {
+                            ":tag_list": "props.brand_top_tag_list"
+                          },
+                          "if": "props.brand_top_tag_list"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "View",
+                  "attr": {
+                    "slice_key": "follow_button",
+                    "hit_slop": [
+                      4,
+                      4,
+                      4,
+                      4
+                    ]
+                  },
+                  "style": {
+                    "margin": [
+                      0,
+                      0,
+                      0,
+                      6
+                    ],
+                    "flex_shrink": 0,
+                    "width": 52,
+                    "height": 22,
+                    "radius": [
+                      11
+                    ]
+                  },
+                  "if": "!props.hide_follow_button",
+                  "elements": [
+                    {
+                      "type": "View",
+                      "style": {
+                        "width": "100%",
+                        "height": "100%"
+                      },
+                      "props": {
+                        ":follow_state": "props.follow_state",
+                        ":fans_level": "props.fans_level",
+                        ":follow_click_action": "props.follow_click_action",
+                        ":fans_club_click_action": "props.fans_club_click_action"
+                      },
+                      "elements": [
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_gradient": {
+                              "degree": 101.17,
+                              "colors": [
+                                {
+                                  "color": "#FF9624",
+                                  "location": 0
+                                },
+                                {
+                                  "color": "#FF244F",
+                                  "location": 0.27
+                                },
+                                {
+                                  "color": "#FF005C",
+                                  "location": 1
+                                }
+                              ]
+                            }
+                          },
+                          ":click_action": "props.follow_click_action",
+                          "if": "props.follow_state=='unfollow'",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/profile/shop_follow_icon_new.png"
+                              },
+                              "style": {
+                                "width": 11,
+                                "height": 11,
+                                "tint_color": "#FFFFFF"
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "attr": {
+                                "text": "关注"
+                              },
+                              "style": {
+                                "font_size": 12,
+                                "font_weight": 500,
+                                "font_color": "#FFFFFF",
+                                "margin": [
+                                  0,
+                                  0,
+                                  0,
+                                  1
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_color": "#33FFFFFF"
+                          },
+                          ":click_action": "props.follow_click_action",
+                          "if": "props.follow_state=='follow'",
+                          "elements": [
+                            {
+                              "type": "Text",
+                              "attr": {
+                                "text": "已关注"
+                              },
+                              "style": {
+                                "font_size": 12,
+                                "font_weight": 500,
+                                "font_color": "#57FFFFFF"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_color": "#FFCCDC"
+                          },
+                          ":click_action": "props.fans_club_click_action",
+                          "if": "props.follow_state=='join_fans'",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_store_info_join_fans_group_image.png"
+                              },
+                              "style": {
+                                "width": 23,
+                                "height": 16
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "View",
+                          "style": {
+                            "width": "100%",
+                            "align_items": "center",
+                            "justify_content": "center",
+                            "bg_color": "#FFCCDC"
+                          },
+                          ":click_action": "props.fans_club_click_action",
+                          "if": "props.follow_state=='fans_level'",
+                          "elements": [
+                            {
+                              "type": "Image",
+                              "attr": {
+                                "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_store_info_fans_group_heart_image.png"
+                              },
+                              "style": {
+                                "width": 23,
+                                "height": 16
+                              }
+                            },
+                            {
+                              "type": "Text",
+                              "attr": {
+                                ":text": "props.fans_level"
+                              },
+                              "style": {
+                                "font_size": 9,
+                                "font_weight": 600,
+                                "font_color": "#FFFFFF",
+                                "position": "absolute",
+                                "text_align": "center"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Image",
+          "style": {
+            "width": 24,
+            "height": 24,
+            ":margin": "[0,0,0,option(data.slice_item_states.is_split_mode, 8, 12)]",
+            "flex_shrink": 0
+          },
+          "attr": {
+            "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/topbar/search.png"
+          },
+          ":click_action": "data.slice_item_actions.search",
+          "action": {
+            ":on_exposure": "data.slice_item_actions.shop_show_search"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Image",
+      "attr": {
+        "slice_key": "share_button",
+        "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/topbar/ic_share_outlined.png"
+      },
+      "style": {
+        "width": 24,
+        "height": 24,
+        "margin": [
+          0,
+          12
+        ],
+        "flex_shrink": 0
+      },
+      ":click_action": "data.slice_item_actions.share",
+      "action": {
+        ":on_exposure": "data.slice_item_actions.shop_show_search.shop_share_entrance_show"
+      },
+      "if": "!data.slice_item_states.is_split_mode&&!(__globalProps.os=='openHarmony')"
+    },
+    {
+      "type": "View",
+      "style": {
+        "width": 24,
+        "height": 24,
+        "margin": [
+          0,
+          12
+        ],
+        "flex_shrink": 0
+      },
+      "if": "__globalProps.os=='openHarmony'",
+      "elements": [
+        {
+          "type": "HarmonyMoreItem"
+        }
+      ]
+    },
+    {
+      "type": "View",
+      "style": {
+        ":width": "24 * option(1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5 > 1, 1, option(1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5 < 0, 0, 1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5))",
+        "height": 24,
+        ":opacity": "option(1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5 > 1, 1, option(1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5 < 0, 0, 1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5))",
+        ":margin": "[0,8 * option(1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5 > 1, 1, option(1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5 < 0, 0, 1 - option(data.slice_item_states.profile_scroll_percent > 1, 1, option(data.slice_item_states.profile_scroll_percent < 0, 0, data.slice_item_states.profile_scroll_percent)) * 5)),0,8]",
+        "flex_shrink": 0,
+        "overflow": "hidden"
+      },
+      "if": "data.slice_item_states.is_split_mode",
+      "elements": [
+        {
+          "type": "Image",
+          "attr": {
+            "slice_key": "share_button",
+            "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_shop_share.png"
+          },
+          "style": {
+            "width": 24,
+            "height": 24,
+            "flex_shrink": 0
+          },
+          ":click_action": "data.slice_item_actions.share",
+          "action": {
+            ":on_exposure": "data.slice_item_actions.shop_show_search.shop_share_entrance_show"
+          }
+        }
+      ]
+    },
+    {
+      "type": "Image",
+      "attr": {
+        "slice_key": "split_close_button",
+        "src": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/ec_shop_close_icon.png"
+      },
+      "style": {
+        "width": 24,
+        "height": 24,
+        "margin": [
+          0,
+          12,
+          0,
+          0
+        ],
+        "flex_shrink": 0
+      },
+      ":click_action": "data.slice_item_actions.close_split",
+      "if": "data.slice_item_states.is_split_mode"
+    }
+  ]
+}

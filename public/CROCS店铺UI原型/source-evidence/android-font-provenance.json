@@ -1,0 +1,18 @@
+[
+  {
+    "source": "/system/fonts/NotoSansCJK-Regular.ttc",
+    "ttc_index": 2,
+    "raw_sha256": "d15e66af2b765e1d3e0861f22408dedb3cfec157d1f8b912a348eb8c45fbe4cc",
+    "output": "android-cjk.woff2",
+    "subset_characters": 352,
+    "bytes": 84340
+  },
+  {
+    "source": "/system/fonts/Roboto-Regular.ttf",
+    "ttc_index": null,
+    "raw_sha256": "f10a4d95fb922a38aeeae842005dfdc4c7ef1e7a66308f6379d749c44133b876",
+    "output": "android-latin.woff2",
+    "subset_characters": 352,
+    "bytes": 59488
+  }
+]

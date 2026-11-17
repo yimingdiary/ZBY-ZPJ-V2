@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_sign_component/logo_border_unfollow.png",
+    "file": "mini-logo-border.png",
+    "bytes": 7777,
+    "sha256": "3a98a6076b193bd402c11ee2f01d71de5642524c1372225a49a3d723dc83a283"
+  },
+  {
+    "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/topbar/ic_share_outlined.png",
+    "file": "share.png",
+    "bytes": 906,
+    "sha256": "6ffafebd9885513b8974baa21028338157cedbc56bc386d935c4d9efb627cd07"
+  },
+  {
+    "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/follow_btn.png",
+    "file": "mini-follow.png",
+    "bytes": 1364,
+    "sha256": "79cea2cb511ad59f30fa3ecd0debf32e0568fdf7d2a20f5fa42645baee235303"
+  },
+  {
+    "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/wvoz_j_tvjl/ljhwZthlaukjlkulzlp/shop_slice/topbar/left.png",
+    "file": "back.png",
+    "bytes": 340,
+    "sha256": "f3b6957c64b9d54088794921a3121f7dcf72e13ea615633077409bb9403f9fcf"
+  }
+]

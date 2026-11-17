@@ -1,0 +1,20 @@
+[
+  {
+    "name": "shop_profile_brand",
+    "url": "https://lf-webcast-sourcecdn-tos.bytegecko.com/obj/byte-gurd-source/10181/gecko/resource/ecom_shop_slice_template/shop_profile_brand/main.json",
+    "http_status": 200,
+    "original_file": "shop_profile_brand.original.json",
+    "sha256": "5d10f35ddeb3628b291475e42f12ad6fc6b3f7a5afdfebf05ef3cec8c9523a28",
+    "bytes": 22678,
+    "runtime_cache_version_matched": false
+  },
+  {
+    "name": "shop_top_bar",
+    "url": "https://lf-webcast-sourcecdn-tos.bytegecko.com/obj/byte-gurd-source/10181/gecko/resource/ecom_shop_slice_template/shop_top_bar/main.json",
+    "http_status": 200,
+    "original_file": "shop_top_bar.original.json",
+    "sha256": "b56c07c1592df7731f9f6c186b2481a1a7d6e0a65b8399ebdb62105d76dc847e",
+    "bytes": 29995,
+    "runtime_cache_version_matched": false
+  }
+]

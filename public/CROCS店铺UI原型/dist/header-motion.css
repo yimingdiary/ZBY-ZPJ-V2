@@ -1,0 +1,36 @@
+/* The store backdrop stays in place while the foreground header folds away. */
+body{padding:0}.store{border-radius:0}.store-header{background:transparent;overflow:visible;border-radius:0}
+.cover,.cover-shade,.toolbar-shade{position:fixed;left:50%;right:auto;bottom:auto;top:0;transform:translateX(-50%);width:min(100%,590px);height:21.875rem;pointer-events:none;z-index:0}
+.cover{background-color:#30240f;background-position:center top;background-size:100% auto}
+.cover-shade{background:linear-gradient(180deg,#00000015 0%,#10090020 21%,#140d00a8 48%,#1a1102d9 74%,#30210c 100%)}
+.toolbar-shade{height:4.5rem;z-index:22;background:linear-gradient(#15120a55,#17110b45 70%,#17110b30);opacity:var(--toolbar-opacity,0)}
+.statusbar{position:fixed;top:0;left:50%;transform:translateX(-50%);width:min(100%,590px);height:1.5rem;z-index:31;color:#fff}
+.toolbar{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);width:min(100%,590px);height:2.75rem;padding:0 .65rem;z-index:30;gap:.625rem;color:#fff;background:none;box-shadow:none}
+.toolbar .icon-button{flex-shrink:0}.toolbar .icon-button img{filter:none}
+.toolbar .search{width:calc(14.45rem + var(--mini-progress,0)*1.85rem);background:#ffffff2b;color:#ffffff9c;border:1px solid #ffffff30;backdrop-filter:none;transition:none;flex-shrink:0}
+.toolbar .search svg{color:#fff}.toolbar>button{transform:translateY(.25rem)}
+.mini-brand{position:absolute;left:2.25rem;top:.38rem;display:flex;align-items:center;gap:.45rem;width:7.75rem;height:2rem;color:#fff;background:none;padding:0;opacity:var(--mini-progress,0);pointer-events:none;letter-spacing:0;font-weight:400;text-align:left}
+.has-mini .mini-brand{pointer-events:auto}.mini-logo{width:2.15rem;height:2.15rem;flex-shrink:0;border-radius:.45rem;background:linear-gradient(#372b1530,#21190a70);border:1px solid #ffffff12;position:relative;display:grid;place-items:center}
+.mini-logo img{width:1.75rem;height:auto;filter:brightness(0) invert(1)}.mini-plus{position:absolute;right:-.2rem;bottom:-.1rem;width:.85rem;height:.85rem;border-radius:50%;background:#fe2c55;color:#fff;font-size:.8rem;line-height:.8rem;text-align:center;font-weight:600}
+.mini-info{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.05rem}.mini-info strong{display:block;font-size:.65rem;font-weight:600;max-width:4.75rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;line-height:.86rem}
+.mini-info>img{height:1rem;width:auto;max-width:4.4rem;object-fit:contain;object-position:left center}
+.header-details{padding-top:4.7rem;z-index:2}.wordmark{opacity:var(--logo-opacity,1);will-change:opacity}.name-row{opacity:var(--name-opacity,1);will-change:opacity}.reputation{opacity:var(--reputation-opacity,1);will-change:opacity}.benefit-cards{opacity:var(--cards-opacity,1);will-change:opacity}
+.follow{font-weight:500}.benefit{border-radius:.9rem}.member-icon img{width:3.4rem;height:3.4rem}.member-icon>span{top:.93rem;left:1.03rem}.benefit-copy strong{font-size:1.01rem}.benefit-copy small{font-size:.9rem}.member-card .benefit-copy{padding-left:.85rem}
+.official-banner{background:url('assets/certification-bg.png') center -3.1rem/100% auto no-repeat;border:0;box-shadow:none;padding-top:.62rem;z-index:2;overflow:visible;opacity:var(--certification-opacity,1)}
+.official-banner:before{content:"";position:absolute;left:0;right:0;top:-2.9rem;height:3rem;background:url('assets/certification-bg.png') center top/100% auto no-repeat;mask-image:linear-gradient(transparent 80%,#000);pointer-events:none;opacity:.45;mix-blend-mode:screen}
+.official-banner:after{display:none}.official-banner img{height:1.3rem}.official-banner{padding-left:1.2rem}
+.shop-body{border-radius:1.25rem 1.25rem 0 0}.tabs{top:4.5rem;border-radius:1.25rem 1.25rem 0 0;padding:0 .1rem;background:#fff;height:2.625rem}.tabs>button{min-width:4.1rem}.tabs>button[aria-selected=true]{font-size:1.08rem}.tabs>button[aria-selected=true]:after{height:.14rem;width:1.22rem;left:calc(50% - .61rem);bottom:.2rem}.panel{padding-left:.5rem;padding-right:.5rem}.carousel{aspect-ratio:1078/1436;border-radius:1.2rem}.carousel-dots{bottom:.45rem}.carousel-dots button[aria-current=true]{width:.35rem;height:.35rem}.carousel-dots button{width:.25rem;height:.25rem}.sortbar{top:7.125rem;margin-left:-.5rem;margin-right:-.5rem}.floating-live{position:fixed;z-index:18;right:max(.45rem,calc((100vw - 590px)/2 + .45rem));top:58%;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:.45rem;width:2.9rem;height:3.65rem;background:#fff9;border-radius:.6rem 0 0 .6rem;color:#8e7e6e;font-size:.63rem;backdrop-filter:blur(3px);padding:0;opacity:var(--floating-live-opacity,0);pointer-events:none}.is-folded .floating-live{pointer-events:auto}.floating-live-icon{display:flex;align-items:center;justify-content:center;gap:2px;width:1.3rem;height:1.3rem;background:#fa5426;border-radius:50%;color:#ffe4b2}.floating-live-icon i{width:1px;height:.4rem;background:currentColor;animation:equalize .8s alternate infinite}.floating-live-icon i:nth-child(2){height:.65rem;animation-delay:-.2s}.floating-live-icon i:nth-child(3){height:.35rem;animation-delay:-.4s}
+@media(prefers-reduced-motion:reduce){.wordmark,.name-row,.benefit-cards,.reputation{will-change:auto}}
+/* Native app has a separate cover view behind its fixed top bar. Keep it
+   above the scrolling white sheet, rather than letting posters show through. */
+.toolbar-shade{display:block!important;overflow:hidden;opacity:1;isolation:isolate;background:none!important}
+.toolbar-shade:before,.toolbar-shade:after{content:"";position:absolute;left:0;top:0;width:100%;height:23.4375rem;pointer-events:none}
+.toolbar-shade:before{background:#30240f url('assets/cover.png') center top/100% auto no-repeat}
+.toolbar-shade:after{background:linear-gradient(to bottom,rgba(0,0,0,var(--mask-alpha,.2)) 0%,#000000c2 50%,#000 100%)}
+.live-preview video{display:block;width:100%;height:100%;object-fit:cover}
+/* The corners of the sticky white tab sheet reveal the store cover too. */
+.is-folded .tabs{background:transparent}
+.is-folded .tabs:before,.is-folded .tabs:after{content:"";position:absolute;inset:0;pointer-events:none}
+.is-folded .tabs:before{z-index:-2;background-image:linear-gradient(to bottom,rgba(0,0,0,var(--mask-alpha,.2)) 0%,#000000c2 50%,#000 100%),url('assets/cover.png');background-size:100% 23.4375rem,100% auto;background-position:center -4.5rem;background-repeat:no-repeat}
+.is-folded .tabs:after{z-index:-1;background:#fff;border-radius:inherit}
+.mini-info strong{max-width:5.25rem}

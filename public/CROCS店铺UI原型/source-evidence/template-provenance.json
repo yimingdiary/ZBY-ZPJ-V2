@@ -1,0 +1,51 @@
+[
+  {
+    "name": "shop_profile_flagship",
+    "url": "https://lf-webcast-sourcecdn-tos.bytegecko.com/obj/byte-gurd-source/10181/gecko/resource/ecom_shop_slice_template/shop_profile_flagship/main.json",
+    "status": 200,
+    "bytes": 14772,
+    "sha256": "5f5be953773a298807a245964c08ee6444e645bce6e72ee1ee1541d42ba3020c",
+    "keys": [
+      "type",
+      "style",
+      "elements"
+    ]
+  },
+  {
+    "name": "shop_profile_brand",
+    "url": "https://lf-webcast-sourcecdn-tos.bytegecko.com/obj/byte-gurd-source/10181/gecko/resource/ecom_shop_slice_template/shop_profile_brand/main.json",
+    "status": 200,
+    "bytes": 22678,
+    "sha256": "5d10f35ddeb3628b291475e42f12ad6fc6b3f7a5afdfebf05ef3cec8c9523a28",
+    "keys": [
+      "type",
+      "style",
+      "elements"
+    ]
+  },
+  {
+    "name": "shop_profile_brand_concise",
+    "url": "https://lf-webcast-sourcecdn-tos.bytegecko.com/obj/byte-gurd-source/10181/gecko/resource/ecom_shop_slice_template/shop_profile_brand_concise/main.json",
+    "status": 200,
+    "bytes": 6172,
+    "sha256": "028856cb62088549cef639206d5156553e3be2ad79792715304087e461a9f6ce",
+    "keys": [
+      "type",
+      "style",
+      ":click_action",
+      "elements"
+    ]
+  },
+  {
+    "name": "shop_profile_ordinary",
+    "url": "https://lf-webcast-sourcecdn-tos.bytegecko.com/obj/byte-gurd-source/10181/gecko/resource/ecom_shop_slice_template/shop_profile_ordinary/main.json",
+    "status": 200,
+    "bytes": 6719,
+    "sha256": "df83c81d9d9b49f72cc85e5c98d156702b5cd4e52df3ade797cff8561b9e16b1",
+    "keys": [
+      "type",
+      "style",
+      "elements"
+    ]
+  }
+]

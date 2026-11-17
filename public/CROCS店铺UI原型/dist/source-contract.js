@@ -1,0 +1,53 @@
+/* Generated from original templates; no remote requests. */
+window.SOURCE_HEADER_CONTRACT = {
+  "source": "shop_profile_brand + shop_top_bar",
+  "runtime_template_version_verified": false,
+  "layout_reference_width": 375,
+  "captured_device_logical_width": 480,
+  "progress": {
+    "expression": "scrollY / getTopSheetViewHeight()",
+    "source": "TopSheetLayout.java:LIZJ"
+  },
+  "opacity": {
+    "logo": {
+      "expression": "1 - (data.slice_item_states.profile_scroll_percent - 0.02) / (0.14 - 0.02)",
+      "intercept": 1.1666666666666667,
+      "slope": -8.333333333333332
+    },
+    "name": {
+      "expression": "1 - (data.slice_item_states.profile_scroll_percent - 0.19) / (0.5 - 0.19)",
+      "intercept": 1.6129032258064515,
+      "slope": -3.2258064516129035
+    },
+    "reputation": {
+      "expression": "1 - (data.slice_item_states.profile_scroll_percent - 0.19) / (0.5 - 0.19)",
+      "intercept": 1.6129032258064515,
+      "slope": -3.2258064516129035
+    },
+    "cards": {
+      "expression": "1 - (data.slice_item_states.profile_scroll_percent - 0.19) / (0.76 - 0.19)",
+      "intercept": 1.3333333333333333,
+      "slope": -1.7543859649122806
+    },
+    "certification": {
+      "expression": "1 - (data.slice_item_states.profile_scroll_percent - 0.19) / (0.76 - 0.19)",
+      "intercept": 1.3333333333333333,
+      "slope": -1.7543859649122806
+    },
+    "mini": {
+      "expression": "(data.slice_item_states.profile_scroll_percent - 0.27) / (0.44 - 0.27)",
+      "intercept": -1.5882352941176474,
+      "slope": 5.882352941176472
+    }
+  },
+  "background_mask": {
+    "top_alpha_255_start": 51,
+    "top_alpha_255_delta": 102,
+    "middle_argb": "#C2000000",
+    "bottom_argb": "#FF000000"
+  },
+  "limits": [
+    "CDN template version has not been matched against protected runtime cache.",
+    "Native Slice custom widgets are adapted to DOM; full native engine and current server data are not available."
+  ]
+};

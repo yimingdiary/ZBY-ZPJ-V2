@@ -30,7 +30,7 @@ test("KV入口打开完整店铺，真实素材、桌面手机布局与动画均
     await expect
       .poll(() =>
         detail
-          .locator("[data-shop-page] img")
+          .locator('[data-shop-panel="0"] img')
           .evaluateAll((imgs: HTMLImageElement[]) =>
             imgs.every((i) => i.complete && i.naturalWidth > 0),
           ),
@@ -45,9 +45,9 @@ test("KV入口打开完整店铺，真实素材、桌面手机布局与动画均
       await detail
         .locator("[data-shop-page]")
         .evaluate((e) => Math.round(e.getBoundingClientRect().width)),
-    ).toBe(width === 390 ? 390 : 677);
+    ).toBe(width === 390 ? 390 : 590);
     await detail.screenshot({ path: `.cache/douyin-${width}.png` });
-    const header = detail.getByAltText("店铺页头");
+    const header = detail.locator(".toolbar");
     const firstPoster = detail.locator(".poster").first();
     expect(
       await firstPoster.evaluate((e) => e.getBoundingClientRect().top),
@@ -417,14 +417,14 @@ test("新店铺页头满宽、组件750与左右20及上下20等比适配", asyn
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 844 });
     await page.goto("/shop/crocs-11-01-11-11");
-    await expect(page.getByAltText("店铺页头")).toBeVisible();
+    await expect(page.locator(".store-header")).toBeVisible();
     const layout = await page.locator("[data-shop-page]").evaluate((root) => {
       const box = root.getBoundingClientRect();
       const blocks = [...root.querySelectorAll(".component")].map((e) =>
         e.getBoundingClientRect(),
       );
-      const header = root
-        .querySelector(".public-banner")!
+      const header = root.ownerDocument
+        .querySelector(".tabs")!
         .getBoundingClientRect();
       return {
         width: box.width,
@@ -434,7 +434,7 @@ test("新店铺页头满宽、组件750与左右20及上下20等比适配", asyn
         gaps: blocks.slice(1).map((b, i) => b.top - blocks[i].bottom),
       };
     });
-    expect(layout.width).toBe(width === 390 ? 390 : 677);
+    expect(layout.width).toBe(width === 390 ? 390 : 590);
     expect(layout.inset).toBeCloseTo((layout.width * 20) / 790, 1);
     expect(layout.blockWidth).toBeCloseTo((layout.width * 750) / 790, 1);
     expect(layout.headerGap).toBeCloseTo(0);
