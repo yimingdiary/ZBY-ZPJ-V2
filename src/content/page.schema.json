@@ -1015,7 +1015,8 @@
                                       "poster",
                                       "carousel",
                                       "tabCarousel",
-                                      "flipGrid"
+                                      "flipGrid",
+                                      "marquee"
                                     ]
                                   },
                                   "radius": {
@@ -1262,43 +1263,7 @@
                                   },
                                   "items": {
                                     "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "additionalProperties": false,
-                                      "properties": {
-                                        "empty": {
-                                          "type": "boolean"
-                                        },
-                                        "images": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                              "src": {
-                                                "type": "string",
-                                                "maxLength": 1000,
-                                                "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
-                                              },
-                                              "link": {
-                                                "type": "string",
-                                                "maxLength": 1000,
-                                                "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"
-                                              }
-                                            },
-                                            "required": [
-                                              "src",
-                                              "link"
-                                            ]
-                                          },
-                                          "maxItems": 30
-                                        }
-                                      },
-                                      "required": [
-                                        "empty",
-                                        "images"
-                                      ]
-                                    },
+                                    "items": {},
                                     "maxItems": 100
                                   },
                                   "flipDirection": {
@@ -1351,11 +1316,172 @@
                                     "type": "string",
                                     "maxLength": 1000,
                                     "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                  },
+                                  "scrollBox": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "indicatorBox": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?\\|\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "imageGap": {
+                                    "type": "string",
+                                    "maxLength": 100,
+                                    "pattern": "^\\d+(?:\\.\\d+)?$"
+                                  },
+                                  "gestures": {
+                                    "type": "boolean"
+                                  },
+                                  "pauseAfterGesture": {
+                                    "type": "boolean"
+                                  },
+                                  "showIndicator": {
+                                    "type": "boolean"
+                                  },
+                                  "direction": {
+                                    "enum": [
+                                      "left",
+                                      "right"
+                                    ]
+                                  },
+                                  "speed": {
+                                    "type": "number",
+                                    "minimum": 0.1,
+                                    "maximum": 100000
+                                  },
+                                  "pauseDuration": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100000
+                                  },
+                                  "indicatorRadius": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100000
+                                  },
+                                  "indicatorColors": {
+                                    "type": "string",
+                                    "pattern": "^#[0-9a-fA-F]{6}\\|#[0-9a-fA-F]{6}$"
                                   }
                                 },
                                 "required": [
                                   "id",
                                   "type"
+                                ],
+                                "allOf": [
+                                  {
+                                    "if": {
+                                      "properties": {
+                                        "type": {
+                                          "const": "marquee"
+                                        }
+                                      }
+                                    },
+                                    "then": {
+                                      "required": [
+                                        "items",
+                                        "moduleHeight",
+                                        "scrollBox",
+                                        "imageGap",
+                                        "gestures",
+                                        "pauseAfterGesture",
+                                        "pauseDuration",
+                                        "direction",
+                                        "speed",
+                                        "showIndicator",
+                                        "indicatorBox",
+                                        "indicatorRadius",
+                                        "indicatorColors"
+                                      ],
+                                      "properties": {
+                                        "items": {
+                                          "maxItems": 30,
+                                          "items": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                              "images": {
+                                                "type": "array",
+                                                "minItems": 1,
+                                                "maxItems": 1,
+                                                "items": {
+                                                  "type": "object",
+                                                  "additionalProperties": false,
+                                                  "properties": {
+                                                    "src": {
+                                                      "type": "string",
+                                                      "maxLength": 1000,
+                                                      "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "src"
+                                                  ]
+                                                }
+                                              },
+                                              "link": {
+                                                "type": "string",
+                                                "maxLength": 1000,
+                                                "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"
+                                              }
+                                            },
+                                            "required": [
+                                              "images",
+                                              "link"
+                                            ]
+                                          },
+                                          "type": "array"
+                                        }
+                                      }
+                                    },
+                                    "else": {
+                                      "properties": {
+                                        "items": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                              "empty": {
+                                                "type": "boolean"
+                                              },
+                                              "images": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "object",
+                                                  "additionalProperties": false,
+                                                  "properties": {
+                                                    "src": {
+                                                      "type": "string",
+                                                      "maxLength": 1000,
+                                                      "pattern": "^$|^/images/douyin-shop/(?!.*(?:\\.\\.|[\\\\%?#\\x00-\\x1f])).+\\.(?:jpg|jpeg|png|webp|gif|avif)$"
+                                                    },
+                                                    "link": {
+                                                      "type": "string",
+                                                      "maxLength": 1000,
+                                                      "pattern": "^(?:$|https?://[^\\s<>]+|/shop/[a-z0-9-]+)$"
+                                                    }
+                                                  },
+                                                  "required": [
+                                                    "src",
+                                                    "link"
+                                                  ]
+                                                },
+                                                "maxItems": 30
+                                              }
+                                            },
+                                            "required": [
+                                              "empty",
+                                              "images"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 ]
                               },
                               "maxItems": 100

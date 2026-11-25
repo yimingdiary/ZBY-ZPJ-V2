@@ -11,6 +11,8 @@ export function assertShopPages(data) {
         if (ids.has(component.id)) throw Error("店铺内部组件 ID 不得重复");
         ids.add(component.id);
         for (const key of [
+          "scrollBox",
+          "indicatorBox",
           "thumbnailBox",
           "thumbnailSize",
           "contentBox",
@@ -19,8 +21,11 @@ export function assertShopPages(data) {
         ]) {
           if (!component[key]) continue;
           const parts = component[key].split("|").map(Number);
-          const dims =
-            key === "listSettings" ? parts.slice(2, 4) : parts.slice(0, 2);
+          const dims = ["listSettings", "scrollBox", "indicatorBox"].includes(
+            key,
+          )
+            ? parts.slice(2, 4)
+            : parts.slice(0, 2);
           if (dims.some((n) => n <= 0))
             throw Error("店铺组件区域的宽度与高度必须大于 0");
         }

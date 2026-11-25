@@ -1,3 +1,4 @@
+import { marqueeMarkup, activateMarquees } from "./marquee.js";
 // 从 V1 DY-Page 提取的公开渲染引擎；不包含旧后台、鉴权或网络持久化。
 export function shopMarkup(config) {
   return config.components.map((c) => componentMarkup(c)).join("");
@@ -20,6 +21,7 @@ const hotspotMarkup = (spots) =>
     .join("");
 function componentMarkup(c, admin = false, preview = false) {
   const spots = admin && !preview ? "" : hotspotMarkup(c.hotspots);
+  if (c.type === "marquee") return marqueeMarkup(c, { esc, img, admin, spots });
   if (c.type === "poster")
     return `<div class="component poster" ${c.posterAspect ? `style="aspect-ratio:${esc(c.posterAspect)}"` : ""}>${c.image ? `<img src="${esc(img(c.image, admin))}" alt="海报">` : '<div class="empty-image">选择海报图片</div>'}${spots}</div>`;
   if (c.type === "carousel")
@@ -119,6 +121,7 @@ export function attachShop(root, config, interactive = true) {
     frames = new Set(),
     observers = [];
   let disposed = false;
+  let cleanupMarquees;
   const setTimeout = (fn, ms) => {
     const id = window.setTimeout(() => {
       timers.delete(id);
@@ -232,6 +235,11 @@ export function attachShop(root, config, interactive = true) {
   }
   function activate(root, config, admin = false, interactive = true) {
     activateCarousels(root);
+    cleanupMarquees = activateMarquees(root, config, {
+      requestAnimationFrame,
+      ResizeObserver,
+      interactive,
+    });
     root.querySelectorAll(".tab-carousel").forEach((el) => {
       const slides = [...el.querySelectorAll(".tab-slide")],
         buttons = [...el.querySelectorAll(".tab-thumb")];
@@ -444,6 +452,7 @@ export function attachShop(root, config, interactive = true) {
   activate(root, config, false, interactive);
   return () => {
     disposed = true;
+    cleanupMarquees?.();
     timers.forEach(window.clearTimeout);
     intervals.forEach(window.clearInterval);
     frames.forEach(window.cancelAnimationFrame);

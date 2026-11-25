@@ -13,7 +13,7 @@ export type Hotspot = {
 };
 export type ShopComponent = {
   id: string;
-  type: "poster" | "carousel" | "tabCarousel" | "flipGrid";
+  type: "poster" | "carousel" | "tabCarousel" | "flipGrid" | "marquee";
   [key: string]: unknown;
 };
 export type ShopDocument = {

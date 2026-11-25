@@ -1,3 +1,4 @@
+import { marqueeDefaults } from "./marquee.js";
 import { SHOP_HEADER } from "./shared";
 import { GeometryField } from "./GeometryField";
 import { useEffect, useRef } from "react";
@@ -10,6 +11,7 @@ import { HotspotField } from "./HotspotField";
 import s from "./ShopPage.module.css";
 import editorStyles from "./ShopEditor.module.css";
 export const shopNames = {
+  marquee: "抖音店铺-图片跑马灯",
   poster: "抖音店铺-静态海报",
   carousel: "抖音店铺-轮播图",
   tabCarousel: "抖音店铺-Tab轮播",
@@ -160,6 +162,62 @@ export const shopConfig: Config<
     ),
   },
   components: {
+    marquee: {
+      label: shopNames.marquee,
+      defaultProps: { ...marqueeDefaults(), hotspots: [] },
+      resolveFields: ({ props }, params) => ({
+        ...params.fields,
+        hotspots: { ...hotspots, image: props.background } as Field,
+      }),
+      fields: {
+        backgroundColor: text("背景颜色（六位 HEX 或留空）"),
+        background: image("背景图"),
+        hotspots,
+        moduleHeight: number("组件高度（718 基准）", 1),
+        scrollBox: geometry("滚动区域", ["左距", "上距", "宽度", "高度"]),
+        imageGap: text("图片间距（718 基准）"),
+        items: {
+          type: "array",
+          label: "跑马灯图片",
+          max: 30,
+          defaultItemProps: { images: [{ src: "" }], link: "" },
+          getItemSummary: (_, i) => `第 ${(i ?? 0) + 1} 张`,
+          arrayFields: {
+            images: {
+              type: "custom",
+              label: "图片",
+              render: ({ value, onChange, readOnly }) => (
+                <div className={editorStyles.assetField}>
+                  <strong>图片</strong>
+                  <ShopImagePicker
+                    value={value?.[0]?.src || ""}
+                    readOnly={readOnly}
+                    onChange={(src: string) => onChange([{ src }])}
+                  />
+                </div>
+              ),
+            },
+            link: text("此图跳转（网址或 /shop/作品标识）"),
+          },
+        },
+        direction: select("滚动方向", [
+          ["left", "向左连续滚动"],
+          ["right", "向右连续滚动"],
+        ]),
+        speed: number("滚动速度（越大越慢，建议5–10）", 0.1),
+        gestures: radio("开启手势"),
+        pauseAfterGesture: radio("手势后暂停"),
+        pauseDuration: number("暂停时长（毫秒）"),
+        showIndicator: radio("显示导标"),
+        indicatorBox: geometry("导标区域", ["左距", "上距", "宽度", "高度"]),
+        indicatorRadius: number("导标圆角"),
+        indicatorColors: text("导标颜色（底色|滑块色，六位 HEX）"),
+      },
+      render: (props) => (
+        <ShopBlock component={{ ...props, type: "marquee" }} />
+      ),
+    },
+
     poster: {
       label: shopNames.poster,
       resolveData: async ({ props }, { changed }) => {

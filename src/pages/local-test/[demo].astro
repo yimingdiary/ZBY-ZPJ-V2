@@ -1,0 +1,22 @@
+---
+import s from '../../modules/DouyinShop/ShopPage.module.css';
+import {shopMarkup} from '../../modules/DouyinShop/engine.js';
+import {marqueeFixture} from '../../../tests/fixtures/marquee';
+export function getStaticPaths() { return import.meta.env.DEV ? [{params:{demo:'marquee'}}] : []; }
+const page = {componentRadius:0,components:[marqueeFixture('left'), {...marqueeFixture('right'),id:'local-right'}]};
+---
+<html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><title>图片跑马灯 · 本地测试</title></head><body>
+<p>本地合成测试图：蓝图180×212、橙图240×212、绿图180×212。上方向左，下方向右；支持拖动，松手暂停800毫秒，图片链接指向 example.com。</p>
+<label>画布宽度 <input id="width" type="range" min="320" max="718" value="718"/></label>
+<label>缩放 <select id="scale"><option>1</option><option>0.4746835443</option><option>0.75</option></select></label>
+<div id="canvas" style="width:718px;transform-origin:top left" class={s.page} data-shop-page set:html={shopMarkup(page)}/>
+<script id="test-data" type="application/json" set:html={JSON.stringify(page)}/>
+<script>
+import {attachShop} from '../../modules/DouyinShop/engine.js';
+const root=document.querySelector<HTMLElement>('#canvas')!;
+attachShop(root,JSON.parse(document.querySelector('#test-data')!.textContent!),true);
+document.querySelector('#width')!.addEventListener('input',e=>root.style.width=(e.target as HTMLInputElement).value+'px');
+document.querySelector('#scale')!.addEventListener('change',e=>root.style.transform=`scale(${(e.target as HTMLSelectElement).value})`);
+</script>
+</body></html>
+<style>body{font:14px system-ui;margin:20px}label{display:inline-block;margin:10px}#canvas{max-width:none;min-height:0;gap:20px}</style>

@@ -54,7 +54,7 @@
  window.addEventListener('touchcancel',()=>{touching=false;scheduleSettle()},{passive:true});
  window.addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'){pointerDown=true;clearTimeout(settleTimer);stopAnimation();ignoreSettleUntil=0}},{passive:true});
  window.addEventListener('pointerup',()=>{pointerDown=false;scheduleSettle()},{passive:true});
- viewport.addEventListener('pointerdown',e=>{if(e.target.closest('.carousel,.tab-carousel,.flip-grid,.hotspot'))return;horizontal={x:e.clientX,y:e.clientY,index:selectedIndex(),active:false}});
+ viewport.addEventListener('pointerdown',e=>{if(e.target.closest('.image-marquee,.carousel,.tab-carousel,.flip-grid,.hotspot'))return;horizontal={x:e.clientX,y:e.clientY,index:selectedIndex(),active:false}});
  viewport.addEventListener('pointermove',e=>{if(!horizontal)return;const dx=e.clientX-horizontal.x,dy=e.clientY-horizontal.y;if(!horizontal.active&&Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)*1.3){horizontal.active=true;viewport.setPointerCapture(e.pointerId);track.classList.add('is-dragging');tabs.classList.add('is-dragging')}
   if(horizontal.active){e.preventDefault();const shift=Math.max(-1,Math.min(1,dx/viewport.clientWidth));const pos=Math.max(0,Math.min(buttons.length-1,horizontal.index-shift));track.style.setProperty('--panel-index',pos);const left=Math.floor(pos),right=Math.ceil(pos),x=indicatorAt(left)+(indicatorAt(right)-indicatorAt(left))*(pos-left);indicator.style.transform=`translate3d(${x}px,0,0)`}
  });

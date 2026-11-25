@@ -764,6 +764,8 @@
 .page[data-shop-block]
   :global(
     :is(
+      .marquee-window,
+      .marquee-window a,
       .tab-content,
       .tab-thumb,
       .tab-thumb img,
@@ -800,4 +802,61 @@
 }
 .page[data-shop-block] {
   container-type: normal;
+}
+
+/* 图片跑马灯：保留来源可见高度与布局坐标规则。 */
+.page {
+  :global(.image-marquee) {
+    position: relative;
+    overflow: hidden;
+  }
+  :global(.image-marquee) > :global(.marquee-background) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  :global(.marquee-window) {
+    position: absolute;
+    overflow: hidden;
+  }
+  :global(.marquee-track),
+  :global(.marquee-group) {
+    display: flex;
+    height: 100%;
+    width: max-content;
+    align-items: stretch;
+  }
+  :global(.marquee-track) {
+    will-change: transform;
+  }
+  :global(.marquee-group) {
+    flex-shrink: 0;
+    box-sizing: content-box;
+  }
+  :global(.marquee-group) a {
+    display: block;
+    flex-shrink: 0;
+    height: 100%;
+    user-select: none;
+  }
+  :global(.marquee-group) img {
+    display: block !important;
+    height: 100% !important;
+    width: auto !important;
+    max-width: none !important;
+    pointer-events: none;
+  }
+  :global(.marquee-indicator) {
+    position: absolute;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  :global(.marquee-indicator) i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    will-change: transform;
+  }
 }
