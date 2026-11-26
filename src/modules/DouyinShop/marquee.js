@@ -131,13 +131,14 @@ export function activateMarquees(
         const delta = (e.clientX - drag.x) / scale();
         if (Math.abs(delta) > 5) {
           moved = true;
-          viewport.setPointerCapture(e.pointerId);
+          if (!viewport.hasPointerCapture(e.pointerId))
+            viewport.setPointerCapture(e.pointerId);
         }
         offset = drag.offset - delta;
         paint();
       });
       const end = (e) => {
-        if (!drag) return;
+        if (!drag || drag.id !== e.pointerId) return;
         drag = null;
         if (c.pauseAfterGesture)
           pauseUntil =
@@ -147,7 +148,11 @@ export function activateMarquees(
       };
       on(viewport, "pointerup", end);
       on(viewport, "pointercancel", end);
-      on(viewport, "lostpointercapture", end);
+      // Touch starts with implicit capture on the image link. Transferring it to
+      // the viewport bubbles a lostpointercapture from that child, not a release.
+      on(viewport, "lostpointercapture", (e) => {
+        if (e.target === viewport) end(e);
+      });
       on(
         viewport,
         "click",

@@ -371,3 +371,84 @@ test("短图片组补齐副本、克隆链接和手机真实触摸拖动", async
     await context.close();
   }
 });
+
+test("公开店铺连续触摸始终跟手，图片捕获转交不会提前结束拖动", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    hasTouch: true,
+  });
+  try {
+    const page = await context.newPage();
+    const cdp = await context.newCDPSession(page);
+    for (const mode of ["normal", "zoom", "transform"]) {
+      await page.goto("http://127.0.0.1:4321/shop/crocs-10-09-10-14");
+      const component = page.locator(".image-marquee");
+      await expect(component).not.toHaveClass(/is-pending|is-revealing/);
+      await component.evaluate((el: HTMLElement, mode) => {
+        if (mode === "zoom") el.style.zoom = "0.75";
+        if (mode === "transform") {
+          el.style.transform = "scale(0.75)";
+          el.style.transformOrigin = "top left";
+        }
+      }, mode);
+      const viewport = component.locator(".marquee-window");
+      await viewport.evaluate((el) =>
+        el.scrollIntoView({ block: "center", behavior: "instant" }),
+      );
+      const rect = (await viewport.boundingBox())!;
+      const position = () =>
+        component.evaluate((el) => {
+          const group = el.querySelector(".marquee-group")!,
+            track = el.querySelector(".marquee-track")!;
+          const scale =
+            el.getBoundingClientRect().width / (el as HTMLElement).clientWidth;
+          return {
+            x:
+              new DOMMatrixReadOnly(getComputedStyle(track).transform).m41 *
+              scale,
+            period: group.getBoundingClientRect().width,
+          };
+        });
+      const x = rect.x + 30,
+        y = rect.y + rect.height / 2;
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchStart",
+        touchPoints: [{ x, y }],
+      });
+      let previous = await position(),
+        last = 0;
+      for (const delta of [15, 35, 60, 90, 120]) {
+        await cdp.send("Input.dispatchTouchEvent", {
+          type: "touchMove",
+          touchPoints: [{ x: x + delta, y }],
+        });
+        await page.waitForTimeout(60);
+        const next = await position();
+        const distance =
+          (((next.x - previous.x) % next.period) + next.period) % next.period;
+        expect(distance, `${mode}: finger ${last}→${delta}`).toBeCloseTo(
+          delta - last,
+          0,
+        );
+        previous = next;
+        last = delta;
+      }
+      await page.waitForTimeout(180);
+      expect((await position()).x, `${mode}: hold`).toBeCloseTo(previous.x, 2);
+      await cdp.send("Input.dispatchTouchEvent", {
+        type: "touchEnd",
+        touchPoints: [],
+      });
+      await page.waitForTimeout(1200);
+      expect(
+        Math.abs((await position()).x - previous.x),
+        `${mode}: resume after release`,
+      ).toBeGreaterThan(1);
+    }
+  } finally {
+    await context.close();
+  }
+});
